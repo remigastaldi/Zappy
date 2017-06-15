@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update	Thu Jun 15 19:53:53 2017 Full Name
+** Last update	Thu Jun 15 19:59:06 2017 Full Name
 */
 
 #include "server.h"
@@ -45,6 +45,13 @@ void  args(t_env *env, char **av)
         g_commands[a].p(env, av, i);
         break;
       }
+  }
+  if (!(env->port) || !(env->width) || !(env->height) || !(env->clientsNb)
+      || !(env->freq))
+  {
+    printf("ERROR: A value haven't been set, please look at the usage\n");
+    printUsage();
+    exit(EXIT_FAILURE);
   }
 }
 
