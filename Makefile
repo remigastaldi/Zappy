@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Thu Jun 15 17:46:15 2017 Matthias Prost
+## Last update Thu Jun 15 19:52:35 2017 Matthias Prost
 ##
 
 CC 					=		gcc
@@ -21,17 +21,19 @@ GREEN				=		"\033[0;32m"
 TEAL				= 	"\033[1;36m"
 RED					=		"\033[5;31m"
 
-CFLAGS			+=	-Wextra -Wall -Werror -W
+CFLAGS			+=	-Wextra -Wall -Werror -W -g3
 CFLAGS			+=  -I./includes/
 
 SRC_SERVER	+=	sources/server/main.c
 SRC_SERVER	+=	sources/server/server_loop.c
 SRC_SERVER	+=	sources/server/client.c
+SRC_SERVER	+=	sources/server/args_commands.c
 
 SRC_AI			+=	sources/ai/main.c
 
 SRC_UTILS		+=	sources/utilities/get_next_line.c
 SRC_UTILS		+=	sources/utilities/epur.c
+SRC_UTILS		+=	sources/utilities/errors.c
 
 OBJ_SERVER	=		$(SRC_SERVER:.c=.o)
 

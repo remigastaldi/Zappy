@@ -5,36 +5,18 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update	Thu Jun 15 19:04:13 2017 Full Name
+** Last update	Thu Jun 15 19:53:53 2017 Full Name
 */
 
 #include "server.h"
 
 t_commands g_commands [NBR_ARGS] = {
   {"-p", &portArg},
+  {"-x", &widthArg},
+  {"-y", &heightArg},
+  {"-c", &clientsNbArg},
+  {"-f", &freqArg},
 };
-
-void   portArg(t_env *env, char **av, int i)
-{
-  int   a;
-
-  a = -1;
-  while (av[i + 1][++a])
-  {
-    if (av[i + 1][a] > '9' || av[i + 1][a] < '0')
-    {
-      printf("ERROR: The port must be a positive number\n");
-      exit(EXIT_FAILURE);
-    }
-  }
-  env->port = atoi(av[i + 1]);
-}
-
-int	s_error(char *str)
-{
-  perror(str);
-  exit(EXIT_FAILURE);
-}
 
 void		serverInit(t_env *env)
 {
@@ -57,13 +39,11 @@ void  args(t_env *env, char **av)
   {
     a = -1;
     while (++a != NBR_ARGS)
-      {
-        if (av[i] != NULL
+      if (av[i] != NULL
           && strncmp(av[i], g_commands[a].command, strlen(av[i])) == 0)
-        {
-          g_commands[a].p(env, av, i);
-          break;
-        }
+      {
+        g_commands[a].p(env, av, i);
+        break;
       }
   }
 }
@@ -85,7 +65,7 @@ int		main(int ac, char **av)
 {
   t_env		env;
 
-  if (ac < 1 || strcmp(av[1], "-help") == 0)
+  if (ac < 10 || strcmp(av[1], "-help") == 0)
     printUsage();
   args(&env, av);
   serverInit(&env);

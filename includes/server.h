@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update	Thu Jun 15 19:03:44 2017 Full Name
+** Last update	Thu Jun 15 19:52:26 2017 Full Name
 */
 
 #ifndef _SERVER_H_
@@ -18,7 +18,7 @@
 #define FD_SERVER		2
 #define MAX_FD			255
 
-#define NBR_ARGS    1
+#define NBR_ARGS    5
 
 typedef void(*fct)();
 
@@ -30,6 +30,11 @@ typedef struct			s_users
 typedef struct		  s_env
 {
   int				        port;
+  int               width;
+  int               height;
+  char              **names;
+  int               clientsNb;
+  int               freq;
   t_users		        users[MAX_FD];
   char			        fd_type[MAX_FD];
   fct				        fct_read[MAX_FD];
@@ -43,8 +48,14 @@ typedef struct	    s_commands
 }		                t_commands;
 
 int	    s_error(char *str);
+
 void		printUsage();
+
+void    widthArg(t_env *env, char **av, int i);
+void    heightArg(t_env *env, char **av, int i);
+void    clientsNbArg(t_env *env, char **av, int i);
 void    portArg(t_env *env, char **av, int i);
+void    freqArg(t_env *env, char **av, int i);
 
 void		createServer(t_env *env);
 void		serverLoop(t_env *env);
