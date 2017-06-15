@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Thu Jun 15 15:14:31 2017 Matthias Prost
+## Last update Thu Jun 15 17:46:15 2017 Matthias Prost
 ##
 
 CC 					=		gcc
@@ -25,10 +25,13 @@ CFLAGS			+=	-Wextra -Wall -Werror -W
 CFLAGS			+=  -I./includes/
 
 SRC_SERVER	+=	sources/server/main.c
+SRC_SERVER	+=	sources/server/server_loop.c
+SRC_SERVER	+=	sources/server/client.c
 
-SRC_AI	+=	sources/ai/main.c
+SRC_AI			+=	sources/ai/main.c
 
 SRC_UTILS		+=	sources/utilities/get_next_line.c
+SRC_UTILS		+=	sources/utilities/epur.c
 
 OBJ_SERVER	=		$(SRC_SERVER:.c=.o)
 
