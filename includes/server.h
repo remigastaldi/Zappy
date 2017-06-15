@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update	Thu Jun 15 17:52:31 2017 Full Name
+** Last update	Thu Jun 15 19:03:44 2017 Full Name
 */
 
 #ifndef _SERVER_H_
@@ -17,6 +17,8 @@
 #define FD_CLIENT		1
 #define FD_SERVER		2
 #define MAX_FD			255
+
+#define NBR_ARGS    1
 
 typedef void(*fct)();
 
@@ -34,11 +36,21 @@ typedef struct		  s_env
   fct				        fct_write[MAX_FD];
 }				            t_env;
 
+typedef struct	    s_commands
+{
+  char		          *command;
+  void		          (*p)(t_env *env, char **av, int i);
+}		                t_commands;
+
 int	    s_error(char *str);
+void		printUsage();
+void    portArg(t_env *env, char **av, int i);
 
 void		createServer(t_env *env);
 void		serverLoop(t_env *env);
 
 void		addClient(t_env *env, int s);
+
+extern t_commands g_commands[NBR_ARGS];
 
 #endif
