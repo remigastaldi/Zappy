@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update	Thu Jun 15 17:44:10 2017 Full Name
+** Last update	Thu Jun 15 17:52:31 2017 Full Name
 */
 
 #ifndef _SERVER_H_
@@ -22,19 +22,19 @@ typedef void(*fct)();
 
 typedef struct			s_users
 {
-  int				socket;
-  char				*nick;
-  char				*chan;
-}				t_users;
+  int				        socket;
+}				            t_users;
 
-typedef struct			s_env
+typedef struct		  s_env
 {
-  int				port;
-  t_users			users[MAX_FD];
-  char				fd_type[MAX_FD];
-  fct				fct_read[MAX_FD];
-  fct				fct_write[MAX_FD];
-}				t_env;
+  int				        port;
+  t_users		        users[MAX_FD];
+  char			        fd_type[MAX_FD];
+  fct				        fct_read[MAX_FD];
+  fct				        fct_write[MAX_FD];
+}				            t_env;
+
+int	    s_error(char *str);
 
 void		createServer(t_env *env);
 void		serverLoop(t_env *env);

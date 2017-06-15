@@ -5,14 +5,14 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:18:43 2017 Matthias Prost
-** Last update	Thu Jun 15 17:41:00 2017 Full Name
+** Last update	Thu Jun 15 18:08:17 2017 Full Name
 */
 
 #include "server.h"
 
 void		serverRead(t_env *env, int fd)
 {
-  printf("New client\n");
+  printf("New client connected on port %d\n", env->port);
   addClient(env, fd);
 }
 
@@ -26,15 +26,9 @@ void		createServer(t_env *env)
   sin.sin_port = htons(env->port);
   sin.sin_addr.s_addr = INADDR_ANY;
   if (bind(s, (struct sockaddr*)&sin, sizeof(sin)) == -1)
-    {
-      perror("bind");
-      exit(-1);
-    }
+    s_error("bind");
   if (listen(s, 42) == -1)
-    {
-      perror("listen");
-      exit(-1);
-    }
+    s_error("listen");
   printf("Server started on port %d ...\n", env->port);
   env->fd_type[s] = FD_SERVER;
   env->fct_read[s] = serverRead;
