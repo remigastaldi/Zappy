@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:35:09 2017 Matthias Prost
-** Last update	Thu Jun 15 18:18:38 2017 Full Name
+** Last update	Wed Jun 21 13:49:24 2017 Full Name
 */
 
 #include "server.h"
@@ -53,11 +53,13 @@ void		clientRead(t_env *env, int fd)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
     sendToAll(env, fd, epurStr(buff));
+    free(buff);
   }
   else
   {
     removeUserTab(env, fd);
     printf("Connection closed from socket %d\n", fd);
+    free(buff);
     close(fd);
     env->fd_type[fd] = FD_FREE;
   }

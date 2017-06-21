@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Thu Jun 15 19:52:35 2017 Matthias Prost
+## Last update Wed Jun 21 16:26:50 2017 Matthias Prost
 ##
 
 CC 					=		gcc
@@ -28,12 +28,14 @@ SRC_SERVER	+=	sources/server/main.c
 SRC_SERVER	+=	sources/server/server_loop.c
 SRC_SERVER	+=	sources/server/client.c
 SRC_SERVER	+=	sources/server/args_commands.c
+SRC_SERVER	+=	sources/server/name_command.c
 
 SRC_AI			+=	sources/ai/main.c
 
 SRC_UTILS		+=	sources/utilities/get_next_line.c
 SRC_UTILS		+=	sources/utilities/epur.c
 SRC_UTILS		+=	sources/utilities/errors.c
+SRC_UTILS		+=	sources/utilities/print.c
 
 OBJ_SERVER	=		$(SRC_SERVER:.c=.o)
 

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update	Thu Jun 15 19:52:26 2017 Full Name
+** Last update	Wed Jun 21 13:47:41 2017 Full Name
 */
 
 #ifndef _SERVER_H_
@@ -18,7 +18,7 @@
 #define FD_SERVER		2
 #define MAX_FD			255
 
-#define NBR_ARGS    5
+#define NBR_ARGS    6
 
 typedef void(*fct)();
 
@@ -56,6 +56,7 @@ void    heightArg(t_env *env, char **av, int i);
 void    clientsNbArg(t_env *env, char **av, int i);
 void    portArg(t_env *env, char **av, int i);
 void    freqArg(t_env *env, char **av, int i);
+void    nameArg(t_env *env, char **av, int i);
 
 void		createServer(t_env *env);
 void		serverLoop(t_env *env);

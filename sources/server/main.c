@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update	Thu Jun 15 19:59:06 2017 Full Name
+** Last update	Wed Jun 21 13:44:22 2017 Full Name
 */
 
 #include "server.h"
@@ -16,6 +16,7 @@ t_commands g_commands [NBR_ARGS] = {
   {"-y", &heightArg},
   {"-c", &clientsNbArg},
   {"-f", &freqArg},
+  {"-n", &nameArg},
 };
 
 void		serverInit(t_env *env)

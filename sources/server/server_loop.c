@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:18:43 2017 Matthias Prost
-** Last update	Thu Jun 15 19:51:38 2017 Full Name
+** Last update	Wed Jun 21 16:27:22 2017 Full Name
 */
 
 #include "server.h"
@@ -32,6 +32,7 @@ void		createServer(t_env *env)
   printf("Server started on port %d\nSize of the world: %d x %d\n"
           "Max clients per Team: %d\nFrequency: %d\n",
           env->port, env->width, env->height, env->clientsNb, env->freq);
+  display_tab(env->names);
   env->fd_type[s] = FD_SERVER;
   env->fct_read[s] = serverRead;
   env->fct_write[s] = NULL;
