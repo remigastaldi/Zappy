@@ -1,1 +1,2 @@
--I./client/include
+-I./ai/include
+-I./server/include

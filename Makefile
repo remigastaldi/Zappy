@@ -5,13 +5,15 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Wed Jun 21 16:26:50 2017 Matthias Prost
+## Last update Wed Jun 21 21:05:52 2017 gastal_r
 ##
 
+.DEFAULT_GOAL := all
 
 OS					=		$(shell uname -s)
 
 CC 					=		gcc
+CXX 				=		g++
 
 NAME_SERVER	=		zappy_server
 
@@ -28,49 +30,55 @@ GREEN				=		"\033[0;32m"
 TEAL				= 	"\033[1;36m"
 RED					=		"\033[5;31m"
 
-CFLAGS			+=	-Wextra -Wall -Werror -W -g3
-CFLAGS			+=  -I./includes/
+CFLAGS			+=	-Wextra -Wall -Werror -W -g -g3
+CFLAGS			+=  -I./server/include/
 
-SRC_SERVER	+=	sources/server/main.c
-SRC_SERVER	+=	sources/server/server_loop.c
-SRC_SERVER	+=	sources/server/client.c
-SRC_SERVER	+=	sources/server/args_commands.c
-SRC_SERVER	+=	sources/server/name_command.c
+CXXFLAGS		+=	-O3 -Wextra -Wall -Werror -W -g -g3
+CXXFLAGS		+=  -I./ai/include/
 
-SRC_AI			+=	sources/ai/main.c
+SRC_SERVER	+=	server/src/main.c
+SRC_SERVER	+=	server/src/server_loop.c
+SRC_SERVER	+=	server/src/client.c
+SRC_SERVER	+=	server/src/args_commands.c
+SRC_SERVER	+=	server/src/name_command.c
 
-SRC_UTILS		+=	sources/utilities/get_next_line.c
-SRC_UTILS		+=	sources/utilities/epur.c
-SRC_UTILS		+=	sources/utilities/errors.c
-SRC_UTILS		+=	sources/utilities/print.c
+SRC_AI			+=	ai/src/main.cpp
+SRC_AI			+=	ai/src/Ai.cpp
+
+SRC_UTILS		+=	server/src/utilities/get_next_line.c
+SRC_UTILS		+=	server/src/utilities/epur.c
+SRC_UTILS		+=	server/src/utilities/errors.c
+SRC_UTILS		+=	server/src/utilities/print.c
 
 OBJ_SERVER	=		$(SRC_SERVER:.c=.o)
-
-OBJ_CLIENT	=		$(SRC_AI:.c=.o)
-
 OBJ_UTILS		=		$(SRC_UTILS:.c=.o)
 
-all:						$(NAME_SERVER) $(NAME_AI)
+OBJ_AI			=		$(SRC_AI:.cpp=.o)
 
-$(NAME_SERVER):	$(OBJ_SERVER)
-								@$(CC) $(CFLAGS) $(SRC_SERVER) $(SRC_UTILS) -o $(NAME_SERVER)
-								@$(ECHO) $(GREEN) "[OK]" $(NAME_SERVER) $(TEAL) $(DEFAULT)
+$(NAME_SERVER)	:		$(OBJ_SERVER)
+										@$(CC) $(CFLAGS) $(SRC_SERVER) $(SRC_UTILS) -o $(NAME_SERVER)
 
-$(NAME_AI):	$(OBJ_CLIENT)
-								@$(CC) $(CFLAGS) $(SRC_AI) $(SRC_UTILS) -o $(NAME_AI)
-								@$(ECHO) $(GREEN) "[OK]" $(NAME_AI) $(TEAL) $(DEFAULT)
+$(NAME_AI)      :		$(OBJ_AI)
+										@$(CXX) $(CXXFLAGS) $(SRC_AI) -o $(NAME_AI)
 
-clean:
-								@rm -f $(OBJ_SERVER) $(OBJ_CLIENT)
+all							:		$(NAME_AI) $(NAME_SERVER)
 
-fclean:					clean
-								@rm -f $(NAME_SERVER) $(NAME_AI)
+clean						:
+										@rm -f $(OBJ_SERVER) $(OBJ_AI)
 
-re: 						fclean all
+fclean					:		clean
+										@rm -f $(NAME_SERVER) $(NAME_AI)
 
-.c.o:
-								@$(CC) $(CFLAGS) -c -o $@ $< && \
-								$(ECHO) $(GREEN) "[OK]" $(TEAL) $^ $(DEFAULT) || \
-								$(ECHO) $(RED) "[ERROR] doesn't exist" $(TEAL) $^ $(DEFAULT)
+re							:		fclean all
 
-.PHONY: 				all clean fclean re
+.c.o						:
+										@$(CC) $(CFLAGS) -c -o $@ $< && \
+										$(ECHO) $(GREEN) "[OK]" $(TEAL) $^ $(DEFAULT) || \
+										$(ECHO) $(RED) "[ERROR]" $(TEAL) $^ $(DEFAULT)
+
+.cpp.o					:
+										@$(CXX) $(CXXFLAGS) -cpp -c -o $@ $< && \
+										$(ECHO) $(GREEN) "[OK]" $(TEAL) $^ $(DEFAULT) || \
+										$(ECHO) $(RED) "[ERROR]" $(TEAL) $^ $(DEFAULT)
+
+.PHONY					:		all clean fclean re
