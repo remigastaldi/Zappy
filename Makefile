@@ -13,7 +13,7 @@
 OS					=		$(shell uname -s)
 
 CC 					=		gcc
-CXX 				=		g++
+CXX 				=		g++ -std=c++11
 
 NAME_SERVER	=		zappy_server
 
@@ -77,7 +77,7 @@ re							:		fclean all
 										$(ECHO) $(RED) "[ERROR]" $(TEAL) $^ $(DEFAULT)
 
 .cpp.o					:
-										@$(CXX) $(CXXFLAGS) -cpp -c -o $@ $< && \
+										@$(CXX) $(CXXFLAGS) -c -o $@ $< && \
 										$(ECHO) $(GREEN) "[OK]" $(TEAL) $^ $(DEFAULT) || \
 										$(ECHO) $(RED) "[ERROR]" $(TEAL) $^ $(DEFAULT)
 
