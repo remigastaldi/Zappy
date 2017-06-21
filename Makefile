@@ -9,7 +9,7 @@
 ##
 
 
-OS							=				$(shell uname -s)
+OS					=		$(shell uname -s)
 
 CC 					=		gcc
 
@@ -18,9 +18,9 @@ NAME_SERVER	=		zappy_server
 NAME_AI			=		zappy_ai
 
 ifeq ($(OS), Darwin)
-	ECHO            =       echo
+	ECHO      =   echo
 else
-	ECHO            =       /bin/echo -e
+	ECHO      =   /bin/echo -e
 endif
 
 DEFAULT			=		"\033[00m"
