@@ -5,10 +5,10 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jun  3 21:43:58 2017 Matthias Prost
-** Last update	Sat Jun 03 22:59:41 2017 Sonny Fournier
+** Last update	Wed Jun 21 10:41:31 2017 Full Name
 */
 
-#include "utils.h"
+#include "utilities.h"
 
 char		*epurStr(char *str)
 {
