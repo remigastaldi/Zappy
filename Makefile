@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Wed Jun 21 21:05:52 2017 gastal_r
+## Last update Wed Jun 21 23:56:02 2017 gastal_r
 ##
 
 .DEFAULT_GOAL := all
@@ -13,11 +13,11 @@
 OS					=		$(shell uname -s)
 
 CC 					=		gcc
-CXX 				=		g++ -std=c++11
+CXX 				=		g++
 
-NAME_SERVER	=		zappy_server
+NAME_SERVER	=		"zappy_server"
 
-NAME_AI			=		zappy_ai
+NAME_AI			=		"zappy_ai"
 
 ifeq ($(OS), Darwin)
 	ECHO      =   echo
@@ -63,6 +63,10 @@ $(NAME_AI)      :		$(OBJ_AI)
 
 all							:		$(NAME_AI) $(NAME_SERVER)
 
+zappy_server    :   $(NAME_SERVER)
+
+zappy_ai        :   $(NAME_AI)
+
 clean						:
 										@rm -f $(OBJ_SERVER) $(OBJ_AI)
 
@@ -81,4 +85,4 @@ re							:		fclean all
 										$(ECHO) $(GREEN) "[OK]" $(TEAL) $^ $(DEFAULT) || \
 										$(ECHO) $(RED) "[ERROR]" $(TEAL) $^ $(DEFAULT)
 
-.PHONY					:		all clean fclean re
+.PHONY					:		all zappy_server zappy_ai clean fclean re
