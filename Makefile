@@ -8,13 +8,20 @@
 ## Last update Wed Jun 21 16:26:50 2017 Matthias Prost
 ##
 
+
+OS							=				$(shell uname -s)
+
 CC 					=		gcc
 
 NAME_SERVER	=		zappy_server
 
 NAME_AI			=		zappy_ai
 
-ECHO    		=		/bin/echo -e \
+ifeq ($(OS), Darwin)
+	ECHO            =       echo
+else
+	ECHO            =       /bin/echo -e
+endif
 
 DEFAULT			=		"\033[00m"
 GREEN				=		"\033[0;32m"
