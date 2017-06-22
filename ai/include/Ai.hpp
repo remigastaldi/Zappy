@@ -37,10 +37,9 @@ class     Ai : public Communication
   };
 
 public:
-  Ai() noexcept;
+  Ai(int port, char* machine) noexcept;
 
   ~Ai() = default;
-  Ai(int, char*) noexcept;
   Ai(const Ai& other) = default;
   Ai(Ai&& other) = default;
   Ai& operator=(const Ai& other) = default;
