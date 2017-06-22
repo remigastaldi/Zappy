@@ -14,7 +14,7 @@ int           main(int ac, char *av[])
 {
   (void) ac;
   (void) av;
-  Communication   communication;
+  Communication   communication(atoi(av[2]), av[6]);
 
   if (ac != 7)
   {
@@ -23,8 +23,8 @@ int           main(int ac, char *av[])
     std::cout << "\tname is the name of the team" << std::endl;
     std::cout << "\tmachine is the name of the machine; localhost by default" << std::endl;
   }
-  communication.setPort(atoi(av[2]));
-  communication.setMachine(av[6]);
+  // communication.setPort(atoi(av[2]));
+  // communication.setMachine(av[6]);
   communication.receiveCmd("forward\n");
   // neverForgetTo(lock->Compter);
   return (0);

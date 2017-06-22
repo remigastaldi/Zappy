@@ -2,20 +2,18 @@
 #include "Communication.hpp"
 
 Communication::Communication() noexcept
+{}
+
+Communication::Communication(int port, char *machine)
 {
-    connected = 0;
-    port = 0;
+    this->port = port;
+    this->machine = machine;
     pe = getprotobyname("TCP");
     fd = socket(AF_INET, SOCK_STREAM, pe->p_proto);
     s_in.sin_family = AF_INET;
-}
-
-void            Communication::getConnected() noexcept
-{
-    s_in.sin_port = htons(port);
-    s_in.sin_addr.s_addr = inet_addr(machine.c_str());
+    s_in.sin_port = htons(this->port);
+    s_in.sin_addr.s_addr = inet_addr(this->machine.c_str());
     connect(fd, (struct sockaddr *)&s_in, sizeof(s_in));
-    connected = 1;
 }
 
 void            Communication::setPort(int pt) noexcept
@@ -42,8 +40,6 @@ void            Communication::receiveCmd(const std::string& commande) noexcept
 
 void            Communication::sendCmd() noexcept
 {
-    if (connected == 0)
-        getConnected();
     dprintf(fd, "%s", cmd.c_str());
 }
 

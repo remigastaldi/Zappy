@@ -18,13 +18,13 @@ private:
   std::string         answer;
   int                 port;
   std::string         machine;
-  bool                connected;
   struct protoent     *pe;
   int                 fd;
   struct sockaddr_in  s_in;
 public:
   Communication() noexcept;
   ~Communication() = default;
+  Communication(int, char*);
   Communication(const Communication& other) = default;
   Communication(Communication&& other) = default;
   Communication& operator=(const Communication& other) = default;
