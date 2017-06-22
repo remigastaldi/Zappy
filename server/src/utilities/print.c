@@ -10,11 +10,13 @@
 
 #include "utilities.h"
 
-void  display_tab(char **tab)
+void  display_names(char **tab)
 {
   int   i;
 
   i = -1;
+  printf("Names of teams: ");
   while (tab[++i])
-    printf("%s\n", tab[i]);
+    printf("%s, ", tab[i]);
+  printf("\n");
 }

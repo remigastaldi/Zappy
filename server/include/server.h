@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Thu Jun 22 16:35:10 2017 Leo Hubert Froideval
+** Last update Thu Jun 22 18:15:57 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -42,23 +42,24 @@ typedef struct      s_items
 
 typedef struct			s_users
 {
-  int				    socket;
-}				        t_users;
+  int				        socket;
+}				            t_users;
 
 typedef struct		  s_env
 {
-  int				   port;
-  int                  width;
-  int                  height;
-  t_items              **map;
-  char                 **names;
-  int                  clientsNb;
-  int                  freq;
-  t_users		       users[MAX_FD];
-  char			       fd_type[MAX_FD];
-  fct				   fct_read[MAX_FD];
-  fct				   fct_write[MAX_FD];
-}				       t_env;
+  int				        port;
+  int               width;
+  int               height;
+  t_items           **map;
+  int               nbrRessources;
+  char              **names;
+  int               clientsNb;
+  int               freq;
+  t_users		        users[MAX_FD];
+  char			        fd_type[MAX_FD];
+  fct				        fct_read[MAX_FD];
+  fct				        fct_write[MAX_FD];
+}				            t_env;
 
 typedef struct	    s_commands
 {

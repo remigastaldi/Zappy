@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Thu Jun 22 17:23:44 2017 Leo Hubert Froideval
+** Last update Thu Jun 22 17:51:17 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -76,6 +76,7 @@ int		main(int ac, char **av)
 
   if (ac < 14 || strcmp(av[1], "-help") == 0)
     printUsage();
+  srand(time(NULL));
   args(&env, av);
   serverInit(&env);
   serverLoop(&env);

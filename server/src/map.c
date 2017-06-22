@@ -1,15 +1,24 @@
 /*
-** map.c for Zappy in /Users/leohubertfroideval/Shared/PSU_2016/Zappy/server/src
+** map.c for Zappy
 **
-** Made by Leo Hubert Froideval
-** Login   <leohubertfroideval@epitech.eu>
+** Made by Matthias Prost
+** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
-** Started on  Thu Jun 22 16:33:09 2017 Leo Hubert Froideval
-** Last update Thu Jun 22 17:22:48 2017 Leo Hubert Froideval
+** Started on  Thu Jun 22 17:41:34 2017 Matthias Prost
+** Last update Thu Jun 22 17:41:38 2017 Matthias Prost
 */
 
-
 #include "server.h"
+
+void  fillRessourcesMap(t_env *env)
+{
+  int   i;
+
+  (void)env;
+  i = rand() % ((env->height * env->width) + 1
+  - ((env->height * env->width) / 10)) + (env->height * env->width) / 10;
+  env->nbrRessources = i;
+}
 
 void    createMap(t_env *env)
 {
@@ -24,7 +33,7 @@ void    createMap(t_env *env)
     env->map[i] = xmalloc(sizeof(t_items) * env->width);
     while(++j != env->width)
     {
-      env->map[i][j].linemate = 12;
+      env->map[i][j].linemate = 0;
       env->map[i][j].deraumere = 0;
       env->map[i][j].sibur = 0;
       env->map[i][j].mendiane = 0;
@@ -33,4 +42,5 @@ void    createMap(t_env *env)
     }
   }
   env->map[i] = NULL;
+  fillRessourcesMap(env);
 }

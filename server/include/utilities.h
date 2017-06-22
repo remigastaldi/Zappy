@@ -11,6 +11,7 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -33,7 +34,7 @@ char				*epurStr(char *str);
 char				*get_next_line(const int fd);
 char      	*myStrcpy(char *dest, char *src);
 char  			*myStrdup(char *s);
-void        display_tab(char **tab);
+void        display_names(char **tab);
 void        *xmalloc(size_t);
 
 #endif /* !_UTILS_H_ */
