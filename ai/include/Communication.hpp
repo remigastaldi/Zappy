@@ -1,3 +1,12 @@
+//
+// Communication.hpp for Zappy in /home/gastal_r/rendu/Zappy/ai/include/
+//
+// Made by gastal_r
+// Login   <remi.gastaldi@epitech.eu>
+//
+// Started on  Thu Jun 22 16:36:20 2017 gastal_r
+// Last update Thu Jun 22 16:37:57 2017 gastal_r
+//
 
 #ifndef COMMUNICATION_HPP
 # define COMMUNICATION_HPP
