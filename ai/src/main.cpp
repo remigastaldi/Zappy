@@ -16,8 +16,8 @@ int           main(int ac, char *av[])
   (void) av;
   Communication   communication;
 
-  communication.port = atoi(av[2]);
-  communication.machine = av[6];
+  communication.setPort(atoi(av[2]));
+  communication.setMachine(av[6]);
   // neverForgetTo(lock->Compter);
   return (0);
 }

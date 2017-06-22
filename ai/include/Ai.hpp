@@ -12,8 +12,9 @@
 #define		_AI_HPP_
 
 #include  "Exception.hpp"
+#include  "Communication.hpp"
 
-class     Ai
+class     Ai : public Communication
 {
 public:
   Ai() noexcept;
