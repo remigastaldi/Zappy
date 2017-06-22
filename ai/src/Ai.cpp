@@ -10,5 +10,5 @@
 
 #include      "Ai.hpp"
 
-Ai::Ai()
+Ai::Ai() noexcept
 {}

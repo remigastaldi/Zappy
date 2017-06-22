@@ -11,10 +11,12 @@
 #ifndef		_AI_HPP_
 #define		_AI_HPP_
 
+#include  "Exception.hpp"
+
 class     Ai
 {
 public:
-  Ai();
+  Ai() noexcept;
 
   ~Ai() = default;
   Ai(const Ai& other) = default;
