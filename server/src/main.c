@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update	Wed Jun 21 13:44:22 2017 Full Name
+** Last update	Thu Jun 22 14:49:52 2017 Full Name
 */
 
 #include "server.h"
@@ -73,7 +73,7 @@ int		main(int ac, char **av)
 {
   t_env		env;
 
-  if (ac < 10 || strcmp(av[1], "-help") == 0)
+  if (ac < 14 || strcmp(av[1], "-help") == 0)
     printUsage();
   args(&env, av);
   serverInit(&env);
