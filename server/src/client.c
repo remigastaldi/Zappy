@@ -44,6 +44,9 @@ void		removeUserTab(t_env *env, int socket)
     if (env->users[i].socket == socket)
       {
       	env->users[i].socket = -1;
+        env->users[i].lvl = 0;
+        env->users[i].posX = 0;
+        env->users[i].posY = 0;
       	break;
       }
 }
@@ -77,6 +80,12 @@ void		addUserTab(t_env *env, int socket)
     if (env->users[i].socket == -1)
       {
       	env->users[i].socket = socket;
+        env->users[i].lvl = 1;
+        env->users[i].posX = rand() % env->width;
+        env->users[i].posY = rand() % env->height;
+        printf("Socket: %d\tlvl: %d\t\tposY: %d\t\tposX: %d\n",
+          env->users[i].socket, env->users[i].lvl, env->users[i].posX,
+          env->users[i].posY);
       	break;
       }
 }

@@ -46,6 +46,9 @@ typedef struct      s_items
 typedef struct			s_users
 {
   int				        socket;
+  int               posY;
+  int               posX;
+  int               lvl;
 }				            t_users;
 
 typedef struct		  s_env
