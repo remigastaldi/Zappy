@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Wed Jun 21 13:44:40 2017 Matthias Prost
-** Last update	Wed Jun 21 16:23:14 2017 Full Name
+** Last update Thu Jun 22 16:25:50 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -20,7 +20,7 @@ void    nameArg(t_env *env, char **av, int i)
   counter = 0;
   while (av[++i] && av[i][0] != '-')
     counter++;
-  env->names = malloc(sizeof(char *) * (counter + 1));
+  env->names = xmalloc(sizeof(char *) * (counter + 1));
   i = buff;
   a = -1;
   while (++a != counter)

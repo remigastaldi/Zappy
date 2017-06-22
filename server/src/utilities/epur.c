@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jun  3 21:43:58 2017 Matthias Prost
-** Last update	Wed Jun 21 10:41:31 2017 Full Name
+** Last update Thu Jun 22 16:25:55 2017 Leo Hubert Froideval
 */
 
 #include "utilities.h"
@@ -21,7 +21,7 @@ char		*epurStr(char *str)
   buff = NULL;
   if (str != NULL)
     {
-      if ((buff = malloc(4096)) == NULL)
+      if ((buff = xmalloc(4096)) == NULL)
 	{
 	  printf("ERROR: cannot malloc\n");
 	  exit(EXIT_FAILURE);

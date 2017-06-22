@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:35:09 2017 Matthias Prost
-** Last update Thu Jun 22 15:12:30 2017 Leo Hubert Froideval
+** Last update Thu Jun 22 16:29:04 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -28,8 +28,10 @@ void		sendToAll(t_env *env, int fd, char *msg)
   while (++i != MAX_FD && env->users[i].socket != -1)
   {
     if (env->users[i].socket != fd)
+    {
       dprintf(env->users[i].socket, "%d: %s\n", user.socket, msg);
-    printf("--> Sent: \"%s\" to socket %d\n", msg, env->users[i].socket);
+      printf("--> Sent: \"%s\" to socket %d\n", msg, env->users[i].socket);
+    }
   }
 }
 

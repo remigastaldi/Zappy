@@ -41,6 +41,7 @@ SRC_SERVER	+=	server/src/server_loop.c
 SRC_SERVER	+=	server/src/client.c
 SRC_SERVER	+=	server/src/args_commands.c
 SRC_SERVER	+=	server/src/name_command.c
+SRC_SERVER	+=	server/src/map.c
 
 SRC_AI			+=	ai/src/main.cpp
 SRC_AI			+=	ai/src/Ai.cpp
@@ -49,6 +50,7 @@ SRC_UTILS		+=	server/src/utilities/get_next_line.c
 SRC_UTILS		+=	server/src/utilities/epur.c
 SRC_UTILS		+=	server/src/utilities/errors.c
 SRC_UTILS		+=	server/src/utilities/print.c
+SRC_UTILS		+=	server/src/utilities/memories.c
 
 OBJ_SERVER	=		$(SRC_SERVER:.c=.o)
 OBJ_UTILS		=		$(SRC_UTILS:.c=.o)

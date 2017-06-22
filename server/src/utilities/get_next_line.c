@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:12:22 2017 Matthias Prost
-** Last update	Thu Jun 15 15:13:44 2017 Full Name
+** Last update Thu Jun 22 16:26:09 2017 Leo Hubert Froideval
 */
 
 #include "utilities.h"
@@ -28,7 +28,7 @@ char    *myRealloc(char *ret, int *tab, int *nb, char *buff)
   buff[*nb] = 0;
   ret[tab[2]] = '\0';
   tab[1] = tab[1] + 1;
-  if ((save = malloc(sizeof(char) * READ_SIZE * tab[1] + 1)) == NULL)
+  if ((save = xmalloc(sizeof(char) * READ_SIZE * tab[1] + 1)) == NULL)
     return (NULL);
   while (ret[++i])
     save[i] = ret[i];
@@ -54,7 +54,7 @@ char    *verif(char *ret, int *tab, int *nb, char *buff)
       buff[*nb] = 0;
       tab[1] = 1;
     }
-  if ((ret = malloc(sizeof(char) * READ_SIZE + 1)) == NULL)
+  if ((ret = xmalloc(sizeof(char) * READ_SIZE + 1)) == NULL)
     return (NULL);
   if (*nb <= 0 && tab[2] == 0)
     {
