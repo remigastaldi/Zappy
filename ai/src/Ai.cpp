@@ -28,7 +28,7 @@ void      Ai::start(void) noexcept
 {
   try
   {
-
+    lookForResources();
   }
   catch (const std::exception &error)
   {
@@ -52,5 +52,43 @@ bool      Ai::needResources(void) noexcept
 
 bool      Ai::broadcast(void) noexcept
 {
+  return (true);
+}
+
+bool      Ai::lookForResources(void) noexcept
+{
+  std::string rawView("player,,,thystame,,mendiane phiras,,,,,thystame,,,,,,");
+
+  std::vector<std::vector<std::string>>  view;
+
+  size_t posCase = 0;
+  std::string currentCase;
+  while ((posCase = rawView.find(",")) != std::string::npos)
+  {
+    currentCase = rawView.substr(0, posCase);
+    size_t posItem = 0;
+    std::vector<std::string> caseItems;
+    if ((posItem = currentCase.find(" ")) != std::string::npos)
+    {
+      while ((posItem = currentCase.find(" ")) != std::string::npos)
+      {
+        std::string currentItem(currentCase.substr(0, posItem));
+        caseItems.push_back(currentCase);
+        currentCase.erase(0, posItem + 1);
+      }
+    }
+    caseItems.push_back(currentCase);
+    view.push_back(caseItems);
+    rawView.erase(0, posCase + 1);
+  }
+  size_t caseNbr(0);
+  std::cout << "Look command result: " << std::endl;
+  for (auto & it : view)
+  {
+    for (auto & it2 : it)
+    {
+      std::cout << "[" << caseNbr++ << "]" << it2 << std::endl;
+    }
+  }
   return (true);
 }

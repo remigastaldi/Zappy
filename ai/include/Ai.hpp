@@ -12,6 +12,7 @@
 #define		_AI_HPP_
 
 #include  <unordered_map>
+#include  <vector>
 
 #include  "Exception.hpp"
 #include  "Communication.hpp"
@@ -27,13 +28,21 @@ class     Ai : public Communication
     SIBUR,
     MENDIANE,
     PHIRAS,
-    THYSTAME
+    THYSTAME,
+    NOTHING
   };
 
   enum class State
   {
-    WAITING,
+    WAITING
 
+  };
+
+  enum class Direction
+  {
+    FORWARD,
+    LEFT,
+    RIGHT
   };
 
 public:
@@ -50,11 +59,13 @@ public:
 protected:
   bool    needResources(void) noexcept;
   bool    broadcast(void) noexcept;
+  bool    lookForResources(void) noexcept;
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;
   std::unordered_map<Ai::Properties, size_t> _currentItems;
   size_t _currentLevel;
+  std::vector<Ai::Direction> _path;
 };
 
 #endif	/* !_AI_HPP_ */
