@@ -32,8 +32,9 @@ void		createServer(t_env *env)
   printf("Server started on port %d\nSize of the world: %d x %d\n"
           "Max clients per Team: %d\nFrequency: %d\n",
           env->port, env->width, env->height, env->clientsNb, env->freq);
-  printf("Number of ressources: %d\n", env->nbrRessources);
   display_names(env->names);
+  print_map(env);
+  printf("Number of ressources: %d\n", env->nbrRessources);
   env->fd_type[s] = FD_SERVER;
   env->fct_read[s] = serverRead;
   env->fct_write[s] = NULL;

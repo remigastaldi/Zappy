@@ -20,3 +20,26 @@ void  display_names(char **tab)
     printf("%s, ", tab[i]);
   printf("\n");
 }
+
+void  print_map(t_env *env)
+{
+  int   x;
+  int   y;
+
+  x = -1;
+  y = -1;
+  while (++y != env->height)
+  {
+    while (++x != env->width)
+    {
+      printf("Position: y = %d, x = %d  \t", y, x);
+      printf("line: %d ", env->map[y][x].linemate);
+      printf("derau: %d ", env->map[y][x].deraumere);
+      printf("sibur: %d ", env->map[y][x].sibur);
+      printf("mendi: %d ", env->map[y][x].mendiane);
+      printf("phir: %d ", env->map[y][x].phiras);
+      printf("thys: %d\n", env->map[y][x].thystame);
+    }
+    x = -1;
+  }
+}

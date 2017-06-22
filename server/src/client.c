@@ -91,8 +91,8 @@ void		addClient(t_env *env, int s)
   if ((cs = accept(s, (struct sockaddr *)&client_sin, &client_sin_len)) == -1)
     s_error("accept");
   addUserTab(env, cs);
-  dprintf(cs, "Welcome!\r\n");
-  printf("--> Sent: \"Welcome!\" to socket %d\r\n", cs);
+  dprintf(cs, "Welcome!\n");
+  printf("--> Sent: \"Welcome!\" to socket %d\n", cs);
   env->fd_type[cs] = FD_CLIENT;
   env->fct_read[cs] = clientRead;
   env->fct_write[cs] = NULL;

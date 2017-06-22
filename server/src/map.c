@@ -12,12 +12,30 @@
 
 void  fillRessourcesMap(t_env *env)
 {
-  int   i;
+  int   x;
+  int   y;
+  int   nbr;
 
-  (void)env;
-  i = rand() % ((env->height * env->width) + 1
-  - ((env->height * env->width) / 10)) + (env->height * env->width) / 10;
-  env->nbrRessources = i;
+  x = -1;
+  y = -1;
+  nbr = 0;
+  while (++y != env->height)
+  {
+    while (++x != env->width)
+    {
+      if ((rand() % 6) == 3)
+      {
+        nbr += (env->map[y][x].linemate = rand() % LINEMATE);
+        nbr += (env->map[y][x].deraumere = rand() % DERAUMERE);
+        nbr += (env->map[y][x].sibur = rand() % SIBUR);
+        nbr += (env->map[y][x].mendiane = rand() % MENDIANA);
+        nbr += (env->map[y][x].phiras = rand() % PHIRAS);
+        nbr += (env->map[y][x].thystame = rand() % THYSTAME);
+      }
+    }
+    x = -1;
+  }
+  env->nbrRessources = nbr;
 }
 
 void    createMap(t_env *env)

@@ -26,9 +26,43 @@
 #include <sys/select.h>
 
 #define READ_SIZE		14
+#define MAX_FD			255
+
+typedef void(*fct)();
 
 typedef struct sockaddr		SOCKADDR;
 typedef struct sockaddr_in	SOCKADDR_IN;
+
+typedef struct      s_items
+{
+    int             linemate;
+    int             deraumere;
+    int             sibur;
+    int             mendiane;
+    int             phiras;
+    int             thystame;
+}                   t_items;
+
+typedef struct			s_users
+{
+  int				        socket;
+}				            t_users;
+
+typedef struct		  s_env
+{
+  int				        port;
+  int               width;
+  int               height;
+  t_items           **map;
+  int               nbrRessources;
+  char              **names;
+  int               clientsNb;
+  int               freq;
+  t_users		        users[MAX_FD];
+  char			        fd_type[MAX_FD];
+  fct				        fct_read[MAX_FD];
+  fct				        fct_write[MAX_FD];
+}				            t_env;
 
 char				*epurStr(char *str);
 char				*get_next_line(const int fd);
@@ -36,5 +70,6 @@ char      	*myStrcpy(char *dest, char *src);
 char  			*myStrdup(char *s);
 void        display_names(char **tab);
 void        *xmalloc(size_t);
+void        print_map(t_env *env);
 
 #endif /* !_UTILS_H_ */
