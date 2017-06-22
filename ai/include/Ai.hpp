@@ -15,7 +15,7 @@
 
 #include  "Exception.hpp"
 #include  "Communication.hpp"
-#include  "Utils.hpp"
+//#include  "Utils.hpp"
 
 class     Ai : public Communication
 {
@@ -40,6 +40,7 @@ public:
   Ai() noexcept;
 
   ~Ai() = default;
+  Ai(int, char*) noexcept;
   Ai(const Ai& other) = default;
   Ai(Ai&& other) = default;
   Ai& operator=(const Ai& other) = default;

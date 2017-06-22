@@ -12,22 +12,20 @@
 
 int           main(int ac, char *av[])
 {
-  (void) ac;
-  (void) av;
-  Communication   communication(atoi(av[2]), av[6]);
-
   if (ac != 7)
   {
     std::cout << "USAGE: ./zappy_ai -p port -n name -h machine" << std::endl;
     std::cout << "\tmachine is the name of the machine; localhost by default" << std::endl;
     std::cout << "\tname is the name of the team" << std::endl;
     std::cout << "\tport is the port number" << std::endl;
+    return (0);
   }
-  Ai ai;
-  ai.start();
+  Ai   ai(atoi(av[2]), av[6]);
+  // Ai ai;
+  // ai.start();
   // communication.setPort(atoi(av[2]));
   // communication.setMachine(av[6]);
-  communication.receiveCmd("forward\n");
+  ai.receiveCmd("forward\n");
   // neverForgetTo(lock->Compter);
   return (0);
 }
