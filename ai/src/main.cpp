@@ -14,7 +14,10 @@ int           main(int ac, char *av[])
 {
   (void) ac;
   (void) av;
+  Communication   communication;
 
+  communication.port = atoi(av[2]);
+  communication.machine = av[6];
   // neverForgetTo(lock->Compter);
   return (0);
 }
