@@ -44,7 +44,7 @@ void            Communication::sendCmd() noexcept
 {
     if (connected == 0)
         getConnected();
-    dprintf(1, "%s\n", cmd.c_str());
+    dprintf(fd, "%s", cmd.c_str());
 }
 
 const std::string&     Communication::waitCmd()
