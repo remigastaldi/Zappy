@@ -13,7 +13,7 @@
 OS					=		$(shell uname -s)
 
 CC 					=		gcc
-CXX 				=		g++
+CXX 				=		g++ -std=c++11
 
 NAME_SERVER	=		"zappy_server"
 
