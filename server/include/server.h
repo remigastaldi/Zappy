@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Thu Jun 22 19:17:56 2017 Matthias Prost
+** Last update Fri Jun 23 14:22:59 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -26,14 +26,6 @@
 #define MENDIANA    2
 #define PHIRAS      3
 #define THYSTAME    2
-
-enum Direction
-{
-    UP,
-    DOWN,
-    RIGHT,
-    LEFT
-};
 
 typedef struct	    s_commands
 {

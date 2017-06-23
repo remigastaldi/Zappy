@@ -10,31 +10,6 @@
 
 #include "server.h"
 
-void		sendToAll(t_env *env, int fd, char *msg)
-{
-  int		i;
-  t_users	user;
-
-  i = -1;
-  while (++i != MAX_FD)
-  {
-    if (env->users[i].socket == fd)
-    {
-      user = env->users[i];
-      break;
-    }
-  }
-  i = -1;
-  while (++i != MAX_FD && env->users[i].socket != -1)
-  {
-    if (env->users[i].socket != fd)
-    {
-      dprintf(env->users[i].socket, "%d: %s\n", user.socket, msg);
-      printf("--> Sent: \"%s\" to socket %d\n", msg, env->users[i].socket);
-    }
-  }
-}
-
 void		removeUserTab(t_env *env, int socket)
 {
   int		i;
@@ -60,7 +35,6 @@ void		clientRead(t_env *env, int fd)
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
-    sendToAll(env, fd, epurStr(buff));
     free(buff);
   }
   else
@@ -85,9 +59,10 @@ void		addUserTab(t_env *env, int socket)
         env->users[i].lvl = 1;
         env->users[i].posX = rand() % env->width;
         env->users[i].posY = rand() % env->height;
-        printf("Socket: %d\tlvl: %d\t\tposY: %d\t\tposX: %d\n",
+        env->users[i].direction = rand() % 4;
+        printf("Socket: %d\tlvl: %d\t\tposY: %d\t\tposX: %d\t\tdirection: %d\n",
           env->users[i].socket, env->users[i].lvl, env->users[i].posX,
-          env->users[i].posY);
+          env->users[i].posY, env->users[i].direction);
       	break;
       }
 }

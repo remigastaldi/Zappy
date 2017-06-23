@@ -33,6 +33,14 @@ typedef void(*fct)();
 typedef struct sockaddr		SOCKADDR;
 typedef struct sockaddr_in	SOCKADDR_IN;
 
+typedef enum Direction
+{
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT
+}           Direction;
+
 typedef struct      s_items
 {
     int             linemate;
@@ -49,6 +57,7 @@ typedef struct			s_users
   int               posY;
   int               posX;
   int               lvl;
+  Direction         direction;
 }				            t_users;
 
 typedef struct		  s_env
