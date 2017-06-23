@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Thu Jun 22 16:24:44 2017 Leo Hubert Froideval
+** Last update Fri Jun 23 15:58:17 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -33,13 +33,19 @@ typedef void(*fct)();
 typedef struct sockaddr		SOCKADDR;
 typedef struct sockaddr_in	SOCKADDR_IN;
 
-typedef enum Direction
+typedef enum        Direction
 {
     UP,
     DOWN,
     RIGHT,
     LEFT
-}           Direction;
+}                   Direction;
+
+typedef enum        Action
+{
+    LOOK,
+
+}                   Action;
 
 typedef struct      s_items
 {
@@ -51,18 +57,18 @@ typedef struct      s_items
     int             thystame;
 }                   t_items;
 
-typedef struct			s_users
+typedef struct	    s_users
 {
-  int				        socket;
+  int				socket;
   int               posY;
   int               posX;
   int               lvl;
   Direction         direction;
-}				            t_users;
+}				    t_users;
 
-typedef struct		  s_env
+typedef struct		s_env
 {
-  int				        port;
+  int				port;
   int               width;
   int               height;
   t_items           **map;
@@ -70,11 +76,19 @@ typedef struct		  s_env
   char              **names;
   int               clientsNb;
   int               freq;
-  t_users		        users[MAX_FD];
-  char			        fd_type[MAX_FD];
-  fct				        fct_read[MAX_FD];
-  fct				        fct_write[MAX_FD];
-}				            t_env;
+  t_users		    users[MAX_FD];
+  char			    fd_type[MAX_FD];
+  fct				fct_read[MAX_FD];
+  fct				fct_write[MAX_FD];
+}				    t_env;
+
+typedef struct      s_instruction
+{
+    int             time;
+    enum Action     action;
+    t_users         *user;
+
+}                   t_instruction;
 
 char				*epurStr(char *str);
 char				*get_next_line(const int fd);

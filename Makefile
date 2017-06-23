@@ -12,7 +12,12 @@
 
 OS					=		$(shell uname -s)
 
-CC 					=		gcc
+ifeq ($(OS), Darwin)
+	CC 					=		gcc-7
+else
+	CC 					=		gcc
+endif
+
 CXX 				=		g++ -std=c++11
 
 NAME_SERVER	=		"zappy_server"
@@ -31,7 +36,7 @@ TEAL				= 	"\033[1;36m"
 RED					=		"\033[5;31m"
 
 CFLAGS			+=	-Wextra -Wall -Werror -W -g -g3
-CFLAGS			+=  	-I./server/include/
+CFLAGS			+=  -I./server/include/
 CFLAGS			+=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
 CXXFLAGS		+=	-O3 -Wextra -Wall -Werror -W -g -g3
@@ -67,6 +72,8 @@ $(NAME_AI)      :		$(OBJ_AI)
 										@$(CXX) $(CXXFLAGS) $(SRC_AI:.cpp=.o) -o $(NAME_AI)
 
 all							:		$(NAME_AI) $(NAME_SERVER)
+
+rezappy_server    :  fclean $(NAME_SERVER)
 
 zappy_server    :   $(NAME_SERVER)
 
