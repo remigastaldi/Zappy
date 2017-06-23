@@ -63,6 +63,7 @@ typedef struct	    s_users
   int               posY;
   int               posX;
   int               lvl;
+  char              *teamName;
   Direction         direction;
 }				    t_users;
 
@@ -88,6 +89,15 @@ typedef struct      s_instruction
     enum Action     action;
     t_users         *user;
 }                   t_instruction;
+
+char				*epurStr(char *str);
+char				*get_next_line(const int fd);
+char      	*myStrcpy(char *dest, char *src);
+char  			*myStrdup(char *s);
+void        display_names(char **tab);
+void        *xmalloc(size_t);
+void        print_map(t_env *env);
+void        get_user(t_env *env, int fd, t_users *user);
 
 char                *epurStr(char *str);
 char                *get_next_line(const int fd);

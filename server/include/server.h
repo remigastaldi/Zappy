@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 23 14:22:59 2017 Matthias Prost
+** Last update Fri Jun 23 15:43:54 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -19,6 +19,7 @@
 #define FD_SERVER		2
 
 #define NBR_ARGS    6
+#define NBR_PARAMS  1
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -33,6 +34,12 @@ typedef struct	    s_commands
   void		          (*p)(t_env *env, char **av, int i);
 }		                t_commands;
 
+typedef struct	    s_params
+{
+  char		          *params;
+  void		          (*p)(t_env *env, char *msg);
+}		                t_params;
+
 int	    s_error(char *str);
 
 void		printUsage();
@@ -46,10 +53,12 @@ void    nameArg(t_env *env, char **av, int i);
 
 
 void		createServer(t_env *env);
-void        createMap(t_env *env);
+void    createMap(t_env *env);
 void		serverLoop(t_env *env);
 
 void		addClient(t_env *env, int s);
+
+void    moveParam(t_env *env, char *msg);
 
 extern t_commands g_commands[NBR_ARGS];
 
