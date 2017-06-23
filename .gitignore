@@ -51,6 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 .DS_Store
+.clang_complete
 
 # Binaries
 zappy_server
