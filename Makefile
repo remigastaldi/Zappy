@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Wed Jun 21 23:56:02 2017 gastal_r
+## Last update Fri Jun 23 13:56:12 2017 gastal_r
 ##
 
 .DEFAULT_GOAL := all
@@ -59,10 +59,10 @@ OBJ_UTILS		=		$(SRC_UTILS:.c=.o)
 OBJ_AI			=		$(SRC_AI:.cpp=.o)
 
 $(NAME_SERVER)	:		$(OBJ_SERVER)
-										@$(CC) $(CFLAGS) $(SRC_SERVER) $(SRC_UTILS) -o $(NAME_SERVER)
+										@$(CC) $(CFLAGS) -o $(NAME_SERVER)
 
 $(NAME_AI)      :		$(OBJ_AI)
-										@$(CXX) $(CXXFLAGS) $(SRC_AI) -o $(NAME_AI)
+										@$(CXX) $(CXXFLAGS) -o $(NAME_AI)
 
 all							:		$(NAME_AI) $(NAME_SERVER)
 
