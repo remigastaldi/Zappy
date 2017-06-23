@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Thu Jun 22 17:51:17 2017 Matthias Prost
+** Last update Fri Jun 23 15:16:03 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -48,8 +48,7 @@ void  args(t_env *env, char **av)
         break;
       }
   }
-  if (!(env->port) || !(env->width) || !(env->height) || !(env->clientsNb)
-      || !(env->freq))
+  if (!(env->port) || !(env->width) || !(env->height) || !(env->clientsNb))
   {
     printf("ERROR: A value haven't been set, please look at the usage\n");
     printUsage();
@@ -74,9 +73,10 @@ int		main(int ac, char **av)
 {
   t_env		env;
 
-  if (ac < 14 || strcmp(av[1], "-help") == 0)
+  if (ac < 12 || strcmp(av[1], "-help") == 0)
     printUsage();
   srand(time(NULL));
+  env.freq = 100;
   args(&env, av);
   serverInit(&env);
   serverLoop(&env);
