@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Wed Jun 21 23:56:02 2017 gastal_r
+## Last update Thu Jun 22 20:24:31 2017 sellet_f
 ##
 
 .DEFAULT_GOAL := all
@@ -31,7 +31,8 @@ TEAL				= 	"\033[1;36m"
 RED					=		"\033[5;31m"
 
 CFLAGS			+=	-Wextra -Wall -Werror -W -g -g3
-CFLAGS			+=  -I./server/include/
+CFLAGS			+=  	-I./server/include/
+CFLAGS			+=	-lcsfml-graphics -lcsfml-window -lcsfml-system 
 
 CXXFLAGS		+=	-O3 -Wextra -Wall -Werror -W -g -g3
 CXXFLAGS		+=  -I./ai/include/
@@ -42,6 +43,7 @@ SRC_SERVER	+=	server/src/client.c
 SRC_SERVER	+=	server/src/args_commands.c
 SRC_SERVER	+=	server/src/name_command.c
 SRC_SERVER	+=	server/src/map.c
+SRC_SERVER	+=	server/src/GUI.c
 
 SRC_AI			+=	ai/src/main.cpp
 SRC_AI			+=	ai/src/Ai.cpp
