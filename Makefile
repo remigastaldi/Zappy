@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Thu Jun 22 20:24:31 2017 sellet_f
+## Last update Fri Jun 23 14:02:20 2017 gastal_r
 ##
 
 .DEFAULT_GOAL := all
@@ -32,7 +32,7 @@ RED					=		"\033[5;31m"
 
 CFLAGS			+=	-Wextra -Wall -Werror -W -g -g3
 CFLAGS			+=  	-I./server/include/
-CFLAGS			+=	-lcsfml-graphics -lcsfml-window -lcsfml-system 
+CFLAGS			+=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
 CXXFLAGS		+=	-O3 -Wextra -Wall -Werror -W -g -g3
 CXXFLAGS		+=  -I./ai/include/
@@ -60,11 +60,11 @@ OBJ_UTILS		=		$(SRC_UTILS:.c=.o)
 
 OBJ_AI			=		$(SRC_AI:.cpp=.o)
 
-$(NAME_SERVER)	:		$(OBJ_SERVER)
-										@$(CC) $(CFLAGS) -o $(NAME_SERVER)
+$(NAME_SERVER)	:		$(OBJ_SERVER) $(OBJ_UTILS)
+										@$(CC) $(CFLAGS) $(OBJ_SERVER) $(OBJ_UTILS) -o $(NAME_SERVER)
 
 $(NAME_AI)      :		$(OBJ_AI)
-										@$(CXX) $(CXXFLAGS) -o $(NAME_AI)
+										@$(CXX) $(CXXFLAGS) $(SRC_AI:.cpp=.o) -o $(NAME_AI)
 
 all							:		$(NAME_AI) $(NAME_SERVER)
 
