@@ -59,7 +59,6 @@ void		clientRead(t_env *env, int fd)
   memset(buff, 0, 2048);
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
-    printf("Value: %d\n", value);
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
     sendToAll(env, fd, epurStr(buff));
     free(buff);
