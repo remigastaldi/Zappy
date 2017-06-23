@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Fri Jun 23 15:58:17 2017 Leo Hubert Froideval
+** Last update Fri Jun 23 16:18:59 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -87,15 +87,14 @@ typedef struct      s_instruction
     int             time;
     enum Action     action;
     t_users         *user;
-
 }                   t_instruction;
 
-char				*epurStr(char *str);
-char				*get_next_line(const int fd);
-char      	*myStrcpy(char *dest, char *src);
-char  			*myStrdup(char *s);
-void        display_names(char **tab);
-void        *xmalloc(size_t);
-void        print_map(t_env *env);
+char                *epurStr(char *str);
+char                *get_next_line(const int fd);
+char                *myStrcpy(char *dest, char *src);
+char                *myStrdup(char *s);
+void                display_names(char **tab);
+void                *xmalloc(size_t);
+void                print_map(t_env *env);
 
 #endif /* !_UTILS_H_ */
