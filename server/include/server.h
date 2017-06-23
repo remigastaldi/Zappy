@@ -14,9 +14,9 @@
 #include "utilities.h"
 #include "GUI.h"
 
-#define FD_FREE			0
-#define FD_CLIENT		1
-#define FD_SERVER		2
+#define FD_FREE		0
+#define FD_CLIENT	1
+#define FD_SERVER	2
 
 #define NBR_ARGS    6
 #define NBR_PARAMS  1
@@ -30,9 +30,9 @@
 
 typedef struct	    s_commands
 {
-  char		          *command;
-  void		          (*p)(t_env *env, char **av, int i);
-}		                t_commands;
+  char              *command;
+  void              (*p)(t_env *env, char **av, int i);
+}		            t_commands;
 
 typedef struct	    s_params
 {
@@ -42,23 +42,28 @@ typedef struct	    s_params
 
 int	    s_error(char *str);
 
-void		printUsage();
+void                printUsage();
 
-void    widthArg(t_env *env, char **av, int i);
-void    heightArg(t_env *env, char **av, int i);
-void    clientsNbArg(t_env *env, char **av, int i);
-void    portArg(t_env *env, char **av, int i);
-void    freqArg(t_env *env, char **av, int i);
-void    nameArg(t_env *env, char **av, int i);
+void                widthArg(t_env *env, char **av, int i);
+void                heightArg(t_env *env, char **av, int i);
+void                clientsNbArg(t_env *env, char **av, int i);
+void                portArg(t_env *env, char **av, int i);
+void                freqArg(t_env *env, char **av, int i);
+void                nameArg(t_env *env, char **av, int i);
 
 
-void		createServer(t_env *env);
-void    createMap(t_env *env);
-void		serverLoop(t_env *env);
+void                createServer(t_env *env);
+void                createMap(t_env *env);
+void                serverLoop(t_env *env);
 
-void		addClient(t_env *env, int s);
+void                addClient(t_env *env, int s);
 
 void    moveParam(t_env *env, char *msg);
+
+t_queue             *initWorkingQueue();
+void                newAction(t_queue *, t_users *, enum Action, int);
+void                printWorkingQueue(t_queue *);
+void                freeWorkingQueue(t_queue *);
 
 extern t_commands g_commands[NBR_ARGS];
 

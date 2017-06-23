@@ -50,6 +50,7 @@ SRC_SERVER	+=	server/src/name_command.c
 SRC_SERVER	+=	server/src/map.c
 SRC_SERVER	+=	server/src/GUI.c
 SRC_SERVER	+=	server/src/params_actions.c
+SRC_SERVER	+=	server/src/workingQueue.c
 
 SRC_AI			+=	ai/src/main.cpp
 SRC_AI			+=	ai/src/Ai.cpp

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Fri Jun 23 16:18:59 2017 Leo Hubert Froideval
+** Last update Fri Jun 23 16:50:35 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -83,28 +83,30 @@ typedef struct		s_env
   fct				fct_write[MAX_FD];
 }				    t_env;
 
-typedef struct      s_instruction
+typedef struct      s_action
 {
     int             time;
     enum Action     action;
     t_users         *user;
-}                   t_instruction;
+    struct s_action *next;
+    struct s_action *prev;
+}                   t_action;
 
-char				*epurStr(char *str);
-char				*get_next_line(const int fd);
-char      	*myStrcpy(char *dest, char *src);
-char  			*myStrdup(char *s);
-void        display_names(char **tab);
-void        *xmalloc(size_t);
-void        print_map(t_env *env);
+typedef struct      s_queue
+{
+    int             actions;
+    t_action        *head;
+    t_action        *end;
+}                   t_queue;
+
+char                *epurStr(char *);
+char                *get_next_line(const int);
+char                *myStrcpy(char *, char *);
+char                *myStrdup(char *);
+void                display_names(char **);
 void        get_user(t_env *env, int fd, t_users *user);
-
-char                *epurStr(char *str);
-char                *get_next_line(const int fd);
-char                *myStrcpy(char *dest, char *src);
-char                *myStrdup(char *s);
-void                display_names(char **tab);
+void        print_map(t_env *env);
 void                *xmalloc(size_t);
-void                print_map(t_env *env);
+void                print_map(t_env *);
 
 #endif /* !_UTILS_H_ */

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Fri Jun 23 15:16:03 2017 Matthias Prost
+** Last update Fri Jun 23 17:07:13 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -72,6 +72,16 @@ void		printUsage()
 int		main(int ac, char **av)
 {
   t_env		env;
+  t_queue  *queue;
+
+  queue = initWorkingQueue();
+  newAction(queue, NULL, LOOK, 100);
+  newAction(queue, NULL, LOOK, 2342);
+  newAction(queue, NULL, LOOK, 237);
+
+  printWorkingQueue(queue);
+  
+  freeWorkingQueue(queue);
 
   if (ac < 12 || strcmp(av[1], "-help") == 0)
     printUsage();
