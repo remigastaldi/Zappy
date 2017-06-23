@@ -12,6 +12,7 @@
 #define _SERVER_H_
 
 #include "utilities.h"
+#include "GUI.h"
 
 #define FD_FREE			0
 #define FD_CLIENT		1

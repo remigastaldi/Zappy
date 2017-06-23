@@ -55,7 +55,9 @@ void		clientRead(t_env *env, int fd)
 {
   char		*buff;
 
-  if ((buff = get_next_line(fd)) != NULL)
+  buff = xmalloc(2048);
+  memset(buff, 0, 2048);
+  if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
     sendToAll(env, fd, epurStr(buff));
@@ -100,7 +102,7 @@ void		addClient(t_env *env, int s)
   if ((cs = accept(s, (struct sockaddr *)&client_sin, &client_sin_len)) == -1)
     s_error("accept");
   addUserTab(env, cs);
-  dprintf(cs, "Welcome!\n");
+  dprintf(cs, "WELCOME\n");
   printf("--> Sent: \"Welcome!\" to socket %d\n", cs);
   env->fd_type[cs] = FD_CLIENT;
   env->fct_read[cs] = clientRead;
