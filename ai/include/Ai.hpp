@@ -13,23 +13,24 @@
 
 #include  <unordered_map>
 #include  <vector>
+#include  <string>
 
 #include  "Exception.hpp"
 #include  "Communication.hpp"
-//#include  "Utils.hpp"
 
 class     Ai : public Communication
 {
+public:
   enum class Properties
   {
+    NOTHING,
     NB_PLAYER,
     LINEMATE,
     DERAUMERE,
     SIBUR,
     MENDIANE,
     PHIRAS,
-    THYSTAME,
-    NOTHING
+    THYSTAME
   };
 
   enum class State
@@ -40,7 +41,7 @@ class     Ai : public Communication
 
   enum class Direction
   {
-    FORWARD,
+    UP,
     LEFT,
     RIGHT
   };
@@ -60,12 +61,18 @@ protected:
   bool    needResources(void) noexcept;
   bool    broadcast(void) noexcept;
   bool    lookForResources(void) noexcept;
+  int     findNeededResourceCase(const std::vector<std::vector<Ai::Properties>>  &view) noexcept;
+  void    calculatePath(int resourceCase) noexcept;
+  int     calculateDirection(int destination, int a, int b, int c) noexcept;
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;
+
   std::unordered_map<Ai::Properties, size_t> _currentItems;
   size_t _currentLevel;
+
   std::vector<Ai::Direction> _path;
+  Ai::Properties  _objectToTake;
 };
 
 #endif	/* !_AI_HPP_ */
