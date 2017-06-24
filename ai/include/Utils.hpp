@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 17:50:43 2017 gastal_r
-// Last update Fri Jun 23 15:08:21 2017 gastal_r
+// Last update Sat Jun 24 19:39:23 2017 gastal_r
 //
 
 #ifndef       _UTILS_HPP_
@@ -13,7 +13,7 @@
 
 #include      "Ai.hpp"
 
-class AiUtils
+class Utils
 {
 public:
   static inline Ai::Properties stringToEnum(const std::string &value) noexcept

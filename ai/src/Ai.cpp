@@ -75,11 +75,11 @@ bool      Ai::lookForResources(void) noexcept
       while ((posItem = currentCase.find(" ")) != std::string::npos)
       {
         std::string currentItem(currentCase.substr(0, posItem));
-        caseItems.push_back(AiUtils::stringToEnum(currentItem));
+        caseItems.push_back(Utils::stringToEnum(currentItem));
         currentCase.erase(0, posItem + 1);
       }
     }
-    caseItems.push_back(AiUtils::stringToEnum(currentCase));
+    caseItems.push_back(Utils::stringToEnum(currentCase));
     view.push_back(caseItems);
     rawView.erase(0, posCase + 1);
   }
