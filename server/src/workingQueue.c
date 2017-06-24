@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Fri Jun 23 17:05:19 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 14:52:06 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -30,12 +30,45 @@ void        newAction(t_queue *queue, t_users *user, enum Action action, int tim
   newAction->action = action;
   newAction->user = user;
   newAction->next = NULL;
+  newAction->prev = NULL;
+  newAction->id = ((queue->actions + time) % 16 ) + time;
   queue->actions++;
   if (queue->head == NULL)
     queue->head = newAction;
   else
+  {
+    newAction->prev = queue->end;
     queue->end->next = newAction;
+  }
   queue->end = newAction;
+}
+
+int         deleteAction(t_queue *queue, int id)
+{
+  t_action  *ptr;
+
+  if (queue == NULL)
+    return (-1);
+  ptr = queue->head;
+  while (ptr != NULL)
+  {
+    if (ptr->id == id)
+    {
+      if (ptr->prev != NULL)
+        ptr->prev->next = ptr->next;
+      if (ptr->next != NULL)
+        ptr->next->prev = ptr->prev;
+      if (ptr == queue->head)
+        queue->head = ptr->next;
+      else if (ptr == queue->end)
+        queue->end = ptr->prev;
+      queue->actions--;
+      free(ptr);
+      return (1);
+    }
+    ptr = ptr->next;
+  }
+  return (0);
 }
 
 void      printWorkingQueue(t_queue *queue)
@@ -46,7 +79,7 @@ void      printWorkingQueue(t_queue *queue)
   printf("Total actions in queue: %d\n", queue->actions);
   while (ptr != NULL)
   {
-    printf("Time: %d; Action: %d\n", ptr->time, ptr->action);
+    printf("Time: %d; Action: %d; ID: %d\n", ptr->time, ptr->action, ptr->id);
     ptr = ptr->next;
   }
 }

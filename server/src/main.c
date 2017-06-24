@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Fri Jun 23 17:07:13 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 14:36:14 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -78,9 +78,11 @@ int		main(int ac, char **av)
   newAction(queue, NULL, LOOK, 100);
   newAction(queue, NULL, LOOK, 2342);
   newAction(queue, NULL, LOOK, 237);
-
   printWorkingQueue(queue);
-  
+
+  deleteAction(queue, 2349);
+  printWorkingQueue(queue);
+
   freeWorkingQueue(queue);
 
   if (ac < 12 || strcmp(av[1], "-help") == 0)

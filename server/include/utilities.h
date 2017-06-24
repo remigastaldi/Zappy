@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Sat Jun 24 14:05:59 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 14:25:00 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -86,6 +86,7 @@ typedef struct		s_env
 typedef struct      s_action
 {
     int             time;
+    int             id;
     enum Action     action;
     t_users         *user;
     struct s_action *next;
