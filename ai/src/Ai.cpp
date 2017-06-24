@@ -30,7 +30,7 @@ void      Ai::start(void) noexcept
 {
   try
   {
-    lookForResources();
+    primaryState();
   }
   catch (const std::exception &error)
   {
@@ -38,7 +38,53 @@ void      Ai::start(void) noexcept
   }
 }
 
-bool      Ai::needResources(void) noexcept
+void      Ai::primaryState(void) noexcept
+{
+  if (checkIfNeedResources())
+  {
+    for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
+    {
+      if (lookForResources())
+        return (primaryState());
+      //TODO send 90° rotation to server
+    }
+    //TODO send forward to server
+    primaryState();
+  }
+  else
+  {
+    powerupState();
+  }
+}
+
+void      Ai::powerupState(void) noexcept
+{
+  if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
+  {
+    //TODO fork player
+    //TODO launch broadcast
+  }
+  else
+  {
+    //TODO start incantation
+  }
+}
+
+size_t    Ai::countPlayer(void) noexcept
+{
+  size_t nb = 0;
+  std::vector<std::vector<Ai::Properties>> view(getLookView());
+
+  for (auto & it : view.at(0))
+  {
+    if (it == Ai::Properties::NB_PLAYER)
+      nb++;
+  }
+  return (nb);
+}
+
+
+bool      Ai::checkIfNeedResources(void) noexcept
 {
   if (_currentItems[Ai::Properties::LINEMATE] >= _riseUpConditions[_currentLevel][Ai::Properties::LINEMATE]
     && _currentItems[Ai::Properties::DERAUMERE] >= _riseUpConditions[_currentLevel][Ai::Properties::DERAUMERE]
@@ -57,8 +103,9 @@ bool      Ai::broadcast(void) noexcept
   return (true);
 }
 
-bool      Ai::lookForResources(void) noexcept
+const std::vector<std::vector<Ai::Properties>> Ai::getLookView(void) noexcept
 {
+  //TODO get look result from server
   std::string rawView("player,,,thystame,,food,,,,,,linemate,,,,,");
 
   std::vector<std::vector<Ai::Properties>>  view;
@@ -83,6 +130,13 @@ bool      Ai::lookForResources(void) noexcept
     view.push_back(caseItems);
     rawView.erase(0, posCase + 1);
   }
+  return (view);
+}
+
+bool      Ai::lookForResources(void) noexcept
+{
+  std::vector<std::vector<Ai::Properties>>  view(getLookView());
+
   size_t caseNbr(0);
   std::cout << "Look command result: " << std::endl;
   for (auto & it : view)

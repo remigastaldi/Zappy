@@ -59,8 +59,12 @@ public:
   void  start(void) noexcept;
 
 protected:
-  bool    needResources(void) noexcept;
+  void    primaryState(void) noexcept;
+  void    powerupState(void) noexcept;
+  size_t  countPlayer(void) noexcept;
+  bool    checkIfNeedResources(void) noexcept;
   bool    broadcast(void) noexcept;
+  const std::vector<std::vector<Ai::Properties>> getLookView(void) noexcept;
   bool    lookForResources(void) noexcept;
   int     findNeededResourceCase(const std::vector<std::vector<Ai::Properties>>  &view) noexcept;
   void    calculatePath(int resourceCase) noexcept;
