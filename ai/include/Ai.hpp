@@ -41,6 +41,7 @@ public:
 
   enum class Direction
   {
+    FORWARD,
     UP,
     LEFT,
     RIGHT
@@ -64,6 +65,7 @@ protected:
   int     findNeededResourceCase(const std::vector<std::vector<Ai::Properties>>  &view) noexcept;
   void    calculatePath(int resourceCase) noexcept;
   int     calculateDirection(int destination, int a, int b, int c) noexcept;
+  void    walkToResource(void) noexcept;
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;

@@ -97,7 +97,16 @@ bool      Ai::lookForResources(void) noexcept
   int resourceCase = findNeededResourceCase(view);
   if (resourceCase == -1)
     return (false);
-  calculatePath(resourceCase);
+  else if (resourceCase == 0)
+  {
+    //TODO send request to take object to server
+  }
+  else
+  {
+    calculatePath(resourceCase);
+    walkToResource();
+    lookForResources();
+  }
   return (true);
 }
 
@@ -143,6 +152,8 @@ int      Ai::findNeededResourceCase(const std::vector<std::vector<Ai::Properties
   }
   return (-1);
 }
+
+// To not forget to remove sleep
 #include <chrono>
 #include <thread>
 void      Ai::calculatePath(int resourceCase) noexcept
@@ -153,6 +164,7 @@ void      Ai::calculatePath(int resourceCase) noexcept
   int   curMaxOffsetX = 0;
   int   curMinOffsetX = 0;
   int   currentCase = 0;
+  Ai::Direction curDirection = Ai::Direction::FORWARD;
 
   std::cout << "ressourceCase => " << resourceCase << std::endl << std::endl;
   _path.clear();
@@ -171,21 +183,25 @@ void      Ai::calculatePath(int resourceCase) noexcept
     {
       offsetX -= 1;
       currentCase -= 1;
-      _path.push_back(Ai::Direction::LEFT);
+      curDirection != Ai::Direction::LEFT ? _path.push_back(Ai::Direction::LEFT) : (void)0;
+      curDirection = Ai::Direction::LEFT;
     }
     else if (direction == 1)
     {
       offsetY += 1;
       offsetX += 1;
       currentCase = offsetY * offsetY + offsetX;
-      _path.push_back(Ai::Direction::UP);
+      curDirection != Ai::Direction::UP ? _path.push_back(Ai::Direction::UP) : (void)0;
+      curDirection = Ai::Direction::UP;
     }
     else if (direction == 2)
     {
       offsetX += 1;
       currentCase += 1;
-      _path.push_back(Ai::Direction::RIGHT);
+      curDirection != Ai::Direction::RIGHT ? _path.push_back(Ai::Direction::RIGHT) : (void)0;
+      curDirection = Ai::Direction::RIGHT;
     }
+    _path.push_back(Ai::Direction::FORWARD);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::cout  << std::endl;
   }
@@ -203,4 +219,13 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   // std::cout << "a: " << a << "  b: " << b << "  c: " << c << std::endl;
   // std::cout << "aLength: " << aLength << "  bLength: " << bLength << "  cLength: " << cLength << std::endl;
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
+}
+
+void    Ai::walkToResource(void) noexcept
+{
+  for (auto & it : _path)
+  {
+    //TODO send to server
+    (void)it;
+  }
 }
