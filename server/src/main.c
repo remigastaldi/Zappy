@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Sat Jun 24 14:36:14 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 14:54:59 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -80,7 +80,7 @@ int		main(int ac, char **av)
   newAction(queue, NULL, LOOK, 237);
   printWorkingQueue(queue);
 
-  deleteAction(queue, 2349);
+  deleteAction(queue, queue->end->id);
   printWorkingQueue(queue);
 
   freeWorkingQueue(queue);
