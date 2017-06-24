@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Sat Jun 24 14:25:00 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 15:11:29 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -44,7 +44,7 @@ typedef enum        Direction
 typedef enum        Action
 {
     LOOK,
-
+    TEST
 }                   Action;
 
 typedef struct      s_items

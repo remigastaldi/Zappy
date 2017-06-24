@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Sat Jun 24 14:52:06 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 15:01:04 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -31,7 +31,7 @@ void        newAction(t_queue *queue, t_users *user, enum Action action, int tim
   newAction->user = user;
   newAction->next = NULL;
   newAction->prev = NULL;
-  newAction->id = ((queue->actions + time) % 16 ) + time;
+  newAction->id = (queue->actions - time) + rand();
   queue->actions++;
   if (queue->head == NULL)
     queue->head = newAction;
