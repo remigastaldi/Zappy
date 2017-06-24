@@ -13,22 +13,18 @@
 OS					=		$(shell uname -s)
 
 ifeq ($(OS), Darwin)
-	CC 					=		gcc-7
+	CC 				=		gcc-7
+	CXX 			=		g++-7
+	ECHO      =   echo
 else
-	CC 					=		gcc
+	CC 				=		gcc
+	CXX 			=		g++
+	ECHO      =   /bin/echo -e
 endif
-
-CXX 				=		g++ -std=c++11
 
 NAME_SERVER	=		"zappy_server"
 
 NAME_AI			=		"zappy_ai"
-
-ifeq ($(OS), Darwin)
-	ECHO      =   echo
-else
-	ECHO      =   /bin/echo -e
-endif
 
 DEFAULT			=		"\033[00m"
 GREEN				=		"\033[0;32m"
