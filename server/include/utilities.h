@@ -59,7 +59,7 @@ typedef struct      s_items
 
 typedef struct	    s_users
 {
-  int				socket;
+  int				        socket;
   int               posY;
   int               posX;
   int               lvl;
@@ -105,7 +105,7 @@ char                *get_next_line(const int);
 char                *myStrcpy(char *, char *);
 char                *myStrdup(char *);
 void                display_names(char **);
-void                get_user(t_env *env, int fd, t_users *user);
+t_users             *get_user(t_env *env, int fd);
 void                print_map(t_env *env);
 void                *xmalloc(size_t);
 void                print_tab(char **tab);

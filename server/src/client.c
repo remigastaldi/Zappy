@@ -11,22 +11,26 @@
 #include "server.h"
 
 t_params g_params [NBR_PARAMS] = {
-  {"move", &moveParam},
+  {"Forward", &forwardParam},
+  {"Right", &rightParam},
+  {"Left", &leftParam},
 };
 
-void  checkParams(t_env *env, char *msg)
+void  checkParams(t_env *env, char *msg, int fd)
 {
   char    **tab;
   int     i;
+  t_users *user;
 
   i = -1;
   msg = epurStr(msg);
   tab = toWordtab(msg, ' ');
+  user = get_user(env, fd);
   while (++i != NBR_PARAMS)
   {
     if (strncmp(tab[0], g_params[i].params, strlen(tab[0])) == 0)
     {
-      g_params[i].p(env, tab);
+      g_params[i].p(env, tab, user);
       break;
     }
   }
@@ -52,16 +56,16 @@ void		removeUserTab(t_env *env, int socket)
 void		clientRead(t_env *env, int fd)
 {
   char		*buff;
-  t_users user;
+  t_users *user;
 
   buff = xmalloc(2048);
   memset(buff, 0, 2048);
-  get_user(env, fd, &user);
+  user = get_user(env, fd);
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
-    if (user.teamName == NULL)
-      checkParams(env, buff);
+    if (user->teamName == NULL)
+      checkParams(env, buff, fd);
     free(buff);
   }
   else
@@ -89,8 +93,8 @@ void		addUserTab(t_env *env, int socket)
         env->users[i].direction = rand() % 4;
         env->users[i].teamName = NULL;
         printf("Socket: %d\tlvl: %d\t\tposY: %d\t\tposX: %d\t\tdirection: %d\n",
-          env->users[i].socket, env->users[i].lvl, env->users[i].posX,
-          env->users[i].posY, env->users[i].direction);
+          env->users[i].socket, env->users[i].lvl, env->users[i].posY,
+          env->users[i].posX, env->users[i].direction);
       	break;
       }
 }

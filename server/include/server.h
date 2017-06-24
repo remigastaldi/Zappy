@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Sat Jun 24 14:52:54 2017 Matthias Prost
+** Last update Sat Jun 24 15:50:07 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -19,7 +19,7 @@
 #define FD_SERVER	2
 
 #define NBR_ARGS    6
-#define NBR_PARAMS  1
+#define NBR_PARAMS  3
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -37,7 +37,7 @@ typedef struct	    s_commands
 typedef struct	    s_params
 {
   char		          *params;
-  void		          (*p)(t_env *env, char **msg);
+  void		          (*p)(t_env *env, char **msg, t_users *user);
 }		                t_params;
 
 int                 s_error(char *str);
@@ -58,7 +58,9 @@ void                serverLoop(t_env *env);
 
 void                addClient(t_env *env, int s);
 
-void                moveParam(t_env *env, char **msg);
+void                forwardParam(t_env *env, char **msg, t_users *user);
+void                rightParam(t_env *env, char **msg, t_users *user);
+void                leftParam(t_env *env, char **msg, t_users *user);
 
 t_queue             *initWorkingQueue();
 void                newAction(t_queue *, t_users *, enum Action, int);
