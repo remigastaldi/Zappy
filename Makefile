@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Fri Jun 23 15:58:27 2017 Matthias Prost
+## Last update Sat Jun 24 14:39:12 2017 Matthias Prost
 ##
 
 .DEFAULT_GOAL := all
@@ -58,6 +58,7 @@ SRC_UTILS		+=	server/src/utilities/errors.c
 SRC_UTILS		+=	server/src/utilities/print.c
 SRC_UTILS		+=	server/src/utilities/memories.c
 SRC_UTILS		+=	server/src/utilities/get_user.c
+SRC_UTILS		+=	server/src/utilities/to_wordtab.c
 
 OBJ_SERVER	=		$(SRC_SERVER:.c=.o)
 OBJ_UTILS		=		$(SRC_UTILS:.c=.o)

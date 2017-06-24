@@ -16,8 +16,20 @@ t_params g_params [NBR_PARAMS] = {
 
 void  checkParams(t_env *env, char *msg)
 {
-  (void)env;
-  (void)msg;
+  char    **tab;
+  int     i;
+
+  i = -1;
+  msg = epurStr(msg);
+  tab = toWordtab(msg, ' ');
+  while (++i != NBR_PARAMS)
+  {
+    if (strncmp(tab[0], g_params[i].params, strlen(tab[0])) == 0)
+    {
+      g_params[i].p(env, tab);
+      break;
+    }
+  }
 }
 
 void		removeUserTab(t_env *env, int socket)
@@ -48,7 +60,7 @@ void		clientRead(t_env *env, int fd)
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
-    if (user.teamName != NULL)
+    if (user.teamName == NULL)
       checkParams(env, buff);
     free(buff);
   }

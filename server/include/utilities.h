@@ -108,6 +108,7 @@ void                display_names(char **);
 void                get_user(t_env *env, int fd, t_users *user);
 void                print_map(t_env *env);
 void                *xmalloc(size_t);
-void                print_map(t_env *);
+void                print_tab(char **tab);
+char            		**toWordtab(char *str, char c);
 
 #endif /* !_UTILS_H_ */

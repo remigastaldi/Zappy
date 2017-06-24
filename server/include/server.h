@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Sat Jun 24 14:31:33 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 14:52:54 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -37,7 +37,7 @@ typedef struct	    s_commands
 typedef struct	    s_params
 {
   char		          *params;
-  void		          (*p)(t_env *env, char *msg);
+  void		          (*p)(t_env *env, char **msg);
 }		                t_params;
 
 int                 s_error(char *str);
@@ -58,7 +58,7 @@ void                serverLoop(t_env *env);
 
 void                addClient(t_env *env, int s);
 
-void                moveParam(t_env *env, char *msg);
+void                moveParam(t_env *env, char **msg);
 
 t_queue             *initWorkingQueue();
 void                newAction(t_queue *, t_users *, enum Action, int);

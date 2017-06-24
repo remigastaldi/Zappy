@@ -43,3 +43,13 @@ void  print_map(t_env *env)
     x = -1;
   }
 }
+
+void  print_tab(char **tab)
+{
+  int   i;
+
+  i = -1;
+  while (tab[++i])
+    printf("%s ", tab[i]);
+  printf("\n");
+}
