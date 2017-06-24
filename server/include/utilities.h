@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Fri Jun 23 16:50:35 2017 Leo Hubert Froideval
+** Last update Sat Jun 24 14:05:59 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -104,8 +104,8 @@ char                *get_next_line(const int);
 char                *myStrcpy(char *, char *);
 char                *myStrdup(char *);
 void                display_names(char **);
-void        get_user(t_env *env, int fd, t_users *user);
-void        print_map(t_env *env);
+void                get_user(t_env *env, int fd, t_users *user);
+void                print_map(t_env *env);
 void                *xmalloc(size_t);
 void                print_map(t_env *);
 
