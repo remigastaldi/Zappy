@@ -15,7 +15,7 @@
 #include  <vector>
 #include  <string>
 
-#include  "Exception.hpp"
+#include  "Event.hpp"
 #include  "Communication.hpp"
 
 class     Ai : public Communication
@@ -59,11 +59,13 @@ public:
   void  start(void) noexcept;
 
 protected:
+  const std::string checkIfEventMessage(const std::string &message);
   void    primaryState(void) noexcept;
+  void    powerupStateFirstCheck(void) noexcept;
   void    powerupState(void) noexcept;
   size_t  countPlayer(void) noexcept;
+  void    startIncantation(void) noexcept;
   bool    checkIfNeedResources(void) noexcept;
-  bool    broadcast(void) noexcept;
   const std::vector<std::vector<Ai::Properties>> getLookView(void) noexcept;
   bool    lookForResources(void) noexcept;
   int     findNeededResourceCase(const std::vector<std::vector<Ai::Properties>>  &view) noexcept;

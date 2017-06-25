@@ -8,6 +8,11 @@
 // Last update Wed Jun 21 13:20:39 2017
 //
 
+
+// To not forget to remove sleep
+#include <chrono>
+#include <thread>
+
 #include      "Ai.hpp"
 #include      "Utils.hpp"
 
@@ -32,11 +37,34 @@ void      Ai::start(void) noexcept
   {
     primaryState();
   }
-  catch (const std::exception &error)
+  catch (const Event::Dead &event)
   {
-
+    std::cout << "Player " <<  _machine << " die" << std::endl;
+  }
+  catch (const Event::Ko &event)
+  {
+    std::cout << "Server return KO " << std::endl;
+  }
+  catch (const Event::Broadcast &event)
+  {
+    std::cout << "EVENT " << event.getCase() << std::endl;
   }
 }
+
+const std::string Ai::checkIfEventMessage(const std::string &message)
+{
+  if (message.find("dead") != std::string::npos)
+  throw Event::Dead();
+  else if (message.find("ko") != std::string::npos)
+  throw Event::Ko();
+  else if (message.find("message") != std::string::npos)
+  {
+    if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)
+      throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")) == _currentLevel);
+  }
+  return (message);
+}
+
 
 void      Ai::primaryState(void) noexcept
 {
@@ -57,17 +85,32 @@ void      Ai::primaryState(void) noexcept
   }
 }
 
-void      Ai::powerupState(void) noexcept
+void      Ai::powerupStateFirstCheck(void) noexcept
 {
   if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
   {
     //TODO fork player
-    //TODO launch broadcast
+    powerupState();
   }
   else
+    startIncantation();
+}
+
+void      Ai::powerupState(void) noexcept
+{
+  if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
   {
-    //TODO start incantation
+    //TODO launch broadcast
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    powerupState();
   }
+  else
+    startIncantation();
+}
+
+void      Ai::startIncantation(void) noexcept
+{
+
 }
 
 size_t    Ai::countPlayer(void) noexcept
@@ -95,11 +138,6 @@ bool      Ai::checkIfNeedResources(void) noexcept
     {
       return (false);
     }
-  return (true);
-}
-
-bool      Ai::broadcast(void) noexcept
-{
   return (true);
 }
 
@@ -159,7 +197,7 @@ bool      Ai::lookForResources(void) noexcept
   {
     calculatePath(resourceCase);
     walkToResource();
-    lookForResources();
+    return (lookForResources());
   }
   return (true);
 }
@@ -207,9 +245,6 @@ int      Ai::findNeededResourceCase(const std::vector<std::vector<Ai::Properties
   return (-1);
 }
 
-// To not forget to remove sleep
-#include <chrono>
-#include <thread>
 void      Ai::calculatePath(int resourceCase) noexcept
 {
   int   offsetX = 0;

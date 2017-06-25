@@ -1,10 +1,19 @@
+//
+// Communication.cpp for Zappy in /home/gastal_r/rendu/Zappy/ai/src/
+//
+// Made by gastal_r
+// Login   <remi.gastaldi@epitech.eu>
+//
+// Started on  Sun Jun 25 11:49:42 2017 gastal_r
+// Last update Sun Jun 25 11:50:16 2017 gastal_r
+//
 
 #include "Communication.hpp"
 
 Communication::Communication() noexcept
 {}
 
-Communication::Communication(int port, char *machine)
+Communication::Communication(int port, const std::string &machine)
 {
     _port = port;
     _machine = machine;
@@ -36,7 +45,6 @@ void            Communication::receiveCmd(const std::string& commande) noexcept
     _cmd = commande;
     sendCmd();
 }
-
 
 void            Communication::sendCmd() noexcept
 {

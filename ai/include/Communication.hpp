@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Sun Jun 25 11:37:40 2017 gastal_r
+// Last update Sun Jun 25 15:08:54 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -24,17 +24,19 @@ class   Communication
 {
 private:
   std::string         _cmd;
-  std::string         _answer;
   int                 _port;
-  std::string         _machine;
   struct protoent     *_pe;
   int                 _fd;
   struct sockaddr_in  _s_in;
 
+protected:
+  std::string         _machine;
+  std::string         _answer;
+
 public:
   Communication() noexcept;
   ~Communication() = default;
-  Communication(int, char*);
+  Communication(int port, const std::string &machine);
   Communication(const Communication& other) = default;
   Communication(Communication&& other) = default;
   Communication& operator=(const Communication& other) = default;
