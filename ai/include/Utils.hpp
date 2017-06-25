@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 17:50:43 2017 gastal_r
-// Last update Sat Jun 24 19:39:23 2017 gastal_r
+// Last update Sun Jun 25 16:59:47 2017 gastal_r
 //
 
 #ifndef       _UTILS_HPP_
@@ -20,6 +20,8 @@ public:
   {
     if (value == "player")
       return (Ai::Properties::NB_PLAYER);
+    if (value == "food")
+      return (Ai::Properties::FOOD);
     else if (value == "linemate")
       return (Ai::Properties::LINEMATE);
     else if (value == "deraumer")
@@ -39,6 +41,8 @@ public:
   {
     if (value == Ai::Properties::NB_PLAYER)
       return ("player");
+    if (value == Ai::Properties::FOOD)
+      return ("food");
     else if (value == Ai::Properties::LINEMATE)
       return ("linemate");
     else if (value == Ai::Properties::DERAUMERE)

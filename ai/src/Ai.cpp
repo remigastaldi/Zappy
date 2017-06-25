@@ -19,13 +19,13 @@
 Ai::Ai(int port, char* machine) noexcept
   : Communication(port, machine),
   _riseUpConditions({
-  {1, {{Ai::Properties::NB_PLAYER, 1}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
-  {2, {{Ai::Properties::NB_PLAYER, 2}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 1}, {Ai::Properties::SIBUR, 1}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
-  {3, {{Ai::Properties::NB_PLAYER, 2}, {Ai::Properties::LINEMATE, 2}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 1}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 2}, {Ai::Properties::THYSTAME, 0}}},
-  {4, {{Ai::Properties::NB_PLAYER, 4}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 1}, {Ai::Properties::SIBUR, 2}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 1}, {Ai::Properties::THYSTAME, 0}}},
-  {5, {{Ai::Properties::NB_PLAYER, 4}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 1}, {Ai::Properties::MENDIANE, 3}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
-  {6, {{Ai::Properties::NB_PLAYER, 6}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 3}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 1}, {Ai::Properties::THYSTAME, 0}}},
-  {7, {{Ai::Properties::NB_PLAYER, 6}, {Ai::Properties::LINEMATE, 2}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 2}, {Ai::Properties::MENDIANE, 2}, {Ai::Properties::PHIRAS, 2}, {Ai::Properties::THYSTAME, 1}}},
+  {1, {{Ai::Properties::NB_PLAYER, 1}, {Ai::Properties::FOOD, 10}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
+  {2, {{Ai::Properties::NB_PLAYER, 2}, {Ai::Properties::FOOD, 10}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 1}, {Ai::Properties::SIBUR, 1}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
+  {3, {{Ai::Properties::NB_PLAYER, 2}, {Ai::Properties::FOOD, 10}, {Ai::Properties::LINEMATE, 2}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 1}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 2}, {Ai::Properties::THYSTAME, 0}}},
+  {4, {{Ai::Properties::NB_PLAYER, 4}, {Ai::Properties::FOOD, 10}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 1}, {Ai::Properties::SIBUR, 2}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 1}, {Ai::Properties::THYSTAME, 0}}},
+  {5, {{Ai::Properties::NB_PLAYER, 4}, {Ai::Properties::FOOD, 10}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 1}, {Ai::Properties::MENDIANE, 3}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
+  {6, {{Ai::Properties::NB_PLAYER, 6}, {Ai::Properties::FOOD, 10}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 3}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 1}, {Ai::Properties::THYSTAME, 0}}},
+  {7, {{Ai::Properties::NB_PLAYER, 6}, {Ai::Properties::FOOD, 10}, {Ai::Properties::LINEMATE, 2}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 2}, {Ai::Properties::MENDIANE, 2}, {Ai::Properties::PHIRAS, 2}, {Ai::Properties::THYSTAME, 1}}},
   }),
   _currentItems({ {Ai::Properties::LINEMATE, 0}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0} }),
   _currentLevel(1)
@@ -74,23 +74,40 @@ const std::string &Ai::checkIfEventMessage(std::string &message)
   return (message);
 }
 
-
 void      Ai::primaryState(void) noexcept
 {
-  if (checkIfNeedResources())
+  actualiseInventory();
+  if (_currentItems[Ai::Properties::FOOD] < 5)
   {
     for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
     {
+      actualiseView();
+      if (lookForFood())
+        return (primaryState());
+      //TODO send 90° rotation to server
+    }
+    for (size_t i = 0; i < _currentLevel; ++i)
+      _path.push_back(Ai::Direction::FORWARD);
+    walkToDir();
+    return (primaryState());
+  }
+  else if (checkIfNeedResources())
+  {
+    for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
+    {
+      actualiseView();
       if (lookForResources())
+        return (primaryState());
+      else if (lookForFood())
         return (primaryState());
       //TODO send 90° rotation to server
     }
     //TODO send forward to server
-    primaryState();
+    return (primaryState());
   }
   else
   {
-    powerupState();
+    return (powerupState());
   }
 }
 
@@ -98,7 +115,9 @@ void      Ai::powerupStateFirstCheck(void) noexcept
 {
   if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
   {
-    //TODO fork player
+    //TODO check free place
+    //if free place
+      //TODO fork player
     powerupState();
   }
   else
@@ -125,9 +144,9 @@ void      Ai::startIncantation(void) noexcept
 size_t    Ai::countPlayer(void) noexcept
 {
   size_t nb = 0;
-  std::vector<std::vector<Ai::Properties>> view(getLookView());
+  actualiseView();
 
-  for (auto & it : view.at(0))
+  for (auto & it : _view.at(0))
   {
     if (it == Ai::Properties::NB_PLAYER)
       nb++;
@@ -135,6 +154,26 @@ size_t    Ai::countPlayer(void) noexcept
   return (nb);
 }
 
+void      Ai::actualiseInventory(void) noexcept
+{
+  //TODO getinventory from server
+  std::string rawInventory("food 10, linemate 0, sibur 0");
+
+  size_t posCase = 0;
+  std::string item;
+  while ((posCase = rawInventory.find(",")) != std::string::npos)
+  {
+    item = rawInventory.substr(0, posCase);
+    size_t posItem = 0;
+    posItem = item.find(" ");
+    std::string itemName(item.substr(0, posItem));
+    item.erase(0, posItem + 1);
+    std::cout << itemName << std::endl;
+    std::cout << item << std::endl;
+    _currentItems[Utils::stringToEnum(itemName)] = std::stoi(item);
+    rawInventory.erase(0, posCase + 2);
+  }
+}
 
 bool      Ai::checkIfNeedResources(void) noexcept
 {
@@ -150,13 +189,12 @@ bool      Ai::checkIfNeedResources(void) noexcept
   return (true);
 }
 
-const std::vector<std::vector<Ai::Properties>> Ai::getLookView(void) noexcept
+void    Ai::actualiseView(void) noexcept
 {
   //TODO get look result from server
   std::string rawView("player,,,thystame,,food,,,,,,linemate,,,,,");
 
-  std::vector<std::vector<Ai::Properties>>  view;
-
+  _view.clear();
   size_t posCase = 0;
   std::string currentCase;
   while ((posCase = rawView.find(",")) != std::string::npos)
@@ -174,28 +212,62 @@ const std::vector<std::vector<Ai::Properties>> Ai::getLookView(void) noexcept
       }
     }
     caseItems.push_back(Utils::stringToEnum(currentCase));
-    view.push_back(caseItems);
+    _view.push_back(caseItems);
     rawView.erase(0, posCase + 1);
   }
-  return (view);
+}
+
+bool    Ai::lookForFood(void) noexcept
+{
+  int foodCase = findFoodCase();
+  if (foodCase == -1)
+    return (false);
+  else if (foodCase == 0)
+  {
+    //TODO send request to take object to server
+  }
+  else
+  {
+    calculatePath(foodCase);
+    walkToDir();
+    actualiseView();
+    return (lookForFood());
+  }
+  return (true);
+}
+
+int       Ai::findFoodCase(void) noexcept
+{
+  size_t caseNbr = 0;
+  for (const auto & currentCase : _view)
+  {
+    for (const auto & currentItem : currentCase)
+    {
+      if (currentItem == Ai::Properties::FOOD)
+      {
+        _objectToTake = Ai::Properties::FOOD;
+        return (caseNbr);
+      }
+    }
+    caseNbr++;
+  }
+  return (-1);
 }
 
 bool      Ai::lookForResources(void) noexcept
 {
-  std::vector<std::vector<Ai::Properties>>  view(getLookView());
-
   size_t caseNbr(0);
   std::cout << "Look command result: " << std::endl;
-  for (auto & it : view)
+  for (const auto & caseIt : _view)
   {
     std::cout << "[" << caseNbr++ << "]";
-    for (auto & it2 : it)
+    for (const auto & item : caseIt)
     {
-      std::cout << " " << (int) it2 << " ";
+      std::cout << " " << (int) item << " ";
     }
     std::cout << std::endl;
   }
-  int resourceCase = findNeededResourceCase(view);
+  int resourceCase = findNeededResourceCase();
   if (resourceCase == -1)
     return (false);
   else if (resourceCase == 0)
@@ -205,18 +277,19 @@ bool      Ai::lookForResources(void) noexcept
   else
   {
     calculatePath(resourceCase);
-    walkToResource();
+    walkToDir();
+    actualiseView();
     return (lookForResources());
   }
   return (true);
 }
 
-int      Ai::findNeededResourceCase(const std::vector<std::vector<Ai::Properties>>  &view) noexcept
+int      Ai::findNeededResourceCase(void) noexcept
 {
   size_t caseNbr = 0;
-  for (auto & currentCase : view)
+  for (const auto & currentCase : _view)
   {
-    for (auto & currentItem : currentCase)
+    for (const auto & currentItem : currentCase)
     {
       if ((currentItem == Ai::Properties::LINEMATE) &&  _currentItems[Ai::Properties::LINEMATE] < _riseUpConditions[_currentLevel][Ai::Properties::LINEMATE])
       {
@@ -319,9 +392,9 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
 }
 
-void    Ai::walkToResource(void) noexcept
+void    Ai::walkToDir(void) noexcept
 {
-  for (auto & it : _path)
+  for (const auto & it : _path)
   {
     //TODO send to server
     (void)it;

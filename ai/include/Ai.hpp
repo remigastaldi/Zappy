@@ -25,6 +25,7 @@ public:
   {
     NOTHING,
     NB_PLAYER,
+    FOOD,
     LINEMATE,
     DERAUMERE,
     SIBUR,
@@ -61,17 +62,21 @@ public:
 protected:
   const std::string &checkIfEventMessage(std::string &message);
   void    primaryState(void) noexcept;
+  bool    checkCriticalFood(void) noexcept;
   void    powerupStateFirstCheck(void) noexcept;
   void    powerupState(void) noexcept;
   size_t  countPlayer(void) noexcept;
   void    startIncantation(void) noexcept;
+  void    actualiseInventory(void) noexcept;
   bool    checkIfNeedResources(void) noexcept;
-  const std::vector<std::vector<Ai::Properties>> getLookView(void) noexcept;
+  void    actualiseView(void) noexcept;
+  bool    lookForFood(void) noexcept;
+  int     findFoodCase(void) noexcept;
   bool    lookForResources(void) noexcept;
-  int     findNeededResourceCase(const std::vector<std::vector<Ai::Properties>>  &view) noexcept;
+  int     findNeededResourceCase(void) noexcept;
   void    calculatePath(int resourceCase) noexcept;
   int     calculateDirection(int destination, int a, int b, int c) noexcept;
-  void    walkToResource(void) noexcept;
+  void    walkToDir(void) noexcept;
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;
@@ -79,6 +84,7 @@ private:
   std::unordered_map<Ai::Properties, size_t> _currentItems;
   size_t _currentLevel;
 
+  std::vector<std::vector<Ai::Properties>> _view;
   std::vector<Ai::Direction> _path;
   Ai::Properties  _objectToTake;
 };
