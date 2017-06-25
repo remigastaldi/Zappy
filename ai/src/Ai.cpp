@@ -45,18 +45,27 @@ void      Ai::start(void) noexcept
   {
     std::cout << "Server return KO " << std::endl;
   }
+  catch (const Event::GameOver &event)
+  {
+    std::cout << "Team : " << event.getTeamName() << std::endl;
+  }
   catch (const Event::Broadcast &event)
   {
     std::cout << "EVENT " << event.getCase() << std::endl;
   }
 }
 
-const std::string Ai::checkIfEventMessage(const std::string &message)
+const std::string &Ai::checkIfEventMessage(std::string &message)
 {
   if (message.find("dead") != std::string::npos)
-  throw Event::Dead();
+    throw Event::Dead();
   else if (message.find("ko") != std::string::npos)
-  throw Event::Ko();
+    throw Event::Ko();
+  else if (message.find("game over") != std::string::npos)
+  {
+    message.erase(0, message.find("game over") + 9);
+    throw Event::GameOver(message);
+  }
   else if (message.find("message") != std::string::npos)
   {
     if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)

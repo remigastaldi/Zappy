@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 11:48:19 2017 gastal_r
-// Last update Sun Jun 25 14:23:27 2017 gastal_r
+// Last update Sun Jun 25 15:27:34 2017 gastal_r
 //
 
 #ifndef     _EVENT_HPP_
@@ -32,6 +32,18 @@ public:
   public:
     explicit Ko() {};
     virtual ~Ko() throw() {};
+  };
+
+  class GameOver
+  {
+  public:
+    explicit GameOver(const std::string &teamName) : _teamName(teamName) {};
+    virtual ~GameOver() throw() {};
+
+    const std::string &getTeamName(void) const { return (_teamName); }
+
+  private:
+    const std::string _teamName;
   };
 
   class Broadcast

@@ -59,7 +59,7 @@ public:
   void  start(void) noexcept;
 
 protected:
-  const std::string checkIfEventMessage(const std::string &message);
+  const std::string &checkIfEventMessage(std::string &message);
   void    primaryState(void) noexcept;
   void    powerupStateFirstCheck(void) noexcept;
   void    powerupState(void) noexcept;
