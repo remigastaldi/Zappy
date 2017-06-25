@@ -68,6 +68,8 @@ void                printWorkingQueue(t_queue *);
 void                freeWorkingQueue(t_queue *);
 int                 deleteAction(t_queue *, int);
 
+int                 cmd_look(t_env *env);
+
 extern t_commands g_commands[NBR_ARGS];
 
 #endif

@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Sat Jun 24 14:39:12 2017 Matthias Prost
+## Last update Sun Jun 25 22:36:12 2017 Cyril Puccio
 ##
 
 .DEFAULT_GOAL := all
@@ -47,6 +47,7 @@ SRC_SERVER	+=	server/src/map.c
 SRC_SERVER	+=	server/src/GUI.c
 SRC_SERVER	+=	server/src/params_actions.c
 SRC_SERVER	+=	server/src/workingQueue.c
+SRC_SERVER	+=	server/src/look.c
 
 SRC_AI			+=	ai/src/main.cpp
 SRC_AI			+=	ai/src/Ai.cpp
@@ -59,6 +60,7 @@ SRC_UTILS		+=	server/src/utilities/print.c
 SRC_UTILS		+=	server/src/utilities/memories.c
 SRC_UTILS		+=	server/src/utilities/get_user.c
 SRC_UTILS		+=	server/src/utilities/to_wordtab.c
+SRC_UTILS		+=	server/src/utilities/my_strcat.c
 
 OBJ_SERVER	=		$(SRC_SERVER:.c=.o)
 OBJ_UTILS		=		$(SRC_UTILS:.c=.o)
