@@ -27,7 +27,7 @@ Ai::Ai(int port, char* machine) noexcept
   {6, {{Ai::Properties::NB_PLAYER, 6}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 3}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 1}, {Ai::Properties::THYSTAME, 0}}},
   {7, {{Ai::Properties::NB_PLAYER, 6}, {Ai::Properties::LINEMATE, 2}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 2}, {Ai::Properties::MENDIANE, 2}, {Ai::Properties::PHIRAS, 2}, {Ai::Properties::THYSTAME, 1}}},
   }),
-  _currentItems({ {Ai::Properties::LINEMATE, 0}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0} }),
+  _currentItems({ {Ai::Properties::LINEMATE, 10}, {Ai::Properties::LINEMATE, 0}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0} }),
   _currentLevel(1)
 {}
 
@@ -47,11 +47,22 @@ void      Ai::start(void) noexcept
   }
   catch (const Event::GameOver &event)
   {
-    std::cout << "Team : " << event.getTeamName() << std::endl;
+    std::cout << "Team : " << event.getTeamName() << " won"<< std::endl;
   }
   catch (const Event::Broadcast &event)
   {
-    std::cout << "EVENT " << event.getCase() << std::endl;
+    std::cout << "Broadcast : " << event.getCase() << std::endl;
+    if (event.getCase() == 0)
+    {
+      //TODO start incantation to server
+    }
+    else
+      walkToBroadcaster(event.getCase());
+    primaryState();
+  }
+  catch (const Event::DeadBroadcaster &event)
+  {
+    primaryState();
   }
 }
 
@@ -68,66 +79,73 @@ const std::string &Ai::checkIfEventMessage(std::string &message)
   }
   else if (message.find("message") != std::string::npos)
   {
-    if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)
-      throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")) == _currentLevel);
+    // if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)
+    if (message.find("dead") != std::string::npos)
+      throw Event::DeadBroadcaster();
+    else
+      throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")));
   }
   return (message);
 }
 
-
 void      Ai::primaryState(void) noexcept
 {
-  if (checkIfNeedResources())
+  actualiseInventory();
+  if (_currentItems[Ai::Properties::FOOD] < 5)
   {
     for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
     {
+      actualiseView();
+      if (lookForFood())
+        return (primaryState());
+      //TODO send 90° rotation to server
+    }
+    for (size_t i = 0; i < _currentLevel; ++i)
+      _path.push_back(Ai::Direction::FORWARD);
+    walkToDir();
+    return (primaryState());
+  }
+  else if (checkIfNeedResources())
+  {
+    for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
+    {
+      actualiseView();
       if (lookForResources())
+        return (primaryState());
+      else if (lookForFood())
         return (primaryState());
       //TODO send 90° rotation to server
     }
     //TODO send forward to server
-    primaryState();
+    return (primaryState());
   }
   else
   {
+    actualiseView();
     powerupState();
+    return (primaryState());
   }
-}
-
-void      Ai::powerupStateFirstCheck(void) noexcept
-{
-  if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
-  {
-    //TODO fork player
-    powerupState();
-  }
-  else
-    startIncantation();
 }
 
 void      Ai::powerupState(void) noexcept
 {
-  if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
+  // if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
+  if (countPlayer() == 0)
   {
     //TODO launch broadcast
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     powerupState();
   }
   else
-    startIncantation();
-}
-
-void      Ai::startIncantation(void) noexcept
-{
-
+  {
+    //TODO start incantation to server
+  }
 }
 
 size_t    Ai::countPlayer(void) noexcept
 {
   size_t nb = 0;
-  std::vector<std::vector<Ai::Properties>> view(getLookView());
 
-  for (auto & it : view.at(0))
+  for (auto & it : _view.at(0))
   {
     if (it == Ai::Properties::NB_PLAYER)
       nb++;
@@ -135,6 +153,26 @@ size_t    Ai::countPlayer(void) noexcept
   return (nb);
 }
 
+void      Ai::actualiseInventory(void) noexcept
+{
+  //TODO getinventory from server
+  std::string rawInventory("food 10, linemate 0, sibur 0");
+
+  size_t posCase = 0;
+  std::string item;
+  while ((posCase = rawInventory.find(",")) != std::string::npos)
+  {
+    item = rawInventory.substr(0, posCase);
+    size_t posItem = 0;
+    posItem = item.find(" ");
+    std::string itemName(item.substr(0, posItem));
+    item.erase(0, posItem + 1);
+    std::cout << itemName << std::endl;
+    std::cout << item << std::endl;
+    _currentItems[Utils::stringToEnum(itemName)] = std::stoi(item);
+    rawInventory.erase(0, posCase + 2);
+  }
+}
 
 bool      Ai::checkIfNeedResources(void) noexcept
 {
@@ -150,13 +188,12 @@ bool      Ai::checkIfNeedResources(void) noexcept
   return (true);
 }
 
-const std::vector<std::vector<Ai::Properties>> Ai::getLookView(void) noexcept
+void    Ai::actualiseView(void) noexcept
 {
   //TODO get look result from server
   std::string rawView("player,,,thystame,,food,,,,,,linemate,,,,,");
 
-  std::vector<std::vector<Ai::Properties>>  view;
-
+  _view.clear();
   size_t posCase = 0;
   std::string currentCase;
   while ((posCase = rawView.find(",")) != std::string::npos)
@@ -174,28 +211,62 @@ const std::vector<std::vector<Ai::Properties>> Ai::getLookView(void) noexcept
       }
     }
     caseItems.push_back(Utils::stringToEnum(currentCase));
-    view.push_back(caseItems);
+    _view.push_back(caseItems);
     rawView.erase(0, posCase + 1);
   }
-  return (view);
+}
+
+bool    Ai::lookForFood(void) noexcept
+{
+  int foodCase = findFoodCase();
+  if (foodCase == -1)
+    return (false);
+  else if (foodCase == 0)
+  {
+    //TODO send request to take object to server
+  }
+  else
+  {
+    calculatePath(foodCase);
+    walkToDir();
+    actualiseView();
+    return (lookForFood());
+  }
+  return (true);
+}
+
+int       Ai::findFoodCase(void) noexcept
+{
+  size_t caseNbr = 0;
+  for (const auto & currentCase : _view)
+  {
+    for (const auto & currentItem : currentCase)
+    {
+      if (currentItem == Ai::Properties::FOOD)
+      {
+        _objectToTake = Ai::Properties::FOOD;
+        return (caseNbr);
+      }
+    }
+    caseNbr++;
+  }
+  return (-1);
 }
 
 bool      Ai::lookForResources(void) noexcept
 {
-  std::vector<std::vector<Ai::Properties>>  view(getLookView());
-
   size_t caseNbr(0);
   std::cout << "Look command result: " << std::endl;
-  for (auto & it : view)
+  for (const auto & caseIt : _view)
   {
     std::cout << "[" << caseNbr++ << "]";
-    for (auto & it2 : it)
+    for (const auto & item : caseIt)
     {
-      std::cout << " " << (int) it2 << " ";
+      std::cout << " " << (int) item << " ";
     }
     std::cout << std::endl;
   }
-  int resourceCase = findNeededResourceCase(view);
+  int resourceCase = findNeededResourceCase();
   if (resourceCase == -1)
     return (false);
   else if (resourceCase == 0)
@@ -205,18 +276,19 @@ bool      Ai::lookForResources(void) noexcept
   else
   {
     calculatePath(resourceCase);
-    walkToResource();
+    walkToDir();
+    actualiseView();
     return (lookForResources());
   }
   return (true);
 }
 
-int      Ai::findNeededResourceCase(const std::vector<std::vector<Ai::Properties>>  &view) noexcept
+int      Ai::findNeededResourceCase(void) noexcept
 {
   size_t caseNbr = 0;
-  for (auto & currentCase : view)
+  for (const auto & currentCase : _view)
   {
-    for (auto & currentItem : currentCase)
+    for (const auto & currentItem : currentCase)
     {
       if ((currentItem == Ai::Properties::LINEMATE) &&  _currentItems[Ai::Properties::LINEMATE] < _riseUpConditions[_currentLevel][Ai::Properties::LINEMATE])
       {
@@ -319,11 +391,35 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
 }
 
-void    Ai::walkToResource(void) noexcept
+void    Ai::walkToBroadcaster(int caseId) noexcept
 {
-  for (auto & it : _path)
+  if (caseId == 1 || caseId == 2 || caseId == 8)
+    _path.push_back(Ai::Direction::FORWARD);
+  else if (caseId == 3)
+  {
+    _path.push_back(Ai::Direction::LEFT);
+    _path.push_back(Ai::Direction::FORWARD);
+  }
+  else if (caseId == 7)
+  {
+    _path.push_back(Ai::Direction::RIGHT);
+    _path.push_back(Ai::Direction::FORWARD);
+  }
+  if (caseId == 4 || caseId == 5 || caseId == 6)
+  {
+    _path.push_back(Ai::Direction::RIGHT);
+    _path.push_back(Ai::Direction::RIGHT);
+    _path.push_back(Ai::Direction::FORWARD);
+  }
+  walkToDir();
+}
+
+void    Ai::walkToDir(void) noexcept
+{
+  for (const auto & it : _path)
   {
     //TODO send to server
     (void)it;
   }
+  _path.clear();
 }
