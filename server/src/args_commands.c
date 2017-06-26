@@ -68,9 +68,15 @@ void    clientsNbArg(t_env *env, char **av, int i)
     if (av[i + 1][a] > '9' || av[i + 1][a] < '0')
     {
       printf("ERROR: The number of client per team "
-              "must be a positive number\n");
+              "must be a positive number >= 6\n");
       exit(EXIT_FAILURE);
     }
+  }
+  if (atoi(av[i + 1]) < 6)
+  {
+    printf("ERROR: The number of client per team "
+            "must be a positive number >= 6\n");
+    exit(EXIT_FAILURE);
   }
   env->clientsNb = atoi(av[i + 1]);
 }

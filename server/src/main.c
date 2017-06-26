@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Sat Jun 24 15:15:15 2017 Leo Hubert Froideval
+** Last update Mon Jun 26 14:31:04 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -25,7 +25,10 @@ void		serverInit(t_env *env)
 
   i = -1;
   while (++i != MAX_FD)
+  {
     env->users[i].socket = -1;
+    env->users[i].teamName = NULL;
+  }
   memset(env->fd_type, FD_FREE, MAX_FD);
   createMap(env);
   createServer(env);
