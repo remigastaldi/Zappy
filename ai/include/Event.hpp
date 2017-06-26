@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 11:48:19 2017 gastal_r
-// Last update Sun Jun 25 15:27:34 2017 gastal_r
+// Last update Mon Jun 26 12:10:25 2017 gastal_r
 //
 
 #ifndef     _EVENT_HPP_
@@ -49,12 +49,19 @@ public:
   class Broadcast
   {
   public:
-    explicit Broadcast(int caseNb) : _caseNb(caseNb) {;}
+    explicit Broadcast(int caseNb) : _caseNb(caseNb) {};
     virtual ~Broadcast() throw() {};
     virtual int getCase(void) const { return (_caseNb); }
 
   private:
     int   _caseNb;
+  };
+
+  class DeadBroadcaster
+  {
+  public:
+    explicit DeadBroadcaster() {};
+    virtual ~DeadBroadcaster() throw() {};
   };
 };
 

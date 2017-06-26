@@ -60,6 +60,10 @@ void      Ai::start(void) noexcept
       walkToBroadcaster(event.getCase());
     primaryState();
   }
+  catch (const Event::DeadBroadcaster &event)
+  {
+    primaryState();
+  }
 }
 
 const std::string &Ai::checkIfEventMessage(std::string &message)
@@ -76,7 +80,10 @@ const std::string &Ai::checkIfEventMessage(std::string &message)
   else if (message.find("message") != std::string::npos)
   {
     // if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)
-    throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")));
+    if (message.find("dead") != std::string::npos)
+      throw Event::DeadBroadcaster();
+    else
+      throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")));
   }
   return (message);
 }
