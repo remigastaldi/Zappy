@@ -1,67 +1,60 @@
+//
+// Communication.cpp for Zappy in /home/gastal_r/rendu/Zappy/ai/src/
+//
+// Made by gastal_r
+// Login   <remi.gastaldi@epitech.eu>
+//
+// Started on  Sun Jun 25 11:49:42 2017 gastal_r
+// Last update Sun Jun 25 11:50:16 2017 gastal_r
+//
 
 #include "Communication.hpp"
 
 Communication::Communication() noexcept
 {}
 
-Communication::Communication(int port, char *machine, char *team)
+Communication::Communication(int port, const std::string &machine)
 {
-    std::string s(team);
-    this->port = port;
-    this->machine = machine;
-    pe = getprotobyname("TCP");
-    fd = socket(AF_INET, SOCK_STREAM, pe->p_proto);
-    s_in.sin_family = AF_INET;
-    s_in.sin_port = htons(this->port);
-    s_in.sin_addr.s_addr = inet_addr(this->machine.c_str());
-    teamName = s;
-    connect(fd, (struct sockaddr *)&s_in, sizeof(s_in));
-    // buf = get_next_line(fd);
-    read(fd, buf, 10000);
-    printf("Server said: %s", buf);
-    dprintf(fd, "%s", teamName.c_str());
-    // buf = get_next_line(fd);
-    read(fd, buf, 10000);
-    printf("Server said: %s", buf);
-    // buf = get_next_line(fd);
-    read(fd, buf, 10000);
-    printf("Server said: %s", buf);
+    _port = port;
+    _machine = machine;
+    _pe = getprotobyname("TCP");
+    _fd = socket(AF_INET, SOCK_STREAM, _pe->p_proto);
+    _s_in.sin_family = AF_INET;
+    _s_in.sin_port = htons(_port);
+    _s_in.sin_addr.s_addr = inet_addr(_machine.c_str());
+    connect(_fd, (struct sockaddr *)&_s_in, sizeof(_s_in));
 }
 
 void            Communication::setPort(int pt) noexcept
 {
-    this->port = pt;
+    _port = pt;
 }
 
 int             Communication::getPort() noexcept
 {
-    return (port);
+    return (_port);
 }
 
 void            Communication::setMachine(const std::string& machine) noexcept
 {
-    this->machine = machine;
+    _machine = machine;
 }
 
 void            Communication::receiveCmd(const std::string& commande) noexcept
 {
-    cmd = commande;
+    _cmd = commande;
     sendCmd();
 }
 
-
 void            Communication::sendCmd() noexcept
 {
-    dprintf(fd, "%s", cmd.c_str());
-    waitCmd();
+    dprintf(_fd, "%s", _cmd.c_str());
 }
 
 const std::string&     Communication::waitCmd()
 {
-    char    buf[10000];
+
     // if (answer == "ko")
     // if (answer == "dead")
-    read(fd, buf, 10000);
-    printf("%s\n", buf);
-    return (answer);
+    return (_answer);
 }
