@@ -34,12 +34,6 @@ public:
     THYSTAME
   };
 
-  enum class State
-  {
-    WAITING
-
-  };
-
   enum class Direction
   {
     FORWARD,
@@ -51,22 +45,14 @@ public:
 public:
   Ai(int port, char* machine) noexcept;
 
-  ~Ai() = default;
-  Ai(const Ai& other) = default;
-  Ai(Ai&& other) = default;
-  Ai& operator=(const Ai& other) = default;
-  Ai& operator=(Ai&& other) = default;
-
   void  start(void) noexcept;
 
 protected:
   const std::string &checkIfEventMessage(std::string &message);
   void    primaryState(void) noexcept;
   bool    checkCriticalFood(void) noexcept;
-  void    powerupStateFirstCheck(void) noexcept;
   void    powerupState(void) noexcept;
   size_t  countPlayer(void) noexcept;
-  void    startIncantation(void) noexcept;
   void    actualiseInventory(void) noexcept;
   bool    checkIfNeedResources(void) noexcept;
   void    actualiseView(void) noexcept;
@@ -76,6 +62,7 @@ protected:
   int     findNeededResourceCase(void) noexcept;
   void    calculatePath(int resourceCase) noexcept;
   int     calculateDirection(int destination, int a, int b, int c) noexcept;
+  void    walkToBroadcaster(int caseId) noexcept;
   void    walkToDir(void) noexcept;
 
 private:

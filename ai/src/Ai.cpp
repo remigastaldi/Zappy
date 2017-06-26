@@ -47,11 +47,18 @@ void      Ai::start(void) noexcept
   }
   catch (const Event::GameOver &event)
   {
-    std::cout << "Team : " << event.getTeamName() << std::endl;
+    std::cout << "Team : " << event.getTeamName() << " won"<< std::endl;
   }
   catch (const Event::Broadcast &event)
   {
-    std::cout << "EVENT " << event.getCase() << std::endl;
+    std::cout << "Broadcast : " << event.getCase() << std::endl;
+    if (event.getCase() == 0)
+    {
+      //TODO start incantation to server
+    }
+    else
+      walkToBroadcaster(event.getCase());
+    primaryState();
   }
 }
 
@@ -68,8 +75,8 @@ const std::string &Ai::checkIfEventMessage(std::string &message)
   }
   else if (message.find("message") != std::string::npos)
   {
-    if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)
-      throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")) == _currentLevel);
+    // if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)
+    throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")));
   }
   return (message);
 }
@@ -107,44 +114,29 @@ void      Ai::primaryState(void) noexcept
   }
   else
   {
-    return (powerupState());
-  }
-}
-
-void      Ai::powerupStateFirstCheck(void) noexcept
-{
-  if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
-  {
-    //TODO check free place
-    //if free place
-      //TODO fork player
+    actualiseView();
     powerupState();
+    return (primaryState());
   }
-  else
-    startIncantation();
 }
 
 void      Ai::powerupState(void) noexcept
 {
-  if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
+  // if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
+  if (countPlayer() == 0)
   {
     //TODO launch broadcast
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     powerupState();
   }
   else
-    startIncantation();
-}
-
-void      Ai::startIncantation(void) noexcept
-{
-
+  {
+    //TODO start incantation to server
+  }
 }
 
 size_t    Ai::countPlayer(void) noexcept
 {
   size_t nb = 0;
-  actualiseView();
 
   for (auto & it : _view.at(0))
   {
@@ -392,6 +384,29 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
 }
 
+void    Ai::walkToBroadcaster(int caseId) noexcept
+{
+  if (caseId == 1 || caseId == 2 || caseId == 8)
+    _path.push_back(Ai::Direction::FORWARD);
+  else if (caseId == 3)
+  {
+    _path.push_back(Ai::Direction::LEFT);
+    _path.push_back(Ai::Direction::FORWARD);
+  }
+  else if (caseId == 7)
+  {
+    _path.push_back(Ai::Direction::RIGHT);
+    _path.push_back(Ai::Direction::FORWARD);
+  }
+  if (caseId == 4 || caseId == 5 || caseId == 6)
+  {
+    _path.push_back(Ai::Direction::RIGHT);
+    _path.push_back(Ai::Direction::RIGHT);
+    _path.push_back(Ai::Direction::FORWARD);
+  }
+  walkToDir();
+}
+
 void    Ai::walkToDir(void) noexcept
 {
   for (const auto & it : _path)
@@ -399,4 +414,5 @@ void    Ai::walkToDir(void) noexcept
     //TODO send to server
     (void)it;
   }
+  _path.clear();
 }
