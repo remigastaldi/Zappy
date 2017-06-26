@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Sun Jun 25 11:50:16 2017 gastal_r
+// Last update Mon Jun 26 22:27:51 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -14,9 +14,9 @@ Communication::Communication() noexcept
 {}
 
 Communication::Communication(int port, const std::string &machine)
+  : _port(port),
+  _machine(machine)
 {
-    _port = port;
-    _machine = machine;
     _pe = getprotobyname("TCP");
     _fd = socket(AF_INET, SOCK_STREAM, _pe->p_proto);
     _s_in.sin_family = AF_INET;

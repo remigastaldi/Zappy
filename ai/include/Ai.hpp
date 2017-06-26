@@ -43,7 +43,7 @@ public:
   };
 
 public:
-  Ai(int port, char* machine) noexcept;
+  Ai(int port, const std::string &machine) noexcept;
 
   void  start(void) noexcept;
 
