@@ -14,6 +14,7 @@ t_params g_params [NBR_PARAMS] = {
   {"Forward", &forwardParam},
   {"Right", &rightParam},
   {"Left", &leftParam},
+  {"ko", &koParam},
 };
 
 void  checkParams(t_env *env, char *msg, int fd)
@@ -21,8 +22,10 @@ void  checkParams(t_env *env, char *msg, int fd)
   char    **tab;
   int     i;
   t_users *user;
+  int     check;
 
   i = -1;
+  check = 0;
   msg = epurStr(msg);
   tab = toWordtab(msg, ' ');
   user = get_user(env, fd);
@@ -31,9 +34,12 @@ void  checkParams(t_env *env, char *msg, int fd)
     if (strncmp(tab[0], g_params[i].params, strlen(tab[0])) == 0)
     {
       g_params[i].p(env, tab, user);
+      check = 1;
       break;
     }
   }
+  if (check != 1)
+    g_params[NBR_PARAMS - 1].p(env, tab, user);
 }
 
 int     checkNames(t_env *env, char *buff)
@@ -42,11 +48,8 @@ int     checkNames(t_env *env, char *buff)
 
   i = -1;
   while (env->names[++i])
-  {
-    printf("%s - %s\n", buff, env->names[i]);
     if (strcmp(env->names[i], epurStr(buff)) == 0)
       return (0);
-  }
   return (-1);
 }
 
