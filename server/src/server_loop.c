@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:18:43 2017 Matthias Prost
-** Last update	Wed Jun 21 16:27:22 2017 Full Name
+** Last update Mon Jun 26 17:27:15 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -46,19 +46,39 @@ void		serverLoop(t_env *env)
   int		fd_max;
   fd_set	fd_read;
   int		i;
+  struct timeval old;
+  long old_t;
+  struct timeval current;
+  long current_t;
 
   struct timeval timeout;
 
-  timeout.tv_sec = 1;
+  gettimeofday(&old, NULL);
+  gettimeofday(&current, NULL);
+
+  old_t = ((unsigned long long)old.tv_sec * 1000000) + old.tv_usec;
+
+  timeout.tv_sec = 0;
   timeout.tv_usec = 0;
   if ((GUI = malloc(sizeof(t_gui))) == NULL)
     return;
   initGUI(GUI);
   while (sfRenderWindow_isOpen(GUI->_win))
     {
+      gettimeofday(&current, NULL);
+      current_t = ((unsigned long long)current.tv_sec * 1000000) + current.tv_usec;
+
+      if (current_t > (old_t + 1000000) / 2) // (old_t + 1000000) = 1 seconde
+      {
+        gettimeofday(&old, NULL);
+        old_t = ((unsigned long long)old.tv_sec * 1000000) + old.tv_usec;
+        //Check workingQueue
+      }
+
+
       if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
 	sfRenderWindow_close(GUI->_win);
-      
+
       sfRenderWindow_clear(GUI->_win, sfBlack);
       sfRenderWindow_drawSprite(GUI->_win, GUI->_pannelSprite, NULL);
       sfRenderWindow_drawSprite(GUI->_win, GUI->_playerInfoSprite, NULL);

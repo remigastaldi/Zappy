@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Sat Jun 24 15:11:29 2017 Leo Hubert Froideval
+** Last update Mon Jun 26 16:51:37 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -23,6 +23,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <sys/time.h>
 #include <sys/select.h>
 
 #define READ_SIZE		14
@@ -86,7 +87,6 @@ typedef struct		s_env
 typedef struct      s_action
 {
     int             time;
-    int             id;
     enum Action     action;
     t_users         *user;
     struct s_action *next;
@@ -109,7 +109,7 @@ t_users             *get_user(t_env *env, int fd);
 void                print_map(t_env *env);
 void                *xmalloc(size_t);
 void                print_tab(char **tab);
-char            		**toWordtab(char *str, char c);
+char            	**toWordtab(char *str, char c);
 char                *my_strcat(char *dest, char *src);
 
 #endif /* !_UTILS_H_ */

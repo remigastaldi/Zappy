@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Sat Jun 24 15:01:04 2017 Leo Hubert Froideval
+** Last update Mon Jun 26 16:31:13 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -31,7 +31,6 @@ void        newAction(t_queue *queue, t_users *user, enum Action action, int tim
   newAction->user = user;
   newAction->next = NULL;
   newAction->prev = NULL;
-  newAction->id = (queue->actions - time) + rand();
   queue->actions++;
   if (queue->head == NULL)
     queue->head = newAction;
@@ -43,7 +42,7 @@ void        newAction(t_queue *queue, t_users *user, enum Action action, int tim
   queue->end = newAction;
 }
 
-int         deleteAction(t_queue *queue, int id)
+int         deleteAction(t_queue *queue, t_action *action)
 {
   t_action  *ptr;
 
@@ -52,7 +51,7 @@ int         deleteAction(t_queue *queue, int id)
   ptr = queue->head;
   while (ptr != NULL)
   {
-    if (ptr->id == id)
+    if (ptr == action)
     {
       if (ptr->prev != NULL)
         ptr->prev->next = ptr->next;
@@ -79,7 +78,7 @@ void      printWorkingQueue(t_queue *queue)
   printf("Total actions in queue: %d\n", queue->actions);
   while (ptr != NULL)
   {
-    printf("Time: %d; Action: %d; ID: %d\n", ptr->time, ptr->action, ptr->id);
+    printf("Time: %d; Action: %d\n", ptr->time, ptr->action);
     ptr = ptr->next;
   }
 }
