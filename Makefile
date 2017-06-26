@@ -37,7 +37,6 @@ CFLAGS			+=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
 CXXFLAGS		+=	-O3 -Wextra -Wall -Werror -W -g -g3
 CXXFLAGS		+=  -I./ai/include/
-CXXFLAGS		+=  -I./server/include/
 
 SRC_SERVER	+=	server/src/main.c
 SRC_SERVER	+=	server/src/server_loop.c
@@ -72,8 +71,8 @@ OBJ_AI			=		$(SRC_AI:.cpp=.o)
 $(NAME_SERVER)	:		$(OBJ_SERVER) $(OBJ_UTILS)
 										@$(CC) $(CFLAGS) $(OBJ_SERVER) $(OBJ_UTILS) -o $(NAME_SERVER)
 
-$(NAME_AI)      :		$(OBJ_AI)	$(OBJ_UTILS)
-										@$(CXX) $(CXXFLAGS) $(SRC_AI:.cpp=.o) $(OBJ_UTILS) -o $(NAME_AI)
+$(NAME_AI)      :		$(OBJ_AI)
+										@$(CXX) $(CXXFLAGS) $(SRC_AI:.cpp=.o) -o $(NAME_AI)
 
 all							:		$(NAME_AI) $(NAME_SERVER)
 

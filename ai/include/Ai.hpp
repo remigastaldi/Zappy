@@ -43,12 +43,8 @@ public:
   };
 
 public:
-  Ai(int port, char* machine, char* team) noexcept;
-  ~Ai() = default;
-  Ai(const Ai& other) = default;
-  Ai(Ai&& other) = default;
-  Ai& operator=(const Ai& other) = default;
-  Ai& operator=(Ai&& other) = default;
+  Ai(int port, char* machine) noexcept;
+
   void  start(void) noexcept;
 
 protected:

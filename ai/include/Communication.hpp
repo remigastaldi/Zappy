@@ -19,25 +19,24 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
-#include <unistd.h>
-#include "utilities.h"
 
 class   Communication
 {
 private:
-  std::string         cmd;
-  std::string         answer;
-  std::string         teamName;
-  int                 port;
-  std::string         machine;
-  char                buf[10000];
-  struct protoent     *pe;
-  int                 fd;
-  struct sockaddr_in  s_in;
+  std::string         _cmd;
+  int                 _port;
+  struct protoent     *_pe;
+  int                 _fd;
+  struct sockaddr_in  _s_in;
+
+protected:
+  std::string         _machine;
+  std::string         _answer;
+
 public:
   Communication() noexcept;
   ~Communication() = default;
-  Communication(int, char*, char*);
+  Communication(int port, const std::string &machine);
   Communication(const Communication& other) = default;
   Communication(Communication&& other) = default;
   Communication& operator=(const Communication& other) = default;
