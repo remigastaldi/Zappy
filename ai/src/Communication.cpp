@@ -16,8 +16,8 @@ Communication::Communication(int port, char *machine, char *team)
     s_in.sin_addr.s_addr = inet_addr(this->machine.c_str());
     teamName = s;
     connect(fd, (struct sockaddr *)&s_in, sizeof(s_in));
-    read(fd, buf, 10000);
     // buf = get_next_line(fd);
+    read(fd, buf, 10000);
     printf("Server said: %s", buf);
     dprintf(fd, "%s", teamName.c_str());
     // buf = get_next_line(fd);

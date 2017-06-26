@@ -20,7 +20,7 @@ int           main(int ac, char *av[])
     std::cout << "\tport is the port number" << std::endl;
     return (0);
   }
-  Ai   ai(atoi(av[2]), av[6]);
+  Ai   ai(atoi(av[2]), av[6], av[4]);
   // Ai ai;
   // ai.start();
   // communication.setPort(atoi(av[2]));

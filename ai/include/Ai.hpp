@@ -43,7 +43,7 @@ public:
   };
 
 public:
-  Ai(int port, char* machine) noexcept;
+  Ai(int port, char* machine, char* team) noexcept;
 
   void  start(void) noexcept;
 
