@@ -8,7 +8,7 @@
 ** Last update Sat Jun 24 14:45:04 2017 Matthias Prost
 */
 
-#include "utils.h"
+#include "utilities.h"
 
 void 		freeTab(char **tab)
 {
