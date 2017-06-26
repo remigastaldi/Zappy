@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Sat Jun 24 15:50:07 2017 Matthias Prost
+** Last update Mon Jun 26 15:44:37 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -19,7 +19,7 @@
 #define FD_SERVER	2
 
 #define NBR_ARGS    6
-#define NBR_PARAMS  3
+#define NBR_PARAMS  4
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -61,6 +61,7 @@ void                addClient(t_env *env, int s);
 void                forwardParam(t_env *env, char **msg, t_users *user);
 void                rightParam(t_env *env, char **msg, t_users *user);
 void                leftParam(t_env *env, char **msg, t_users *user);
+void                koParam(t_env *env, char **msg, t_users *user);
 
 t_queue             *initWorkingQueue();
 void                newAction(t_queue *, t_users *, enum Action, int);
@@ -69,6 +70,9 @@ void                freeWorkingQueue(t_queue *);
 int                 deleteAction(t_queue *, int);
 
 int                 cmd_look(t_env *env);
+
+void		            addUserTab(t_env *env, int socket);
+void	             	removeUserTab(t_env *env, int socket);
 
 extern t_commands g_commands[NBR_ARGS];
 

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 23 15:43:06 2017 Matthias Prost
-** Last update Sat Jun 24 17:04:06 2017 Matthias Prost
+** Last update Mon Jun 26 15:44:28 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -82,4 +82,12 @@ void  leftParam(t_env *env, char **msg, t_users *user)
   printf("User with socket %d turn 90 deg left\n", user->socket);
   dprintf(user->socket, "ok\n");
   printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+}
+
+void  koParam(t_env *env, char **msg, t_users *user)
+{
+  (void)env;
+  (void)msg;
+  dprintf(user->socket, "ko\n");
+  printf("--> Sent: \"ko\" to socket %d\n", user->socket);
 }

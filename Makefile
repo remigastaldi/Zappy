@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Sun Jun 25 22:36:12 2017 Cyril Puccio
+## Last update Mon Jun 26 15:27:51 2017 Matthias Prost
 ##
 
 .DEFAULT_GOAL := all
@@ -47,6 +47,7 @@ SRC_SERVER	+=	server/src/map.c
 SRC_SERVER	+=	server/src/GUI.c
 SRC_SERVER	+=	server/src/params_actions.c
 SRC_SERVER	+=	server/src/workingQueue.c
+SRC_SERVER	+=	server/src/client_management.c
 SRC_SERVER	+=	server/src/look.c
 
 SRC_AI			+=	ai/src/main.cpp

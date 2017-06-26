@@ -14,6 +14,7 @@ t_params g_params [NBR_PARAMS] = {
   {"Forward", &forwardParam},
   {"Right", &rightParam},
   {"Left", &leftParam},
+  {"ko", &koParam},
 };
 
 void  checkParams(t_env *env, char *msg, int fd)
@@ -21,8 +22,10 @@ void  checkParams(t_env *env, char *msg, int fd)
   char    **tab;
   int     i;
   t_users *user;
+  int     check;
 
   i = -1;
+  check = 0;
   msg = epurStr(msg);
   tab = toWordtab(msg, ' ');
   user = get_user(env, fd);
@@ -31,26 +34,55 @@ void  checkParams(t_env *env, char *msg, int fd)
     if (strncmp(tab[0], g_params[i].params, strlen(tab[0])) == 0)
     {
       g_params[i].p(env, tab, user);
+      check = 1;
       break;
     }
   }
+  if (check != 1)
+    g_params[NBR_PARAMS - 1].p(env, tab, user);
 }
 
-void		removeUserTab(t_env *env, int socket)
+int     checkNames(t_env *env, char *buff)
 {
-  int		i;
+  int   i;
 
   i = -1;
-  while (++i != MAX_FD)
-    if (env->users[i].socket == socket)
-      {
-      	env->users[i].socket = -1;
-        env->users[i].lvl = 0;
-        env->users[i].posX = 0;
-        env->users[i].posY = 0;
-        env->users[i].teamName = NULL;
-      	break;
-      }
+  while (env->names[++i])
+    if (strcmp(env->names[i], epurStr(buff)) == 0)
+      return (0);
+  return (-1);
+}
+
+void    joinTeam(t_env *env, char *buff, int fd)
+{
+  t_users   *user;
+  int       i;
+  int       counter;
+
+  i = -1;
+  counter = 0;
+  user = get_user(env, fd);
+  if (checkNames(env, buff) == 0)
+  {
+    while (++i != MAX_FD)
+    {
+      if (env->users[i].teamName != NULL &&
+          strcmp(env->users[i].teamName, buff) == 0)
+        counter++;
+    }
+    counter = env->clientsNb - counter;
+    dprintf(fd, "%d\n", counter);
+    dprintf(fd, "%d %d\n", env->width, env->height);
+    printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
+    printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
+    if (counter >= 1)
+      user->teamName = buff;
+  }
+  else
+  {
+    dprintf(fd, "ko\n");
+    printf("--> Sent: \"ko\" to socket %d\n", fd);
+  }
 }
 
 void		clientRead(t_env *env, int fd)
@@ -64,8 +96,10 @@ void		clientRead(t_env *env, int fd)
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
-    if (user->teamName == NULL)
+    if (user->teamName != NULL)
       checkParams(env, buff, fd);
+    else
+      joinTeam(env, buff, fd);
     free(buff);
   }
   else
@@ -76,27 +110,6 @@ void		clientRead(t_env *env, int fd)
     close(fd);
     env->fd_type[fd] = FD_FREE;
   }
-}
-
-void		addUserTab(t_env *env, int socket)
-{
-  int		i;
-
-  i = -1;
-  while (++i != MAX_FD)
-    if (env->users[i].socket == -1)
-      {
-      	env->users[i].socket = socket;
-        env->users[i].lvl = 1;
-        env->users[i].posX = rand() % env->width;
-        env->users[i].posY = rand() % env->height;
-        env->users[i].direction = rand() % 4;
-        env->users[i].teamName = NULL;
-        printf("Socket: %d\tlvl: %d\t\tposY: %d\t\tposX: %d\t\tdirection: %d\n",
-          env->users[i].socket, env->users[i].lvl, env->users[i].posY,
-          env->users[i].posX, env->users[i].direction);
-      	break;
-      }
 }
 
 void		addClient(t_env *env, int s)
