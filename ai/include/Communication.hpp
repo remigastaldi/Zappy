@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Tue Jun 27 11:02:54 2017 gastal_r
+// Last update Tue Jun 27 12:28:51 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -29,28 +29,17 @@ private:
   int                 _fd;
   struct sockaddr_in  _s_in;
 
+  std::unique_ptr<std::istream> _inStream;
+  std::unique_ptr<std::ostream> _outStream;
+
 protected:
   std::string         _machine;
   std::string         _answer;
 
 public:
-  Communication() noexcept;
-  ~Communication() = default;
-  Communication(int port, const std::string &machine);
-  Communication(const Communication& other) = default;
-  Communication(Communication&& other) = default;
-  Communication& operator=(const Communication& other) = default;
-  Communication& operator=(Communication&& other) = default;
-
-  void                  setPort(int port) noexcept;
-  int                   getPort() noexcept;
-  void                  setMachine(const std::string& machine) noexcept;
-  const std::string&    getMachine() noexcept;
-  void                  receiveCmd(const std::string&) noexcept;
-  const std::string&    waitCmd();
-  void                  sendCommand(const std::string &command) noexcept;
-  void                  getConnected() noexcept;
-  void                  waitResponseFromServer(void) noexcept;
+  Communication(int port, const std::string &machine, const std::string &teamName);
+  void                checkIfEventMessage();
+  void                sendCommand(const std::string &command) noexcept;
 };
 
 #endif //COMMUNICATION_HPP

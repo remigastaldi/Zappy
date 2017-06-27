@@ -43,12 +43,11 @@ public:
   };
 
 public:
-  Ai(int port, const std::string &machine) noexcept;
+  Ai(int port, const std::string &teamName, const std::string &machine) noexcept;
 
   void  start(void) noexcept;
 
 protected:
-  const std::string &checkIfEventMessage(std::string &message);
   void    primaryState(void) noexcept;
   bool    checkCriticalFood(void) noexcept;
   void    powerupState(void) noexcept;

@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Wed Jun 21 16:14:06 2017 gastal_r
-// Last update Tue Jun 27 11:14:19 2017 gastal_r
+// Last update Tue Jun 27 12:21:52 2017 gastal_r
 //
 
 #include      "Ai.hpp"
@@ -20,7 +20,7 @@ int           main(int ac, char *av[])
     std::cout << "\tport is the port number" << std::endl;
     return (0);
   }
-  Ai   ai(atoi(av[2]), av[6]);
+  Ai   ai(atoi(av[2]), av[4], av[6]);
   ai.start();
   return (0);
 }

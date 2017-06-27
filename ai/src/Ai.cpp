@@ -16,8 +16,8 @@
 #include      "Ai.hpp"
 #include      "Utils.hpp"
 
-Ai::Ai(int port, const std::string &machine) noexcept
-  : Communication(port, machine),
+Ai::Ai(int port, const std::string &machine, const std::string &teamName) noexcept
+  : Communication(port, teamName, machine),
   _riseUpConditions({
   {1, {{Ai::Properties::NB_PLAYER, 1}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
   {2, {{Ai::Properties::NB_PLAYER, 2}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 1}, {Ai::Properties::SIBUR, 1}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
@@ -44,6 +44,7 @@ void      Ai::start(void) noexcept
   catch (const Event::Ko &event)
   {
     std::cout << "Server return KO " << std::endl;
+    primaryState();
   }
   catch (const Event::GameOver &event)
   {
@@ -64,28 +65,6 @@ void      Ai::start(void) noexcept
   {
     primaryState();
   }
-}
-
-const std::string &Ai::checkIfEventMessage(std::string &message)
-{
-  if (message.find("dead") != std::string::npos)
-    throw Event::Dead();
-  else if (message.find("ko") != std::string::npos)
-    throw Event::Ko();
-  else if (message.find("game over") != std::string::npos)
-  {
-    message.erase(0, message.find("game over") + 9);
-    throw Event::GameOver(message);
-  }
-  else if (message.find("message") != std::string::npos)
-  {
-    // if ((size_t)message.at(message.find_first_of("12345678")) == _currentLevel)
-    if (message.find("dead") != std::string::npos)
-      throw Event::DeadBroadcaster();
-    else
-      throw Event::Broadcast((size_t)message.at(message.find_last_of("12345678")));
-  }
-  return (message);
 }
 
 void      Ai::primaryState(void) noexcept
@@ -416,7 +395,7 @@ void    Ai::walkToDir(void) noexcept
 {
   for (const auto & it : _path)
   {
-    sendCommand("Take " + Utils::enumToString(it));
+    sendCommand(Utils::enumToString(it));
   }
   _path.clear();
 }
