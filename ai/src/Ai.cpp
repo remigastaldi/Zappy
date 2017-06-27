@@ -54,7 +54,7 @@ void      Ai::start(void) noexcept
     std::cout << "Broadcast : " << event.getCase() << std::endl;
     if (event.getCase() == 0)
     {
-      //TODO start incantation to server
+      sendCommand("Incantation");
     }
     else
       walkToBroadcaster(event.getCase());
@@ -98,7 +98,7 @@ void      Ai::primaryState(void) noexcept
       actualiseView();
       if (lookForFood())
         return (primaryState());
-      //TODO send 90° rotation to server
+      sendCommand("Right");
     }
     for (size_t i = 0; i < _currentLevel; ++i)
       _path.push_back(Ai::Direction::FORWARD);
@@ -114,9 +114,9 @@ void      Ai::primaryState(void) noexcept
         return (primaryState());
       else if (lookForFood())
         return (primaryState());
-      //TODO send 90° rotation to server
+      sendCommand("Right");
     }
-    //TODO send forward to server
+    sendCommand("Forward");
     return (primaryState());
   }
   else
@@ -132,16 +132,16 @@ void      Ai::powerupState(void) noexcept
   // if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
   if (countPlayer() == 0)
   {
-    //TODO launch broadcast
+    sendCommand("Broadcast");
     powerupState();
   }
   else
   {
-    //TODO start incantation to server
+    sendCommand("Incantation");
   }
 }
 
-size_t    Ai::countPlayer(void) noexcept
+size_t    Ai::countPlayer(void) const noexcept
 {
   size_t nb = 0;
 
@@ -155,14 +155,13 @@ size_t    Ai::countPlayer(void) noexcept
 
 void      Ai::actualiseInventory(void) noexcept
 {
-  //TODO getinventory from server
-  std::string rawInventory("food 10, linemate 0, sibur 0");
+  sendCommand("Inventory");
 
   size_t posCase = 0;
   std::string item;
-  while ((posCase = rawInventory.find(",")) != std::string::npos)
+  while ((posCase = _answer.find(",")) != std::string::npos)
   {
-    item = rawInventory.substr(0, posCase);
+    item = _answer.substr(0, posCase);
     size_t posItem = 0;
     posItem = item.find(" ");
     std::string itemName(item.substr(0, posItem));
@@ -170,7 +169,7 @@ void      Ai::actualiseInventory(void) noexcept
     std::cout << itemName << std::endl;
     std::cout << item << std::endl;
     _currentItems[Utils::stringToEnum(itemName)] = std::stoi(item);
-    rawInventory.erase(0, posCase + 2);
+    _answer.erase(0, posCase + 2);
   }
 }
 
@@ -190,15 +189,15 @@ bool      Ai::checkIfNeedResources(void) noexcept
 
 void    Ai::actualiseView(void) noexcept
 {
-  //TODO get look result from server
-  std::string rawView("player,,,thystame,,food,,,,,,linemate,,,,,");
+  sendCommand("Look");
+  _answer = "player,,,thystame,,food,,,,,,linemate,,,,,";
 
   _view.clear();
   size_t posCase = 0;
   std::string currentCase;
-  while ((posCase = rawView.find(",")) != std::string::npos)
+  while ((posCase = _answer.find(",")) != std::string::npos)
   {
-    currentCase = rawView.substr(0, posCase);
+    currentCase = _answer.substr(0, posCase);
     size_t posItem = 0;
     std::vector<Ai::Properties> caseItems;
     if ((posItem = currentCase.find(" ")) != std::string::npos)
@@ -212,7 +211,7 @@ void    Ai::actualiseView(void) noexcept
     }
     caseItems.push_back(Utils::stringToEnum(currentCase));
     _view.push_back(caseItems);
-    rawView.erase(0, posCase + 1);
+    _answer.erase(0, posCase + 1);
   }
 }
 
@@ -223,7 +222,7 @@ bool    Ai::lookForFood(void) noexcept
     return (false);
   else if (foodCase == 0)
   {
-    //TODO send request to take object to server
+    sendCommand("Take " + Utils::enumToString(_objectToTake));
   }
   else
   {
@@ -271,7 +270,7 @@ bool      Ai::lookForResources(void) noexcept
     return (false);
   else if (resourceCase == 0)
   {
-    //TODO send request to take object to server
+    sendCommand("Take " + Utils::enumToString(_objectToTake));
   }
   else
   {
@@ -337,7 +336,6 @@ void      Ai::calculatePath(int resourceCase) noexcept
   Ai::Direction curDirection = Ai::Direction::FORWARD;
 
   std::cout << "ressourceCase => " << resourceCase << std::endl << std::endl;
-  _path.clear();
   while (currentCase != resourceCase)
   {
     curMinOffsetX = offsetY * offsetY;
@@ -418,8 +416,7 @@ void    Ai::walkToDir(void) noexcept
 {
   for (const auto & it : _path)
   {
-    //TODO send to server
-    (void)it;
+    sendCommand("Take " + Utils::enumToString(it));
   }
   _path.clear();
 }

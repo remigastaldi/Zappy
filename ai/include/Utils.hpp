@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 17:50:43 2017 gastal_r
-// Last update Sun Jun 25 16:59:47 2017 gastal_r
+// Last update Tue Jun 27 11:10:00 2017 gastal_r
 //
 
 #ifndef       _UTILS_HPP_
@@ -39,23 +39,44 @@ public:
 
   static inline const std::string enumToString(Ai::Properties value) noexcept
   {
-    if (value == Ai::Properties::NB_PLAYER)
+    switch (value)
+    {
+    case Ai::Properties::NB_PLAYER:
       return ("player");
-    if (value == Ai::Properties::FOOD)
+    case Ai::Properties::FOOD:
       return ("food");
-    else if (value == Ai::Properties::LINEMATE)
+    case Ai::Properties::LINEMATE:
       return ("linemate");
-    else if (value == Ai::Properties::DERAUMERE)
+    case Ai::Properties::DERAUMERE:
       return ("deraumer");
-    else if (value == Ai::Properties::SIBUR)
+    case Ai::Properties::SIBUR:
       return ("sibur");
-    else if (value == Ai::Properties::MENDIANE)
+    case Ai::Properties::MENDIANE:
       return ("mendiane");
-    else if (value == Ai::Properties::PHIRAS)
+    case Ai::Properties::PHIRAS:
       return ("phiras");
-    else if (value == Ai::Properties::THYSTAME)
+    case Ai::Properties::THYSTAME:
       return ("thystame");
-    return ("nothing");
+    case Ai::Properties::NOTHING:
+      return ("nothing");
+    }
+  return ("unknow");
+  }
+
+  static inline const std::string enumToString(Ai::Direction value) noexcept
+  {
+    switch (value)
+    {
+    case Ai::Direction::FORWARD:
+      return ("Forward");
+    case Ai::Direction::RIGHT:
+      return ("Right");
+    case Ai::Direction::LEFT:
+      return ("Left");
+    case Ai::Direction::UP:
+      return ("Up");
+    }
+    return ("unknow");
   }
 };
 

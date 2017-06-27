@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Sun Jun 25 15:08:54 2017 gastal_r
+// Last update Tue Jun 27 11:02:54 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -48,8 +48,9 @@ public:
   const std::string&    getMachine() noexcept;
   void                  receiveCmd(const std::string&) noexcept;
   const std::string&    waitCmd();
-  void                  sendCmd() noexcept;
+  void                  sendCommand(const std::string &command) noexcept;
   void                  getConnected() noexcept;
+  void                  waitResponseFromServer(void) noexcept;
 };
 
 #endif //COMMUNICATION_HPP

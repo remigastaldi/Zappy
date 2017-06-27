@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Mon Jun 26 22:27:51 2017 gastal_r
+// Last update Tue Jun 27 11:14:06 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -43,12 +43,18 @@ void            Communication::setMachine(const std::string& machine) noexcept
 void            Communication::receiveCmd(const std::string& commande) noexcept
 {
     _cmd = commande;
-    sendCmd();
+    // sendCmd();
 }
 
-void            Communication::sendCmd() noexcept
+void            Communication::sendCommand(const std::string &command) noexcept
 {
-    dprintf(_fd, "%s", _cmd.c_str());
+    dprintf(_fd, "%s\n", command.c_str());
+    waitResponseFromServer();
+}
+
+void            Communication::waitResponseFromServer(void) noexcept
+{
+
 }
 
 const std::string&     Communication::waitCmd()

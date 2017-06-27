@@ -52,7 +52,7 @@ protected:
   void    primaryState(void) noexcept;
   bool    checkCriticalFood(void) noexcept;
   void    powerupState(void) noexcept;
-  size_t  countPlayer(void) noexcept;
+  size_t  countPlayer(void) const noexcept;
   void    actualiseInventory(void) noexcept;
   bool    checkIfNeedResources(void) noexcept;
   void    actualiseView(void) noexcept;
