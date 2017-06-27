@@ -42,7 +42,7 @@ void		createServer(t_env *env)
 
 void		serverLoop(t_env *env)
 {
-  t_gui		*GUI;
+  t_gui		GUI;
   int		fd_max;
   fd_set	fd_read;
   int		i;
@@ -60,10 +60,8 @@ void		serverLoop(t_env *env)
 
   timeout.tv_sec = 0;
   timeout.tv_usec = 0;
-  if ((GUI = malloc(sizeof(t_gui))) == NULL)
-    return;
-  initGUI(GUI);
-  while (sfRenderWindow_isOpen(GUI->_win))
+  initGUI(&GUI);
+  while (sfRenderWindow_isOpen(GUI._win))
     {
       gettimeofday(&current, NULL);
       current_t = ((unsigned long long)current.tv_sec * 1000000) + current.tv_usec;
@@ -77,12 +75,12 @@ void		serverLoop(t_env *env)
 
 
       if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
-	sfRenderWindow_close(GUI->_win);
+	sfRenderWindow_close(GUI._win);
 
-      sfRenderWindow_clear(GUI->_win, sfBlack);
-      sfRenderWindow_drawSprite(GUI->_win, GUI->_pannelSprite, NULL);
-      sfRenderWindow_drawSprite(GUI->_win, GUI->_playerInfoSprite, NULL);
-      sfRenderWindow_display(GUI->_win);
+      sfRenderWindow_clear(GUI._win, sfBlack);
+      sfRenderWindow_drawSprite(GUI._win, GUI._pannelSprite, NULL);
+      sfRenderWindow_drawSprite(GUI._win, GUI._playerInfoSprite, NULL);
+      sfRenderWindow_display(GUI._win);
       fd_max = 0;
       FD_ZERO(&fd_read);
       i = -1;
@@ -99,9 +97,9 @@ void		serverLoop(t_env *env)
 	if (FD_ISSET(i, &fd_read))
 	  env->fct_read[i](env, i);
     }
-  sfSprite_destroy(GUI->_pannelSprite);
-  sfTexture_destroy(GUI->_pannelTexture);
-  sfSprite_destroy(GUI->_playerInfoSprite);
-  sfTexture_destroy(GUI->_playerInfoTexture);
-  sfRenderWindow_destroy(GUI->_win);
+  sfSprite_destroy(GUI._pannelSprite);
+  sfTexture_destroy(GUI._pannelTexture);
+  sfSprite_destroy(GUI._playerInfoSprite);
+  sfTexture_destroy(GUI._playerInfoTexture);
+  sfRenderWindow_destroy(GUI._win);
 }

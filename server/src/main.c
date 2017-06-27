@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Mon Jun 26 16:33:57 2017 Leo Hubert Froideval
+** Last update Tue Jun 27 16:35:32 2017 gastal_r
 */
 
 #include "server.h"
@@ -97,5 +97,6 @@ int		main(int ac, char **av)
   args(&env, av);
   serverInit(&env);
   serverLoop(&env);
+  free_env(&env);
   return (0);
 }

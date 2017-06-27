@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Mon Jun 26 16:33:28 2017 Leo Hubert Froideval
+** Last update Tue Jun 27 16:35:38 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -73,6 +73,8 @@ int                 cmd_look(t_env *env);
 
 void		            addUserTab(t_env *env, int socket);
 void	             	removeUserTab(t_env *env, int socket);
+
+void                free_env(t_env *env);
 
 extern t_commands g_commands[NBR_ARGS];
 
