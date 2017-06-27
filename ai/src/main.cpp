@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Wed Jun 21 16:14:06 2017 gastal_r
-// Last update Tue Jun 27 12:21:52 2017 gastal_r
+// Last update Tue Jun 27 12:52:13 2017 gastal_r
 //
 
 #include      "Ai.hpp"
@@ -21,6 +21,6 @@ int           main(int ac, char *av[])
     return (0);
   }
   Ai   ai(atoi(av[2]), av[4], av[6]);
-  ai.start();
+  ai.start(Ai::State::START);
   return (0);
 }

@@ -5,13 +5,13 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Tue Jun 27 12:28:13 2017 gastal_r
+// Last update Tue Jun 27 12:59:44 2017 gastal_r
 //
 
 #include "Communication.hpp"
 #include "Utils.hpp"
 
-Communication::Communication(int port, const std::string &machine, const std::string &teamName)
+Communication::Communication(int port, const std::string &machine, const std::string &teamName) noexcept
   : _port(port),
   _machine(machine)
 {
@@ -57,7 +57,7 @@ void         Communication::checkIfEventMessage()
   }
 }
 
-void            Communication::sendCommand(const std::string &command) noexcept
+void            Communication::sendCommand(const std::string &command)
 {
   _answer.clear();
   *_outStream << command << std::endl;

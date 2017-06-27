@@ -28,13 +28,26 @@ Ai::Ai(int port, const std::string &machine, const std::string &teamName) noexce
   {7, {{Ai::Properties::NB_PLAYER, 6}, {Ai::Properties::LINEMATE, 2}, {Ai::Properties::DERAUMERE, 2}, {Ai::Properties::SIBUR, 2}, {Ai::Properties::MENDIANE, 2}, {Ai::Properties::PHIRAS, 2}, {Ai::Properties::THYSTAME, 1}}},
   }),
   _currentItems({ {Ai::Properties::LINEMATE, 10}, {Ai::Properties::LINEMATE, 0}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0} }),
-  _currentLevel(1)
+  _currentLevel(1),
+  _eventCase(1)
 {}
 
-void      Ai::start(void) noexcept
+void      Ai::start(Ai::State state) noexcept
 {
   try
   {
+    switch (state)
+    {
+    case Ai::State::START:
+      primaryState();
+      break;
+    case Ai::State::INCANTATION:
+      startIncantation();
+      break;
+    case Ai::State::WALK_TO_BROADCASTER:
+      walkToBroadcaster(_eventCase);
+      break;
+    }
     primaryState();
   }
   catch (const Event::Dead &event)
@@ -44,7 +57,6 @@ void      Ai::start(void) noexcept
   catch (const Event::Ko &event)
   {
     std::cout << "Server return KO " << std::endl;
-    primaryState();
   }
   catch (const Event::GameOver &event)
   {
@@ -53,21 +65,21 @@ void      Ai::start(void) noexcept
   catch (const Event::Broadcast &event)
   {
     std::cout << "Broadcast : " << event.getCase() << std::endl;
+    _eventCase = event.getCase();
     if (event.getCase() == 0)
     {
-      sendCommand("Incantation");
+      start(Ai::State::INCANTATION);
     }
     else
-      walkToBroadcaster(event.getCase());
-    primaryState();
+      start(Ai::State::WALK_TO_BROADCASTER);
   }
   catch (const Event::DeadBroadcaster &event)
   {
-    primaryState();
+    start(Ai::State::START);
   }
 }
 
-void      Ai::primaryState(void) noexcept
+void      Ai::primaryState(void)
 {
   actualiseInventory();
   if (_currentItems[Ai::Properties::FOOD] < 5)
@@ -106,7 +118,7 @@ void      Ai::primaryState(void) noexcept
   }
 }
 
-void      Ai::powerupState(void) noexcept
+void      Ai::powerupState(void)
 {
   // if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
   if (countPlayer() == 0)
@@ -116,7 +128,7 @@ void      Ai::powerupState(void) noexcept
   }
   else
   {
-    sendCommand("Incantation");
+    startIncantation();
   }
 }
 
@@ -132,7 +144,7 @@ size_t    Ai::countPlayer(void) const noexcept
   return (nb);
 }
 
-void      Ai::actualiseInventory(void) noexcept
+void      Ai::actualiseInventory(void)
 {
   sendCommand("Inventory");
 
@@ -166,7 +178,7 @@ bool      Ai::checkIfNeedResources(void) noexcept
   return (true);
 }
 
-void    Ai::actualiseView(void) noexcept
+void    Ai::actualiseView(void)
 {
   sendCommand("Look");
   _answer = "player,,,thystame,,food,,,,,,linemate,,,,,";
@@ -194,7 +206,7 @@ void    Ai::actualiseView(void) noexcept
   }
 }
 
-bool    Ai::lookForFood(void) noexcept
+bool    Ai::lookForFood(void)
 {
   int foodCase = findFoodCase();
   if (foodCase == -1)
@@ -231,7 +243,7 @@ int       Ai::findFoodCase(void) noexcept
   return (-1);
 }
 
-bool      Ai::lookForResources(void) noexcept
+bool      Ai::lookForResources(void)
 {
   size_t caseNbr(0);
   std::cout << "Look command result: " << std::endl;
@@ -368,7 +380,7 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
 }
 
-void    Ai::walkToBroadcaster(int caseId) noexcept
+void    Ai::walkToBroadcaster(int caseId)
 {
   if (caseId == 1 || caseId == 2 || caseId == 8)
     _path.push_back(Ai::Direction::FORWARD);
@@ -391,11 +403,17 @@ void    Ai::walkToBroadcaster(int caseId) noexcept
   walkToDir();
 }
 
-void    Ai::walkToDir(void) noexcept
+void    Ai::walkToDir(void)
 {
   for (const auto & it : _path)
   {
     sendCommand(Utils::enumToString(it));
   }
   _path.clear();
+}
+
+void    Ai::startIncantation(void)
+{
+  sendCommand("Incantation");
+  _currentLevel++;
 }

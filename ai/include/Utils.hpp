@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 17:50:43 2017 gastal_r
-// Last update Tue Jun 27 12:08:24 2017 gastal_r
+// Last update Tue Jun 27 12:40:16 2017 gastal_r
 //
 
 #ifndef       _UTILS_HPP_
@@ -19,7 +19,7 @@
 class Utils
 {
 public:
-  static inline Ai::Properties stringToEnum(const std::string &value) noexcept
+  static inline Ai::Properties stringToEnum(const std::string &value)
   {
     if (value == "player")
       return (Ai::Properties::NB_PLAYER);
@@ -40,7 +40,7 @@ public:
     return (Ai::Properties::NOTHING);
   }
 
-  static inline const std::string enumToString(Ai::Properties value) noexcept
+  static inline const std::string enumToString(Ai::Properties value)
   {
     switch (value)
     {
@@ -66,7 +66,7 @@ public:
   return ("unknow");
   }
 
-  static inline const std::string enumToString(Ai::Direction value) noexcept
+  static inline const std::string enumToString(Ai::Direction value)
   {
     switch (value)
     {

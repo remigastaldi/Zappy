@@ -42,27 +42,35 @@ public:
     RIGHT
   };
 
+  enum class State
+  {
+    START,
+    INCANTATION,
+    WALK_TO_BROADCASTER,
+  };
+
 public:
   Ai(int port, const std::string &teamName, const std::string &machine) noexcept;
 
-  void  start(void) noexcept;
+  void  start(Ai::State) noexcept;
 
 protected:
-  void    primaryState(void) noexcept;
-  bool    checkCriticalFood(void) noexcept;
-  void    powerupState(void) noexcept;
+  void    primaryState(void) ;
+  bool    checkCriticalFood(void) ;
+  void    powerupState(void) ;
   size_t  countPlayer(void) const noexcept;
-  void    actualiseInventory(void) noexcept;
+  void    actualiseInventory(void) ;
   bool    checkIfNeedResources(void) noexcept;
-  void    actualiseView(void) noexcept;
-  bool    lookForFood(void) noexcept;
+  void    actualiseView(void) ;
+  bool    lookForFood(void) ;
   int     findFoodCase(void) noexcept;
-  bool    lookForResources(void) noexcept;
+  bool    lookForResources(void) ;
   int     findNeededResourceCase(void) noexcept;
   void    calculatePath(int resourceCase) noexcept;
   int     calculateDirection(int destination, int a, int b, int c) noexcept;
-  void    walkToBroadcaster(int caseId) noexcept;
-  void    walkToDir(void) noexcept;
+  void    walkToBroadcaster(int caseId) ;
+  void    walkToDir(void) ;
+  void    startIncantation(void) ;
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;
@@ -73,6 +81,7 @@ private:
   std::vector<std::vector<Ai::Properties>> _view;
   std::vector<Ai::Direction> _path;
   Ai::Properties  _objectToTake;
+  int   _eventCase;
 };
 
 #endif	/* !_AI_HPP_ */
