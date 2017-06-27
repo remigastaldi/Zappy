@@ -48,7 +48,6 @@ void      Ai::start(Ai::State state) noexcept
       walkToBroadcaster(_eventCase);
       break;
     }
-    primaryState();
   }
   catch (const Event::Dead &event)
   {
