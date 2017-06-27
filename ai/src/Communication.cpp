@@ -5,11 +5,10 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Tue Jun 27 12:59:44 2017 gastal_r
+// Last update Tue Jun 27 16:10:46 2017 gastal_r
 //
 
 #include "Communication.hpp"
-#include "Utils.hpp"
 
 Communication::Communication(int port, const std::string &machine, const std::string &teamName) noexcept
   : _port(port),
@@ -22,15 +21,14 @@ Communication::Communication(int port, const std::string &machine, const std::st
     _s_in.sin_addr.s_addr = inet_addr(_machine.c_str());
     connect(_fd, (struct sockaddr *)&_s_in, sizeof(_s_in));
 
-    _inStream.reset(Utils::createInStreamFromFD(_fd));
-    _outStream.reset(Utils::createOutStreamFromFD(_fd));
+    _fdStream.reset(new FdStream(_fd));
 
-    std::getline(*_inStream, _answer, '\n');
+    *_fdStream >> _answer;
     std::cout << _answer << std::endl;
-    *_outStream << teamName << std::endl;
-    std::getline(*_inStream, _answer, '\n');
+    *_fdStream << teamName;
+    *_fdStream >> _answer;
     std::cout << _answer << std::endl;
-    std::getline(*_inStream, _answer, '\n');
+    *_fdStream << teamName;
     std::cout << _answer << std::endl;
 }
 
@@ -60,7 +58,7 @@ void         Communication::checkIfEventMessage()
 void            Communication::sendCommand(const std::string &command)
 {
   _answer.clear();
-  *_outStream << command << std::endl;
-  std::getline(*_inStream, _answer, '\n');
+  *_fdStream << command;
+  *_fdStream >> _answer;
   checkIfEventMessage();
 }

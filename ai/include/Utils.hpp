@@ -5,14 +5,11 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 17:50:43 2017 gastal_r
-// Last update Tue Jun 27 12:40:16 2017 gastal_r
+// Last update Tue Jun 27 15:35:33 2017 gastal_r
 //
 
 #ifndef       _UTILS_HPP_
 #define       _UTILS_HPP_
-
-#include      <iostream>
-#include      <ext/stdio_filebuf.h>
 
 #include      "Ai.hpp"
 
@@ -80,18 +77,6 @@ public:
       return ("Up");
     }
     return ("unknow");
-  }
-
-  static inline std::istream *createInStreamFromFD (int fd)
-  {
-    __gnu_cxx::stdio_filebuf<char> *fileBuf = new __gnu_cxx::stdio_filebuf<char> (fd, std::ios::in);
-    return (new std::istream(fileBuf));
-  }
-
-  static inline std::ostream *createOutStreamFromFD (int fd)
-  {
-    __gnu_cxx::stdio_filebuf<char> *fileBuf = new __gnu_cxx::stdio_filebuf<char> (fd, std::ios::out);
-    return  (new std::ostream(fileBuf));
   }
 };
 

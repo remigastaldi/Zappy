@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Tue Jun 27 12:59:30 2017 gastal_r
+// Last update Tue Jun 27 16:07:40 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -20,17 +20,17 @@
 #include <iostream>
 #include <iomanip>
 
+#include "FdStream.hpp"
+#include "Event.hpp"
+
 class   Communication
 {
 private:
-  std::string         _cmd;
   int                 _port;
   struct protoent     *_pe;
   int                 _fd;
   struct sockaddr_in  _s_in;
-
-  std::unique_ptr<std::istream> _inStream;
-  std::unique_ptr<std::ostream> _outStream;
+  std::unique_ptr<FdStream> _fdStream;
 
 protected:
   std::string         _machine;
