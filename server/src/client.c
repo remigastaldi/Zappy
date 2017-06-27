@@ -68,15 +68,15 @@ void    joinTeam(t_env *env, char *buff, int fd)
     {
       if (env->users[i].teamName != NULL &&
           strcmp(env->users[i].teamName, buff) == 0)
-        counter++;
+            counter++;
     }
     counter = env->clientsNb - counter;
+    if (counter >= 1)
+      user->teamName = buff;
     dprintf(fd, "%d\n", counter);
     dprintf(fd, "%d %d\n", env->width, env->height);
     printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
     printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
-    if (counter >= 1)
-      user->teamName = buff;
   }
   else
   {
@@ -99,7 +99,7 @@ void		clientRead(t_env *env, int fd)
     if (user->teamName != NULL)
       checkParams(env, buff, fd);
     else
-      joinTeam(env, buff, fd);
+      joinTeam(env, epurStr(buff), fd);
     free(buff);
   }
   else
