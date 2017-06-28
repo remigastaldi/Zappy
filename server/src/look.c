@@ -64,14 +64,47 @@ int             calc_pos(t_env *env, int *x, int *y, int lvl)
     (*y) = (*y) - lvl;
     printf("calcx: %d calcy: %d\n", *x, *y);
   }
+  if (env->users->direction == 1)
+  {
+    (*x) = (*x) + lvl;
+    (*y) = (*y) + lvl;
+    printf("calcx: %d calcy: %d\n", *x, *y);
+  }
+  if (env->users->direction == 2)
+  {
+    (*x) = (*x) + lvl;
+    (*y) = (*y) - lvl;
+    printf("calcx: %d calcy: %d\n", *x, *y);
+  }
+  if (env->users->direction == 3)
+  {
+    (*x) = (*x) - lvl;
+    (*y) = (*y) + lvl;
+    printf("calcx: %d calcy: %d\n", *x, *y);
+  }
+  ((*x) < 0 ? (*x) += env->width : 0);
+  ((*y) < 0 ? (*y) += env->height : 0);
+  ((*x) > env->width - 1 ? (*x) -= env->width : 0);
+  ((*y) > env->height - 1 ? (*y) -= env->height : 0);
+  printf("xapres: %d, yapres: %d\n", (*x), (*y));
+
   return (0);
 }
 
 int             change_case(t_env *env, int *x, int *y)
 {
-  (void)y;
   if (env->users->direction == 0)
     (*x) = (*x) + 1;
+  if (env->users->direction == 1)
+    (*x) = (*x) - 1;
+  if (env->users->direction == 2)
+    (*y) = (*y) + 1;
+  if (env->users->direction == 3)
+    (*y) = (*y) - 1;
+  ((*x) < 0 ? (*x) += env->width : 0);
+  ((*y) < 0 ? (*y) += env->height : 0);
+  ((*x) > env->width - 1 ? (*x) -= env->width : 0);
+  ((*y) > env->height - 1 ? (*y) -= env->height : 0);
   printf("changex: %d changey: %d\n", *x, *y);
   return (0);
 }
@@ -89,10 +122,11 @@ char            *check_case(t_env *env, char *pos, int i)
   calc_pos(env, &x, &y, i);
   while (++j != (i * 2 + 1))
   {
-    change_case(env, &x, &y);
     pos = my_strcat(pos, ressource_to_string(env, x, y));
     pos = my_strcat(pos, ", ");
+    change_case(env, &x, &y);
   }
+  pos = my_strcat(pos, "\0");
   return (pos);
 }
 
@@ -114,15 +148,16 @@ char            *final_output(t_env *env, int lvl)
 int             cmd_look(t_env *env)
 {
   char          *tmp;
-  char          *final = malloc (100);
+  char          *final;
 
-  env->users->lvl = 2;
-  env->users->direction = 0;
-  env->users->posX = 5;
-  env->users->posY = 5;
+  env->users->lvl = 8;
+  env->users->direction = 1;
+  env->users->posX = 9;
+  env->users->posY = 9;
   printf("userlvl: %d\n", env->users->lvl);
   // printf("pos: x: %d y: %d\n", env->users->posX, env->users->posY);
   tmp = final_output(env, env->users->lvl);
+  final = malloc (sizeof(char) * strlen(tmp) + 4);
   sprintf(final, "[%s]\n", tmp);
   printf("%s\n", final);
   // free(final);
