@@ -1,11 +1,11 @@
 /*
 ** initGUI.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
-** 
+**
 ** Made by sellet_f
 ** Login   <flavien.sellet@epitech.eu>
-** 
+**
 ** Started on  Tue Jun 27 17:37:13 2017 sellet_f
-** Last update Tue Jun 27 17:40:08 2017 sellet_f
+** Last update Wed Jun 28 11:30:33 2017 gastal_r
 */
 
 #include "GUI.h"
@@ -15,20 +15,21 @@ void			initValueResource(sfVector2f pos, sfText *text,
 {
   char			str[4];
 
+	bzero(str, 4);
   sfText_setPosition(text, pos);
+	resource = 0;
   sprintf(str, "%d", resource);
   sfText_setString(text, str);
   sfRenderWindow_drawText(GUI->_win, text, NULL);
 }
 
-sfVector2f		initText(sfText **text, sfVector2f pos, t_gui *GUI)
+void		initText(sfText **text, sfVector2f *pos, t_gui *GUI)
 {
   *text = sfText_create();
   sfText_setCharacterSize(*text, 20);
   sfText_setFont(*text, GUI->_font);
-  pos.x = 1450;
-  pos.y = 170;
-  return (pos);
+  pos->x = 1450;
+  pos->y = 170;
 }
 
 bool		initGUI(t_gui *GUI, t_env *env)
@@ -82,7 +83,7 @@ sfSprite	*initSprite(sfSprite *sprite, sfVector2f spritePos,
 bool	initTexture(t_gui *GUI, sfVector2f spritePos)
 {
   if (!(GUI->_pannelTexture =
-       sfTexture_createFromFile("./server/media/pannel.png", NULL)) || 
+       sfTexture_createFromFile("./server/media/pannel.png", NULL)) ||
       !(GUI->_playerInfoTexture =
 	sfTexture_createFromFile("./server/media/playerFound.png", NULL)) ||
       !(GUI->_grassTexture =

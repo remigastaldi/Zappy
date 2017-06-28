@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 10:57:50 2017 sellet_f
-** Last update Tue Jun 27 17:47:13 2017 sellet_f
+** Last update Wed Jun 28 11:23:58 2017 gastal_r
 */
 
 #ifndef __GUI_H__
@@ -42,7 +42,7 @@ typedef struct		s_gui
 
 /* initGUI.c */
 void		initValueResource(sfVector2f, sfText *, t_gui *, int);
-sfVector2f	initText(sfText **, sfVector2f, t_gui *);
+void  	initText(sfText **, sfVector2f *, t_gui *);
 bool		initGUI(t_gui *, t_env *);
 sfSprite	*initSprite(sfSprite *, sfVector2f, sfTexture *, bool);
 bool		initTexture(t_gui *, sfVector2f);

@@ -40,6 +40,7 @@ void  checkParams(t_env *env, char *msg, int fd)
   }
   if (check != 1)
     g_params[NBR_PARAMS - 1].p(env, tab, user);
+  free_tab(tab);
 }
 
 int     checkNames(t_env *env, char *buff)
@@ -87,10 +88,9 @@ void    joinTeam(t_env *env, char *buff, int fd)
 
 void		clientRead(t_env *env, int fd)
 {
-  char		*buff;
+  char		buff[2048];
   t_users *user;
 
-  buff = xmalloc(2048);
   memset(buff, 0, 2048);
   user = get_user(env, fd);
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
@@ -100,13 +100,11 @@ void		clientRead(t_env *env, int fd)
       checkParams(env, buff, fd);
     else
       joinTeam(env, epurStr(buff), fd);
-    free(buff);
   }
   else
   {
     removeUserTab(env, fd);
     printf("Connection closed from socket %d\n", fd);
-    free(buff);
     close(fd);
     env->fd_type[fd] = FD_FREE;
   }

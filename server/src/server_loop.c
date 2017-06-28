@@ -50,7 +50,7 @@ void		serverLoop(t_env *env)
   long old_t;
   struct timeval current;
   long current_t;
-  t_gui			*GUI;
+  t_gui			GUI;
 
   struct timeval timeout;
 
@@ -61,10 +61,8 @@ void		serverLoop(t_env *env)
 
   timeout.tv_sec = 0;
   timeout.tv_usec = 0;
-  if ((GUI = malloc(sizeof(t_gui))) == NULL)
-    return;
-  initGUI(GUI, env);
-  while (sfRenderWindow_isOpen(GUI->_win))
+  initGUI(&GUI, env);
+  while (sfRenderWindow_isOpen(GUI._win))
     {
       gettimeofday(&current, NULL);
       current_t = ((unsigned long long)current.tv_sec * 1000000) + current.tv_usec;
@@ -75,7 +73,7 @@ void		serverLoop(t_env *env)
         old_t = ((unsigned long long)old.tv_sec * 1000000) + old.tv_usec;
       }
         //Check workingQueue
-      drawGUI(GUI, env);
+      drawGUI(&GUI, env);
       fd_max = 0;
       FD_ZERO(&fd_read);
       i = -1;
@@ -92,5 +90,5 @@ void		serverLoop(t_env *env)
 	if (FD_ISSET(i, &fd_read))
 	  env->fct_read[i](env, i);
     }
-  destroyGUI(GUI);
+  destroyGUI(&GUI);
 }

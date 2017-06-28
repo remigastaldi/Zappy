@@ -1,11 +1,11 @@
 /*
 ** drawGui.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
-** 
+**
 ** Made by sellet_f
 ** Login   <flavien.sellet@epitech.eu>
-** 
+**
 ** Started on  Tue Jun 27 17:36:26 2017 sellet_f
-** Last update Tue Jun 27 17:36:55 2017 sellet_f
+** Last update Wed Jun 28 11:51:12 2017 gastal_r
 */
 
 #include "GUI.h"
@@ -41,7 +41,7 @@ void			drawText(t_gui *GUI)
   sfText		*text;
   sfVector2f		pos;
 
-  pos = initText(&text, pos, GUI);
+  initText(&text, &pos, GUI);
   initValueResource(pos, text, GUI, GUI->_caseInfos.sibur);
   pos.x = 1590;
   initValueResource(pos, text, GUI, GUI->_caseInfos.linemate);
@@ -64,6 +64,7 @@ void			drawText(t_gui *GUI)
   pos.x = 1755;
   /* initValueResource(pos, text, GUI, GUI->_caseInfos.nbPlayers); */
   initValueResource(pos, text, GUI, GUI->_caseInfos.linemate);
+  sfText_destroy(text);
 }
 
 void			drawGUI(t_gui *GUI, t_env *env)
@@ -81,4 +82,3 @@ void			drawGUI(t_gui *GUI, t_env *env)
       sfRenderWindow_display(GUI->_win);
     }
 }
-

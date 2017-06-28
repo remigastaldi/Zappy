@@ -1,11 +1,11 @@
 /*
 ** GUI.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
-** 
+**
 ** Made by sellet_f
 ** Login   <flavien.sellet@epitech.eu>
-** 
+**
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Tue Jun 27 17:37:56 2017 sellet_f
+** Last update Wed Jun 28 12:00:50 2017 gastal_r
 */
 
 #include "GUI.h"
@@ -96,4 +96,7 @@ void		destroyGUI(t_gui *GUI)
   sfSprite_destroy(GUI->_playerInfoSprite);
   sfTexture_destroy(GUI->_stoneTexture);
   sfSprite_destroy(GUI->_stoneSprite);
+  sfFont_destroy(GUI->_font);
+  sfView_destroy(GUI->_camera);
+  sfView_destroy(GUI->_interface);
 }
