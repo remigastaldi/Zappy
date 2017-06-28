@@ -5,14 +5,13 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 23 15:43:06 2017 Matthias Prost
-** Last update Wed Jun 28 16:14:16 2017 Matthias Prost
+** Last update Wed Jun 28 17:26:08 2017 Matthias Prost
 */
 
 #include "server.h"
 
 void  forwardParam(t_env *env, char **msg, t_users *user)
 {
-  (void)msg;
   t_action *action;
   action = newAction(env->queue, user, &forwardAction, 7 / env->freq);
   addActionData(action, env, msg);
@@ -20,7 +19,6 @@ void  forwardParam(t_env *env, char **msg, t_users *user)
 
 void  rightParam(t_env *env, char **msg, t_users *user)
 {
-  (void)msg;
   t_action *action;
   action = newAction(env->queue, user, &forwardAction, 7 / env->freq);
   addActionData(action, env, msg);
@@ -28,7 +26,6 @@ void  rightParam(t_env *env, char **msg, t_users *user)
 
 void  leftParam(t_env *env, char **msg, t_users *user)
 {
-  (void)msg;
   t_action *action;
   action = newAction(env->queue, user, &forwardAction, 7 / env->freq);
   addActionData(action, env, msg);

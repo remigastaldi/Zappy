@@ -74,7 +74,7 @@ void    joinTeam(t_env *env, char *buff, int fd)
     }
     counter = env->clientsNb - counter;
     if (counter >= 1)
-      user->teamName = buff;
+      user->teamName = strdup(buff);
     dprintf(fd, "%d\n", counter);
     dprintf(fd, "%d %d\n", env->width, env->height);
     printf("--> Sent: \"%d\" to socket %d\n", counter, fd);

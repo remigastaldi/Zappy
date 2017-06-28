@@ -12,7 +12,7 @@
 
 void  connect_nbrParam(t_env *env, char **msg, t_users *user)
 {
-  (void)env;
-  (void)user;
-  (void)msg;
+  t_action *action;
+  action = newAction(env->queue, user, &connect_nbrAction, 0);
+  addActionData(action, env, msg);
 }

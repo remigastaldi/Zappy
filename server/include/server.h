@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Wed Jun 28 15:48:44 2017 Matthias Prost
+** Last update Wed Jun 28 16:47:38 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -68,6 +68,7 @@ void                connect_nbrParam(t_env *env, char **msg, t_users *user);
 void                forwardAction(t_env *env, char **msg, t_users *user);
 void                rightAction(t_env *env, char **msg, t_users *user);
 void                leftAction(t_env *env, char **msg, t_users *user);
+void                connect_nbrAction(t_env *env, char **msg, t_users *user);
 
 t_queue             *initWorkingQueue();
 t_action            *newAction(t_queue *, t_users *, void *, double ac_time);
