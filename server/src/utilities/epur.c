@@ -28,6 +28,7 @@ char		*epurStr(char *str)
 	    buff[++a] = str[i];
 	}
       buff[++a] = '\0';
+      bzero(str, strlen(str));
       memcpy(str, buff, strlen(buff));
       free (buff);
     }
