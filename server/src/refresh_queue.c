@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Wed Jun 28 15:40:18 2017 gastal_r
+** Last update Wed Jun 28 16:10:30 2017 Leo Hubert Froideval
 */
 
 #include      "utilities.h"
@@ -22,7 +22,7 @@ void          refresh_queue(t_env *env)
   {
     if (curr_clock >= action->time_limit)
     {
-      (*action->p)(action->data);
+      (*action->p)(action->env, action->msg, action->user);
       deleteAction(env->queue, action);
     }
     action = action->next;

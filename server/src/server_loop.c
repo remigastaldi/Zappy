@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:18:43 2017 Matthias Prost
-** Last update Wed Jun 28 12:19:09 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 12:57:13 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -39,7 +39,6 @@ void		createServer(t_env *env)
   env->fct_read[s] = serverRead;
   env->fct_write[s] = NULL;
 }
-
 
 void		serverLoop(t_env *env)
 {

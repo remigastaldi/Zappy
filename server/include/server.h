@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Wed Jun 28 15:34:09 2017 gastal_r
+** Last update Wed Jun 28 16:10:55 2017 Leo Hubert Froideval
 */
 
 #ifndef _SERVER_H_
@@ -64,7 +64,8 @@ void                leftParam(t_env *env, char **msg, t_users *user);
 void                koParam(t_env *env, char **msg, t_users *user);
 
 t_queue             *initWorkingQueue();
-void                newAction(t_queue *, t_users *, void *, double ac_time);
+t_action            *newAction(t_queue *, t_users *, void *, double ac_time);
+void                addActionData(t_action *, t_env *, char **);
 void                printWorkingQueue(t_queue *);
 void                freeWorkingQueue(t_queue *);
 int                 deleteAction(t_queue *, t_action *);

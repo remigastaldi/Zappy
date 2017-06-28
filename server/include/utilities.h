@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Wed Jun 28 12:15:00 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 16:08:51 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -30,6 +30,7 @@
 #define MAX_FD			255
 
 typedef void(*fct)();
+typedef struct      s_queue t_queue;
 
 typedef struct sockaddr		SOCKADDR;
 typedef struct sockaddr_in	SOCKADDR_IN;
@@ -62,29 +63,6 @@ typedef struct	    s_users
   Direction         direction;
 }				    t_users;
 
-typedef struct  s_data
-{
-    int         x;
-    int         y;
-}               t_data;
-
-typedef struct      s_action
-{
-    double          time_limit;
-    t_data          data;
-    void		    (*p)(t_data);
-    t_users         *user;
-    struct s_action *next;
-    struct s_action *prev;
-}                   t_action;
-
-typedef struct      s_queue
-{
-    int             actions;
-    t_action        *head;
-    t_action        *end;
-}                   t_queue;
-
 typedef struct		s_env
 {
   int				port;
@@ -99,8 +77,26 @@ typedef struct		s_env
   char			    fd_type[MAX_FD];
   fct				fct_read[MAX_FD];
   fct				fct_write[MAX_FD];
-  t_queue     *queue;
+  t_queue           *queue;
 }				    t_env;
+
+typedef struct      s_action
+{
+    double          time_limit;
+    void		    (*p)(t_env *, char **, t_users *);
+    t_env           *env;
+    char            **msg;
+    t_users         *user;
+    struct s_action *next;
+    struct s_action *prev;
+}                   t_action;
+
+typedef struct      s_queue
+{
+    int             actions;
+    t_action        *head;
+    t_action        *end;
+}                   t_queue;
 
 char                *epurStr(char *);
 char                *get_next_line(const int);
@@ -111,7 +107,7 @@ t_users             *get_user(t_env *env, int fd);
 void                print_map(t_env *env);
 void                *xmalloc(size_t);
 void                print_tab(char **tab);
-char            	  **toWordtab(char *str, char c);
+char            	**toWordtab(char *str, char c);
 char                *my_strcat(char *dest, char *src);
 
 #endif /* !_UTILS_H_ */

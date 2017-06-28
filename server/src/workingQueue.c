@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Wed Jun 28 13:21:52 2017 gastal_r
+** Last update Wed Jun 28 15:54:17 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -21,7 +21,7 @@ t_queue    *initWorkingQueue()
   return (queue);
 }
 
-void        newAction(t_queue *queue, t_users *user, void *func, double ac_time)
+t_action    *newAction(t_queue *queue, t_users *user, void *func, double ac_time)
 {
   t_action  *newAction;
 
@@ -40,6 +40,7 @@ void        newAction(t_queue *queue, t_users *user, void *func, double ac_time)
     queue->end->next = newAction;
   }
   queue->end = newAction;
+  return (newAction);
 }
 
 int         deleteAction(t_queue *queue, t_action *action)
