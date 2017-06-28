@@ -31,6 +31,7 @@ void  fillRessourcesMap(t_env *env)
         nbr += (env->map[y][x].mendiane = rand() % MENDIANA);
         nbr += (env->map[y][x].phiras = rand() % PHIRAS);
         nbr += (env->map[y][x].thystame = rand() % THYSTAME);
+        nbr += (env->map[y][x].food = rand() % FOOD);
       }
     }
     x = -1;
@@ -57,6 +58,7 @@ void    createMap(t_env *env)
       env->map[i][j].mendiane = 0;
       env->map[i][j].phiras = 0;
       env->map[i][j].thystame = 0;
+      env->map[i][j].food = 0;
     }
   }
   env->map[i] = NULL;
