@@ -51,6 +51,7 @@ typedef struct      s_items
     int             mendiane;
     int             phiras;
     int             thystame;
+    int             food;
 }                   t_items;
 
 typedef struct	    s_users

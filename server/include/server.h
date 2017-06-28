@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Wed Jun 28 16:47:38 2017 Matthias Prost
+** Last update Wed Jun 28 18:06:34 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -27,6 +27,7 @@
 #define MENDIANA    2
 #define PHIRAS      3
 #define THYSTAME    2
+#define FOOD        4
 
 typedef struct	    s_commands
 {
