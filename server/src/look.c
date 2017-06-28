@@ -120,7 +120,7 @@ char            *check_case(t_env *env, char *pos, int i)
   y = env->users->posY;
   printf("x: %d y: %d\n", x, y);
   calc_pos(env, &x, &y, i);
-  while (++j != (i * 2 + 1))
+  while (++j != (i * 2 + 1) - 1)
   {
     pos = my_strcat(pos, ressource_to_string(env, x, y));
     pos = my_strcat(pos, ", ");
@@ -150,8 +150,8 @@ int             cmd_look(t_env *env)
   char          *tmp;
   char          *final;
 
-  env->users->lvl = 8;
-  env->users->direction = 1;
+  env->users->lvl = 2;
+  env->users->direction = 0;
   env->users->posX = 9;
   env->users->posY = 9;
   printf("userlvl: %d\n", env->users->lvl);
