@@ -76,7 +76,7 @@ void                printWorkingQueue(t_queue *);
 void                freeWorkingQueue(t_queue *);
 int                 deleteAction(t_queue *, t_action *);
 
-int                 cmd_look(t_env *env);
+char                *cmd_look(t_env *env);
 
 void		            addUserTab(t_env *env, int socket);
 void	             	removeUserTab(t_env *env, int socket);

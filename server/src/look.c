@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Thu Jun 22 20:14:15 2017 Cyril Puccioo
+** Last update Wed Jun 28 17:34:40 2017 Cyril Puccio
 */
 
 #include "server.h"
@@ -25,17 +25,15 @@ int             get_number_of_visible_space(int level)
 
 char            *ressource_to_string(t_env *env, int x, int y)
 {
-  int           i;
   char          *str;
   int           nb_item;
   t_items       tmp;
 
   str = strdup("");
-  tmp = env->map[x][y];
+  tmp = env->map[y][x];
   nb_item = tmp.linemate + tmp.deraumere + tmp.sibur;
   nb_item += tmp.mendiane + tmp.phiras + tmp.thystame;
-  i = -1;
-  while (++i != nb_item)
+  while (nb_item-- != 0)
     {
       if (tmp.linemate-- > 0)
         str = my_strcat(str, "linemate");
@@ -49,45 +47,38 @@ char            *ressource_to_string(t_env *env, int x, int y)
         str = my_strcat(str, "phiras");
       else if (tmp.thystame-- > 0)
         str = my_strcat(str, "thystame");
-      (i + 1 != nb_item ? str = my_strcat(str, " ") : 0);
+      (nb_item   != 0 ? str = my_strcat(str, " ") : 0);
     }
-  // (nb_item > 0 ? str = my_strcat(str, "\b\b]") : (str = my_strcat(str, "]")));
-  printf("%s\n", str);
   return (str);
 }
 
 int             calc_pos(t_env *env, int *x, int *y, int lvl)
 {
   if (env->users->direction == 0)
-  {
-    (*x) = (*x) - lvl;
-    (*y) = (*y) - lvl;
-    printf("calcx: %d calcy: %d\n", *x, *y);
-  }
+    {
+      (*x) = (*x) - lvl;
+      (*y) = (*y) - lvl;
+    }
   if (env->users->direction == 1)
-  {
-    (*x) = (*x) + lvl;
-    (*y) = (*y) + lvl;
-    printf("calcx: %d calcy: %d\n", *x, *y);
-  }
+    {
+      (*x) = (*x) + lvl;
+      (*y) = (*y) + lvl;
+    }
   if (env->users->direction == 2)
-  {
-    (*x) = (*x) + lvl;
-    (*y) = (*y) - lvl;
-    printf("calcx: %d calcy: %d\n", *x, *y);
-  }
+    {
+      (*x) = (*x) + lvl;
+      (*y) = (*y) - lvl;
+    }
   if (env->users->direction == 3)
-  {
-    (*x) = (*x) - lvl;
-    (*y) = (*y) + lvl;
-    printf("calcx: %d calcy: %d\n", *x, *y);
-  }
+    {
+      (*x) = (*x) - lvl;
+      (*y) = (*y) + lvl;
+    }
   ((*x) < 0 ? (*x) += env->width : 0);
   ((*y) < 0 ? (*y) += env->height : 0);
   ((*x) > env->width - 1 ? (*x) -= env->width : 0);
   ((*y) > env->height - 1 ? (*y) -= env->height : 0);
-  printf("xapres: %d, yapres: %d\n", (*x), (*y));
-
+  printf("calc: %d calc: %d\n", *x, *y);
   return (0);
 }
 
@@ -121,11 +112,11 @@ char            *check_case(t_env *env, char *pos, int i)
   printf("x: %d y: %d\n", x, y);
   calc_pos(env, &x, &y, i);
   while (++j != (i * 2 + 1) - 1)
-  {
-    pos = my_strcat(pos, ressource_to_string(env, x, y));
-    pos = my_strcat(pos, ", ");
-    change_case(env, &x, &y);
-  }
+    {
+      pos = my_strcat(pos, ressource_to_string(env, x, y));
+      pos = my_strcat(pos, ",");
+      change_case(env, &x, &y);
+    }
   pos = my_strcat(pos, "\0");
   return (pos);
 }
@@ -145,22 +136,21 @@ char            *final_output(t_env *env, int lvl)
   return (pos);
 }
 
-int             cmd_look(t_env *env)
+char            *cmd_look(t_env *env)
 {
   char          *tmp;
   char          *final;
 
   env->users->lvl = 2;
   env->users->direction = 0;
-  env->users->posX = 9;
-  env->users->posY = 9;
+  env->users->posX = 5;
+  env->users->posY = 4;
   printf("userlvl: %d\n", env->users->lvl);
   // printf("pos: x: %d y: %d\n", env->users->posX, env->users->posY);
   tmp = final_output(env, env->users->lvl);
-  final = malloc (sizeof(char) * strlen(tmp) + 4);
-  sprintf(final, "[%s]\n", tmp);
+  final = malloc (sizeof(char) * strlen(tmp) + 3);
+  sprintf(final, "[%s]", tmp);
   printf("%s\n", final);
-  // free(final);
-  // free(tmp);
-  return (0);
+  free(tmp);
+  return (final);
 }
