@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Wed Jun 28 18:11:49 2017 gastal_r
+** Last update Wed Jun 28 18:33:01 2017 Leo Hubert Froideval
 */
 
 #ifndef _SERVER_H_
@@ -19,7 +19,7 @@
 #define FD_SERVER	2
 
 #define NBR_ARGS    6
-#define NBR_PARAMS  6
+#define NBR_PARAMS  7
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -52,7 +52,6 @@ void                portArg(t_env *env, char **av, int i);
 void                freqArg(t_env *env, char **av, int i);
 void                nameArg(t_env *env, char **av, int i);
 
-
 void                createServer(t_env *env);
 void                createMap(t_env *env);
 void                serverLoop(t_env *env);
@@ -64,6 +63,7 @@ void                rightParam(t_env *env, char **msg, t_users *user);
 void                leftParam(t_env *env, char **msg, t_users *user);
 void                lookParam(t_env *env, char **msg, t_users *user);
 void                koParam(t_env *env, char **msg, t_users *user);
+void                inventoryParam(t_env *env, char **msg, t_users *user);
 
 void                connect_nbrParam(t_env *env, char **msg, t_users *user);
 
@@ -71,6 +71,7 @@ void                forwardAction(t_env *env, char **msg, t_users *user);
 void                rightAction(t_env *env, char **msg, t_users *user);
 void                leftAction(t_env *env, char **msg, t_users *user);
 void                connect_nbrAction(t_env *env, char **msg, t_users *user);
+void                inventoryAction(t_env *env, char **msg, t_users *user);
 
 void                lookAction(t_env *env, char **msg, t_users *user);
 
@@ -83,8 +84,8 @@ int                 deleteAction(t_queue *, t_action *);
 
 char                *cmd_look(t_env *env);
 
-void		            addUserTab(t_env *env, int socket);
-void	             	removeUserTab(t_env *env, int socket);
+void		        addUserTab(t_env *env, int socket);
+void	            removeUserTab(t_env *env, int socket);
 
 void                free_env(t_env *env);
 void                free_tab(char **tab);

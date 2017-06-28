@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:35:09 2017 Matthias Prost
-** Last update Thu Jun 22 16:29:04 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 18:48:56 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -16,7 +16,8 @@ t_params g_params [NBR_PARAMS] = {
   {"Left", &leftParam},
   {"Look", &lookParam},
   {"Connect_nbr", &connect_nbrParam},
-  {"ko", &koParam},
+  {"Inventory", &inventoryParam},
+  {"ko", &koParam}
 };
 
 void  checkParams(t_env *env, char *msg, int fd)

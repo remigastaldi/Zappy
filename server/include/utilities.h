@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Wed Jun 28 16:08:51 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 18:12:43 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -56,12 +56,13 @@ typedef struct      s_items
 
 typedef struct	    s_users
 {
-  int				        socket;
+  int				socket;
   int               posY;
   int               posX;
   int               lvl;
   char              *teamName;
   Direction         direction;
+  t_items           inventory;
 }				    t_users;
 
 typedef struct		s_env
