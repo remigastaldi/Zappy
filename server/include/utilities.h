@@ -62,22 +62,6 @@ typedef struct	    s_users
   Direction         direction;
 }				    t_users;
 
-typedef struct		s_env
-{
-  int				port;
-  int               width;
-  int               height;
-  t_items           **map;
-  int               nbrRessources;
-  char              **names;
-  int               clientsNb;
-  int               freq;
-  t_users		    users[MAX_FD];
-  char			    fd_type[MAX_FD];
-  fct				fct_read[MAX_FD];
-  fct				fct_write[MAX_FD];
-}				    t_env;
-
 typedef struct  s_data
 {
     int         x;
@@ -100,6 +84,23 @@ typedef struct      s_queue
     t_action        *head;
     t_action        *end;
 }                   t_queue;
+
+typedef struct		s_env
+{
+  int				port;
+  int               width;
+  int               height;
+  t_items           **map;
+  int               nbrRessources;
+  char              **names;
+  int               clientsNb;
+  int               freq;
+  t_users		    users[MAX_FD];
+  char			    fd_type[MAX_FD];
+  fct				fct_read[MAX_FD];
+  fct				fct_write[MAX_FD];
+  t_queue     *queue;
+}				    t_env;
 
 char                *epurStr(char *);
 char                *get_next_line(const int);

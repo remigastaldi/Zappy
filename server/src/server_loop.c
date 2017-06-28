@@ -47,17 +47,13 @@ void		serverLoop(t_env *env)
   fd_set	fd_read;
   int		i;
   t_gui			GUI;
-
   struct timeval timeout;
-
 
   timeout.tv_sec = 0;
   timeout.tv_usec = 0;
   initGUI(&GUI, env);
   while (sfRenderWindow_isOpen(GUI._win))
     {
-        //Check workingQueue
-      drawGUI(&GUI, env);
       fd_max = 0;
       FD_ZERO(&fd_read);
       i = -1;
@@ -73,6 +69,8 @@ void		serverLoop(t_env *env)
       while (++i < MAX_FD)
 	if (FD_ISSET(i, &fd_read))
 	  env->fct_read[i](env, i);
+    refresh_queue(env);
+    drawGUI(&GUI, env);
     }
   destroyGUI(&GUI);
 }
