@@ -31,7 +31,7 @@ char            *ressource_to_string(t_env *env, int x, int y)
 
   str = strdup("");
   tmp = env->map[y][x];
-  nb_item = tmp.linemate + tmp.deraumere + tmp.sibur;
+  nb_item = tmp.linemate + tmp.deraumere + tmp.sibur + tmp.food;
   nb_item += tmp.mendiane + tmp.phiras + tmp.thystame;
   while (nb_item-- != 0)
     {
@@ -47,6 +47,8 @@ char            *ressource_to_string(t_env *env, int x, int y)
         str = my_strcat(str, "phiras");
       else if (tmp.thystame-- > 0)
         str = my_strcat(str, "thystame");
+      else if (tmp.food-- > 0)
+        str = my_strcat(str, "food");
       (nb_item   != 0 ? str = my_strcat(str, " ") : 0);
     }
   return (str);
@@ -110,6 +112,8 @@ char            *check_case(t_env *env, char *pos, int i)
   x = env->users->posX;
   y = env->users->posY;
   printf("x: %d y: %d\n", x, y);
+  pos = my_strcat(pos, ressource_to_string(env, x, y));
+  pos = my_strcat(pos, ",");
   calc_pos(env, &x, &y, i);
   while (++j != (i * 2 + 1) - 1)
     {
