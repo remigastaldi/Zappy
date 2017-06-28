@@ -24,6 +24,7 @@ void		serverInit(t_env *env)
   int		i;
 
   i = -1;
+  env->queue = initWorkingQueue();
   while (++i != MAX_FD)
   {
     env->users[i].socket = -1;
@@ -77,7 +78,7 @@ int		main(int ac, char **av)
   t_env		env;
 
   srand(time(0));
-  env.queue = initWorkingQueue();
+
   if (ac < 12 || strcmp(av[1], "-help") == 0)
     printUsage();
   srand(time(NULL));
