@@ -14,6 +14,7 @@ t_params g_params [NBR_PARAMS] = {
   {"Forward", &forwardParam},
   {"Right", &rightParam},
   {"Left", &leftParam},
+  {"Look", &lookParam},
   {"Connect_nbr", &connect_nbrParam},
   {"ko", &koParam},
 };

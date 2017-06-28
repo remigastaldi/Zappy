@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Wed Jun 28 16:17:51 2017 gastal_r
+// Last update Wed Jun 28 17:57:59 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -28,7 +28,7 @@ Communication::Communication(int port, const std::string &machine, const std::st
     *_fdStream << teamName;
     *_fdStream >> _answer;
     std::cout << _answer << std::endl;
-    *_fdStream << teamName;
+    *_fdStream >> _answer;
     std::cout << _answer << std::endl;
 }
 

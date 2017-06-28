@@ -20,14 +20,21 @@ void  forwardParam(t_env *env, char **msg, t_users *user)
 void  rightParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &forwardAction, 7 / env->freq);
+  action = newAction(env->queue, user, &rightAction, 7 / env->freq);
   addActionData(action, env, msg);
 }
 
 void  leftParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &forwardAction, 7 / env->freq);
+  action = newAction(env->queue, user, &leftAction, 7 / env->freq);
+  addActionData(action, env, msg);
+}
+
+void  lookParam(t_env *env, char **msg, t_users *user)
+{
+  t_action *action;
+  action = newAction(env->queue, user, &lookAction, 7 / env->freq);
   addActionData(action, env, msg);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Wed Jun 28 16:47:38 2017 Matthias Prost
+** Last update Wed Jun 28 18:11:49 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -19,7 +19,7 @@
 #define FD_SERVER	2
 
 #define NBR_ARGS    6
-#define NBR_PARAMS  5
+#define NBR_PARAMS  6
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -61,6 +61,7 @@ void                addClient(t_env *env, int s);
 void                forwardParam(t_env *env, char **msg, t_users *user);
 void                rightParam(t_env *env, char **msg, t_users *user);
 void                leftParam(t_env *env, char **msg, t_users *user);
+void                lookParam(t_env *env, char **msg, t_users *user);
 void                koParam(t_env *env, char **msg, t_users *user);
 
 void                connect_nbrParam(t_env *env, char **msg, t_users *user);
@@ -69,6 +70,8 @@ void                forwardAction(t_env *env, char **msg, t_users *user);
 void                rightAction(t_env *env, char **msg, t_users *user);
 void                leftAction(t_env *env, char **msg, t_users *user);
 void                connect_nbrAction(t_env *env, char **msg, t_users *user);
+
+void                lookAction(t_env *env, char **msg, t_users *user);
 
 t_queue             *initWorkingQueue();
 t_action            *newAction(t_queue *, t_users *, void *, double ac_time);

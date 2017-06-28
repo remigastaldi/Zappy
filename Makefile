@@ -51,9 +51,10 @@ SRC_SERVER	+=	server/src/look.c
 SRC_SERVER	+=	server/src/free.c
 SRC_SERVER	+=	server/src/refresh_queue.c
 SRC_SERVER	+=	server/src/params_client.c
-SRC_SERVER	+=	server/src/exec_actions.c
 SRC_SERVER	+=	server/src/exec_client.c
 SRC_SERVER	+=	server/src/workingQueueFunctions.c
+SRC_SERVER	+=	server/src/exec_move_actions.c
+SRC_SERVER	+=	server/src/exec_look_actions.c
 
 SRC_SERVER	+=	server/src/GUI.c
 SRC_SERVER	+=	server/src/initGUI.c
