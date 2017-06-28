@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Sun Jun 11 19:32:33 2017 Matthias Prost
-** Last update Mon Jun 26 16:51:37 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 12:15:00 2017 Leo Hubert Froideval
 */
 
 #ifndef _UTILS_H_
@@ -41,12 +41,6 @@ typedef enum        Direction
     RIGHT,
     LEFT
 }                   Direction;
-
-typedef enum        Action
-{
-    LOOK,
-    TEST
-}                   Action;
 
 typedef struct      s_items
 {
@@ -84,10 +78,17 @@ typedef struct		s_env
   fct				fct_write[MAX_FD];
 }				    t_env;
 
+typedef struct  s_data
+{
+    int         x;
+    int         y;
+}               t_data;
+
 typedef struct      s_action
 {
     int             time;
-    enum Action     action;
+    t_data          data;
+    void		    (*p)(t_data);
     t_users         *user;
     struct s_action *next;
     struct s_action *prev;

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Tue Jun 27 16:35:32 2017 gastal_r
+** Last update Wed Jun 28 12:12:05 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -80,9 +80,9 @@ int		main(int ac, char **av)
   srand(time(0));
 
   queue = initWorkingQueue();
-  newAction(queue, NULL, LOOK, 10298);
-  newAction(queue, NULL, LOOK, 2342);
-  newAction(queue, NULL, TEST, 13420);
+  newAction(queue, NULL, NULL, 10298);
+  newAction(queue, NULL, NULL, 2342);
+  newAction(queue, NULL, NULL, 13420);
   printWorkingQueue(queue);
 
   deleteAction(queue, queue->end);
