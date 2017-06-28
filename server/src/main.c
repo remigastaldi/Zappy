@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Wed Jun 28 12:12:05 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 15:49:52 2017 gastal_r
 */
 
 #include "server.h"
@@ -75,21 +75,9 @@ void		printUsage()
 int		main(int ac, char **av)
 {
   t_env		env;
-  t_queue  *queue;
 
   srand(time(0));
-
-  queue = initWorkingQueue();
-  newAction(queue, NULL, NULL, 10298);
-  newAction(queue, NULL, NULL, 2342);
-  newAction(queue, NULL, NULL, 13420);
-  printWorkingQueue(queue);
-
-  deleteAction(queue, queue->end);
-  printWorkingQueue(queue);
-
-  freeWorkingQueue(queue);
-
+  env.queue = initWorkingQueue();
   if (ac < 12 || strcmp(av[1], "-help") == 0)
     printUsage();
   srand(time(NULL));
@@ -98,5 +86,6 @@ int		main(int ac, char **av)
   serverInit(&env);
   serverLoop(&env);
   free_env(&env);
+  freeWorkingQueue(env.queue);
   return (0);
 }
