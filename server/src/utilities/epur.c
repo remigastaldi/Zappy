@@ -21,17 +21,16 @@ char		*epurStr(char *str)
   buff = NULL;
   if (str != NULL)
     {
-      if ((buff = xmalloc(4096)) == NULL)
-	{
-	  printf("ERROR: cannot malloc\n");
-	  exit(EXIT_FAILURE);
-	}
+      buff = xmalloc(strlen(str) + 1);
       while (str[++i])
 	{
 	  if (str[i] != 10 && str[i] != '\r')
 	    buff[++a] = str[i];
 	}
       buff[++a] = '\0';
+      bzero(str, strlen(str));
+      memcpy(str, buff, strlen(buff));
+      free (buff);
     }
-  return (buff);
+  return (str);
 }

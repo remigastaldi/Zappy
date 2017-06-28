@@ -40,6 +40,7 @@ void  checkParams(t_env *env, char *msg, int fd)
   }
   if (check != 1)
     g_params[NBR_PARAMS - 1].p(env, tab, user);
+  free_tab(tab);
 }
 
 int     checkNames(t_env *env, char *buff)
@@ -68,15 +69,15 @@ void    joinTeam(t_env *env, char *buff, int fd)
     {
       if (env->users[i].teamName != NULL &&
           strcmp(env->users[i].teamName, buff) == 0)
-        counter++;
+            counter++;
     }
     counter = env->clientsNb - counter;
+    if (counter >= 1)
+      user->teamName = buff;
     dprintf(fd, "%d\n", counter);
     dprintf(fd, "%d %d\n", env->width, env->height);
     printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
     printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
-    if (counter >= 1)
-      user->teamName = buff;
   }
   else
   {
@@ -87,10 +88,9 @@ void    joinTeam(t_env *env, char *buff, int fd)
 
 void		clientRead(t_env *env, int fd)
 {
-  char		*buff;
+  char		buff[2048];
   t_users *user;
 
-  buff = xmalloc(2048);
   memset(buff, 0, 2048);
   user = get_user(env, fd);
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
@@ -99,14 +99,12 @@ void		clientRead(t_env *env, int fd)
     if (user->teamName != NULL)
       checkParams(env, buff, fd);
     else
-      joinTeam(env, buff, fd);
-    free(buff);
+      joinTeam(env, epurStr(buff), fd);
   }
   else
   {
     removeUserTab(env, fd);
     printf("Connection closed from socket %d\n", fd);
-    free(buff);
     close(fd);
     env->fd_type[fd] = FD_FREE;
   }

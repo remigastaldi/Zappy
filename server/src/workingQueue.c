@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Mon Jun 26 16:31:13 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 13:21:52 2017 gastal_r
 */
 
 #include "server.h"
@@ -21,16 +21,16 @@ t_queue    *initWorkingQueue()
   return (queue);
 }
 
-void        newAction(t_queue *queue, t_users *user, enum Action action, int time)
+void        newAction(t_queue *queue, t_users *user, void *func, double ac_time)
 {
   t_action  *newAction;
 
   newAction = xmalloc(sizeof(t_action));
-  newAction->time = time;
-  newAction->action = action;
+  newAction->time_limit = clock() / CLOCKS_PER_SEC + ac_time;
   newAction->user = user;
   newAction->next = NULL;
   newAction->prev = NULL;
+  newAction->p = func;
   queue->actions++;
   if (queue->head == NULL)
     queue->head = newAction;
@@ -78,7 +78,6 @@ void      printWorkingQueue(t_queue *queue)
   printf("Total actions in queue: %d\n", queue->actions);
   while (ptr != NULL)
   {
-    printf("Time: %d; Action: %d\n", ptr->time, ptr->action);
     ptr = ptr->next;
   }
 }

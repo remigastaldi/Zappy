@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:18:43 2017 Matthias Prost
-** Last update Mon Jun 26 17:27:15 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 12:19:09 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -40,49 +40,20 @@ void		createServer(t_env *env)
   env->fct_write[s] = NULL;
 }
 
+
 void		serverLoop(t_env *env)
 {
-  t_gui		*GUI;
   int		fd_max;
   fd_set	fd_read;
   int		i;
-  struct timeval old;
-  long old_t;
-  struct timeval current;
-  long current_t;
-
+  t_gui			GUI;
   struct timeval timeout;
-
-  gettimeofday(&old, NULL);
-  gettimeofday(&current, NULL);
-
-  old_t = ((unsigned long long)old.tv_sec * 1000000) + old.tv_usec;
 
   timeout.tv_sec = 0;
   timeout.tv_usec = 0;
-  if ((GUI = malloc(sizeof(t_gui))) == NULL)
-    return;
-  initGUI(GUI);
-  while (sfRenderWindow_isOpen(GUI->_win))
+  initGUI(&GUI, env);
+  while (sfRenderWindow_isOpen(GUI._win))
     {
-      gettimeofday(&current, NULL);
-      current_t = ((unsigned long long)current.tv_sec * 1000000) + current.tv_usec;
-
-      if (current_t > (old_t + 1000000) / 2) // (old_t + 1000000) = 1 seconde
-      {
-        gettimeofday(&old, NULL);
-        old_t = ((unsigned long long)old.tv_sec * 1000000) + old.tv_usec;
-        //Check workingQueue
-      }
-
-
-      if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
-	sfRenderWindow_close(GUI->_win);
-
-      sfRenderWindow_clear(GUI->_win, sfBlack);
-      sfRenderWindow_drawSprite(GUI->_win, GUI->_pannelSprite, NULL);
-      sfRenderWindow_drawSprite(GUI->_win, GUI->_playerInfoSprite, NULL);
-      sfRenderWindow_display(GUI->_win);
       fd_max = 0;
       FD_ZERO(&fd_read);
       i = -1;
@@ -98,10 +69,8 @@ void		serverLoop(t_env *env)
       while (++i < MAX_FD)
 	if (FD_ISSET(i, &fd_read))
 	  env->fct_read[i](env, i);
+    refresh_queue(env);
+    drawGUI(&GUI, env);
     }
-  sfSprite_destroy(GUI->_pannelSprite);
-  sfTexture_destroy(GUI->_pannelTexture);
-  sfSprite_destroy(GUI->_playerInfoSprite);
-  sfTexture_destroy(GUI->_playerInfoTexture);
-  sfRenderWindow_destroy(GUI->_win);
+  destroyGUI(&GUI);
 }

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Mon Jun 26 16:33:28 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 15:34:09 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -64,7 +64,7 @@ void                leftParam(t_env *env, char **msg, t_users *user);
 void                koParam(t_env *env, char **msg, t_users *user);
 
 t_queue             *initWorkingQueue();
-void                newAction(t_queue *, t_users *, enum Action, int);
+void                newAction(t_queue *, t_users *, void *, double ac_time);
 void                printWorkingQueue(t_queue *);
 void                freeWorkingQueue(t_queue *);
 int                 deleteAction(t_queue *, t_action *);
@@ -73,6 +73,11 @@ int                 cmd_look(t_env *env);
 
 void		            addUserTab(t_env *env, int socket);
 void	             	removeUserTab(t_env *env, int socket);
+
+void                free_env(t_env *env);
+void                free_tab(char **tab);
+
+void                refresh_queue(t_env *env);
 
 extern t_commands g_commands[NBR_ARGS];
 
