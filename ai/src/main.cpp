@@ -10,6 +10,58 @@
 
 #include      "Ai.hpp"
 
+int   is_alpha(char *str)
+{
+  int   i = 0;
+
+  while (str[i])
+  {
+    if (str[i] >= '0' && str[i] <= '9')
+      i++;
+    else
+    {
+      std::cout << "The argumen after -p must be a int" << std::endl;
+      return (1);
+    }
+  }
+  return (0);
+}
+
+int          check_arg(char **av)
+{
+  std::string   tmp(av[1]);
+
+  if (tmp != "-p")
+    {
+      std::cout << "USAGE: ./zappy_ai -p port -n name -h machine" << std::endl;
+      std::cout << "\tmachine is the name of the machine; localhost by default" << std::endl;
+      std::cout << "\tname is the name of the team" << std::endl;
+      std::cout << "\tport is the port number" << std::endl;
+      return (1);
+    }
+  tmp = av[3];
+  if (tmp != "-n")
+  {
+    std::cout << "USAGE: ./zappy_ai -p port -n name -h machine" << std::endl;
+    std::cout << "\tmachine is the name of the machine; localhost by default" << std::endl;
+    std::cout << "\tname is the name of the team" << std::endl;
+    std::cout << "\tport is the port number" << std::endl;
+    return (1);
+  }
+  tmp = av[5];
+  if (tmp != "-h")
+  {
+    std::cout << "USAGE: ./zappy_ai -p port -n name -h machine" << std::endl;
+    std::cout << "\tmachine is the name of the machine; localhost by default" << std::endl;
+    std::cout << "\tname is the name of the team" << std::endl;
+    std::cout << "\tport is the port number" << std::endl;
+    return (1);
+  }
+  if (is_alpha(av[2]) == 1)
+    return (1);
+  return (0);
+}
+
 int           main(int ac, char *av[])
 {
   if (ac != 7)
@@ -20,6 +72,8 @@ int           main(int ac, char *av[])
     std::cout << "\tport is the port number" << std::endl;
     return (0);
   }
+  if (check_arg(av) == 1)
+    return (0);
   Ai   ai(atoi(av[2]), av[4], av[6]);
   ai.start(Ai::State::START);
   return (0);
