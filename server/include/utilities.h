@@ -86,7 +86,7 @@ typedef struct  s_data
 
 typedef struct      s_action
 {
-    int             time;
+    double          time_limit;
     t_data          data;
     void		    (*p)(t_data);
     t_users         *user;
