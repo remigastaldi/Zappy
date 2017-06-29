@@ -84,4 +84,10 @@ private:
   int   _eventCase;
 };
 
+int           checkPort(char **av);
+std::string   checkName(char **av);
+std::string   checkHost(char **av);
+int           is_alpha(char *str);
+int           check_arg(char **av);
+
 #endif	/* !_AI_HPP_ */

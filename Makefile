@@ -65,6 +65,7 @@ SRC_SERVER	+=	server/src/GUImap.c
 SRC_AI			+=	ai/src/main.cpp
 SRC_AI			+=	ai/src/Ai.cpp
 SRC_AI 			+= 	ai/src/Communication.cpp
+SRC_AI 			+= 	ai/src/arg_checking.cpp
 
 SRC_UTILS		+=	server/src/utilities/get_next_line.c
 SRC_UTILS		+=	server/src/utilities/epur.c
