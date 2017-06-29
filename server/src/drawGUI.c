@@ -5,31 +5,10 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Tue Jun 27 17:36:26 2017 sellet_f
-** Last update Thu Jun 29 15:44:50 2017 sellet_f
+** Last update Thu Jun 29 17:17:48 2017 sellet_f
 */
 
 #include "GUI.h"
-
-void			drawMap(t_gui *GUI, t_env *env)
-{
-  sfVector2f		tilePos;
-  int			x;
-  int			y;
-
-  y = -1;
-  while (++y < env->height)
-    {
-      x = -1;
-      while (++x < env->width)
-	{
-          tilePos.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width;
-	  tilePos.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height;
-	  sfSprite_setPosition(GUI->_grassSprite, tilePos);
-	  sfRenderWindow_drawSprite(GUI->_win, GUI->_grassSprite, NULL);
-	  checkResources(GUI, y, x, env);
-	}
-    }
-}
 
 void			drawText(t_gui *GUI)
 {
