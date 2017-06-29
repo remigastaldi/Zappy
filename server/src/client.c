@@ -18,6 +18,7 @@ t_params g_params [NBR_PARAMS] = {
   {"Connect_nbr", &connect_nbrAction},
   {"Inventory", &inventoryParam},
   {"Take", &takeParam},
+  {"Set", &setParam},
   {"ko", &koParam}
 };
 

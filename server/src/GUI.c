@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Thu Jun 29 17:52:23 2017 sellet_f
+** Last update Thu Jun 29 18:02:38 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -50,10 +50,10 @@ bool			checkClickedSprite(t_gui *GUI, t_env *env)
       (mouseInWorld.y < 0 || mouseInWorld.y > env->height * 100))
     return (false);
   x = -1;
-  while (++x < env->height)
+  while (++x < env->width)
     {
       y = -1;
-      while (++y < env->width)
+      while (++y < env->height)
 	if ((mouseInWorld.x > x * 100 && mouseInWorld.x < x * 100 + 100) &&
 	    (mouseInWorld.y > y * 100 && mouseInWorld.y < y * 100 + 100))
 	  {

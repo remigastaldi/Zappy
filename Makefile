@@ -54,7 +54,8 @@ SRC_SERVER	+=	server/src/exec_client.c
 SRC_SERVER	+=	server/src/workingQueueFunctions.c
 SRC_SERVER	+=	server/src/exec_move_actions.c
 SRC_SERVER	+=	server/src/exec_look_actions.c
-SRC_SERVER	+=	server/src/exec_objects_actions.c
+SRC_SERVER	+=	server/src/exec_take_actions.c
+SRC_SERVER	+=	server/src/exec_set_actions.c
 SRC_SERVER	+=	server/src/params_objects.c
 
 SRC_SERVER	+=	server/src/GUI.c
