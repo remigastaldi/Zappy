@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Thu Jun 29 17:31:21 2017 Matthias Prost
+** Last update Thu Jun 29 18:33:24 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -19,7 +19,7 @@
 #define FD_SERVER	2
 
 #define NBR_ARGS    6
-#define NBR_PARAMS  9
+#define NBR_PARAMS  10
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -66,6 +66,7 @@ void                koParam(t_env *env, char **msg, t_users *user);
 void                inventoryParam(t_env *env, char **msg, t_users *user);
 void                takeParam(t_env *env, char **msg, t_users *user);
 void                setParam(t_env *env, char **msg, t_users *user);
+void                IncantationParam(t_env *env, char **msg, t_users *user);
 
 void                forwardAction(t_env *env, char **msg, t_users *user);
 void                rightAction(t_env *env, char **msg, t_users *user);
@@ -74,8 +75,11 @@ void                connect_nbrAction(t_env *env, char **msg, t_users *user);
 void                inventoryAction(t_env *env, char **msg, t_users *user);
 void                takeAction(t_env *env, char **msg, t_users *user);
 void                setAction(t_env *env, char **msg, t_users *user);
+void                IncantationAction(t_env *env, char **msg, t_users *user);
 
 void                lookAction(t_env *env, char **msg, t_users *user);
+
+int                 count_number_team(char *str, t_env  *env);
 
 t_queue             *initWorkingQueue();
 t_action            *newAction(t_queue *, t_users *, void *, double ac_time);

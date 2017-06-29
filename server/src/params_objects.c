@@ -23,3 +23,10 @@ void  setParam(t_env *env, char **msg, t_users *user)
   action = newAction(env->queue, user, &setAction, 7 / env->freq);
   addActionData(action, env, msg);
 }
+
+void  IncantationParam(t_env *env, char **msg, t_users *user)
+{
+  t_action *action;
+  action = newAction(env->queue, user, &IncantationAction, 7 / env->freq);
+  addActionData(action, env, msg);
+}

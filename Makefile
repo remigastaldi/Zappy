@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Thu Jun 29 17:29:27 2017 sellet_f
+## Last update Thu Jun 29 18:33:43 2017 Matthias Prost
 ##
 
 .DEFAULT_GOAL := all
@@ -57,6 +57,8 @@ SRC_SERVER	+=	server/src/exec_look_actions.c
 SRC_SERVER	+=	server/src/exec_take_actions.c
 SRC_SERVER	+=	server/src/exec_set_actions.c
 SRC_SERVER	+=	server/src/params_objects.c
+SRC_SERVER	+=	server/src/exec_incantation_action.c
+SRC_SERVER	+=	server/src/count_number_team.c
 
 SRC_SERVER	+=	server/src/GUI.c
 SRC_SERVER	+=	server/src/initGUI.c

@@ -55,6 +55,7 @@ void		removeUserTab(t_env *env, int socket)
     env->users[i].lvl = 1;
     env->users[i].posX = 0;
     env->users[i].posY = 0;
+    free(env->users[i].teamName);
     env->users[i].teamName = NULL;
     break;
   }
