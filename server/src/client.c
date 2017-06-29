@@ -99,7 +99,7 @@ void		clientRead(t_env *env, int fd)
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
-    if (user->teamName != NULL)
+    if (user != NULL && user->teamName != NULL)
       checkParams(env, buff, fd);
     else
       joinTeam(env, epurStr(buff), fd);
