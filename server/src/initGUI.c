@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Tue Jun 27 17:37:13 2017 sellet_f
-** Last update Thu Jun 29 12:51:34 2017 sellet_f
+** Last update Thu Jun 29 16:05:04 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -90,9 +90,9 @@ bool	initTexture(t_gui *GUI, sfVector2f spritePos)
       !(GUI->_playerInfoTexture =
 	sfTexture_createFromFile("./server/media/playerFound.png", NULL)) ||
       !(GUI->_grassTexture =
-	sfTexture_createFromFile("./server/media/grass.jpg", NULL)) ||
-      !(GUI->_stoneTexture =
-	sfTexture_createFromFile("./server/media/stone.jpg", NULL)) ||
+	sfTexture_createFromFile("./server/media/grass2.jpg", NULL)) ||
+      !(GUI->_resourcesTexture =
+	sfTexture_createFromFile("./server/media/resources.png", NULL)) ||
       !(GUI->_playerTexture =
 	sfTexture_createFromFile("./server/media/playersprite.png", NULL)))
     return (false);
@@ -104,8 +104,8 @@ bool	initTexture(t_gui *GUI, sfVector2f spritePos)
   				      spritePos, GUI->_playerInfoTexture, DEFAULT);
   GUI->_grassSprite = initSprite(GUI->_grassSprite, spritePos,
 				 GUI->_grassTexture, DEFAULT);
-  GUI->_stoneSprite = initSprite(GUI->_stoneSprite, spritePos,
-				 GUI->_stoneTexture, DEFAULT);
+  GUI->_resourcesSprite = initSprite(GUI->_resourcesSprite, spritePos,
+				 GUI->_resourcesTexture, DEFAULT);
   GUI->_playerSprite = initSprite(GUI->_playerSprite, spritePos,
 				 GUI->_playerTexture, PLAYER);
   return (true);

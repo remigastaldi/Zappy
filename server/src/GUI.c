@@ -5,10 +5,101 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Thu Jun 29 15:16:44 2017 gastal_r
+** Last update Thu Jun 29 16:11:23 2017 sellet_f
 */
 
 #include "GUI.h"
+
+void			checkResources(t_gui *GUI, int y, int x, t_env *env)
+{
+  sfIntRect		spritePos;
+  sfVector2f		posOnMap;
+
+  if (env->map[x][y].linemate > 0)
+    {
+      posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width + 2;
+      posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height + 2;
+      spritePos.left = 0;
+      spritePos.top = 37;
+      spritePos.width = 18;
+      spritePos.height = 25;
+      sfSprite_setPosition(GUI->_resourcesSprite, posOnMap);
+      sfSprite_setTextureRect(GUI->_resourcesSprite, spritePos);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_resourcesSprite, NULL);
+    }
+  if (env->map[x][y].deraumere > 0)
+    {
+      posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width + 40;
+      posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height + 2;
+      spritePos.left = 30;
+      spritePos.top = 4;
+      spritePos.width = 18;
+      spritePos.height = 30;
+      sfSprite_setPosition(GUI->_resourcesSprite, posOnMap);
+      sfSprite_setTextureRect(GUI->_resourcesSprite, spritePos);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_resourcesSprite, NULL);
+    }
+  if (env->map[x][y].sibur > 0)
+    {
+      posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width + 81;
+      posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height + 2;
+      spritePos.left = 60;
+      spritePos.top = 77;
+      spritePos.width = 17;
+      spritePos.height = 25;
+      sfSprite_setPosition(GUI->_resourcesSprite, posOnMap);
+      sfSprite_setTextureRect(GUI->_resourcesSprite, spritePos);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_resourcesSprite, NULL);
+    }
+  if (env->map[x][y].mendiane > 0)
+    {
+      posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width + 2;
+      posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height + 35;
+      spritePos.left = 30;
+      spritePos.top = 70;
+      spritePos.width = 19;
+      spritePos.height = 32;
+      sfSprite_setPosition(GUI->_resourcesSprite, posOnMap);
+      sfSprite_setTextureRect(GUI->_resourcesSprite, spritePos);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_resourcesSprite, NULL);
+    }
+  if (env->map[x][y].phiras > 0)
+    {
+      posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width + 2;
+      posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height + 67;
+      spritePos.left = spritePos.top = 0;
+      spritePos.width = 16;
+      spritePos.height = 31;
+      sfSprite_setPosition(GUI->_resourcesSprite, posOnMap);
+      sfSprite_setTextureRect(GUI->_resourcesSprite, spritePos);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_resourcesSprite, NULL);
+    }
+  if (env->map[x][y].thystame > 0)
+    {
+      posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width + 81;
+      posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height + 40;
+      spritePos.left = 60;
+      spritePos.top = 1;
+      spritePos.width = 17;
+      spritePos.height = 31;
+      sfSprite_setPosition(GUI->_resourcesSprite, posOnMap);
+      sfSprite_setTextureRect(GUI->_resourcesSprite, spritePos);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_resourcesSprite, NULL);
+    }
+  if (env->map[x][y].food > 0)
+    {
+      posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width + 78;
+      posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height + 76;
+      spritePos.left = 60;
+      spritePos.top = 40;
+      spritePos.width = 20;
+      spritePos.height = 22;
+      sfSprite_setPosition(GUI->_resourcesSprite, posOnMap);
+      sfSprite_setTextureRect(GUI->_resourcesSprite, spritePos);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_resourcesSprite, NULL);
+    }
+
+}
 
 void			checkMovs(t_gui *GUI, sfVector2f vec)
 {
@@ -94,9 +185,9 @@ void		destroyGUI(t_gui *GUI)
   sfTexture_destroy(GUI->_playerTexture);
   sfTexture_destroy(GUI->_playerInfoTexture);
   sfSprite_destroy(GUI->_playerInfoSprite);
+  sfTexture_destroy(GUI->_resourcesTexture);
+  sfSprite_destroy(GUI->_resourcesSprite);
   sfSprite_destroy(GUI->_playerSprite);
-  sfTexture_destroy(GUI->_stoneTexture);
-  sfSprite_destroy(GUI->_stoneSprite);
   sfFont_destroy(GUI->_font);
   sfView_destroy(GUI->_camera);
   sfView_destroy(GUI->_interface);

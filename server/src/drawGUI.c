@@ -5,14 +5,14 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Tue Jun 27 17:36:26 2017 sellet_f
-** Last update Thu Jun 29 13:07:43 2017 sellet_f
+** Last update Thu Jun 29 15:44:50 2017 sellet_f
 */
 
 #include "GUI.h"
 
 void			drawMap(t_gui *GUI, t_env *env)
 {
-  sfVector2f		pos;
+  sfVector2f		tilePos;
   int			x;
   int			y;
 
@@ -22,16 +22,11 @@ void			drawMap(t_gui *GUI, t_env *env)
       x = -1;
       while (++x < env->width)
 	{
-          pos.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width;
-	  pos.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height;
-	  sfSprite_setPosition(GUI->_grassSprite, pos);
-	  if (x == env->width / 2 && y == env->height / 2)
-	    {
-	      sfSprite_setPosition(GUI->_stoneSprite, pos);
-              sfRenderWindow_drawSprite(GUI->_win, GUI->_stoneSprite, NULL);
-	    }
-	  else
-	    sfRenderWindow_drawSprite(GUI->_win, GUI->_grassSprite, NULL);
+          tilePos.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width;
+	  tilePos.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height;
+	  sfSprite_setPosition(GUI->_grassSprite, tilePos);
+	  sfRenderWindow_drawSprite(GUI->_win, GUI->_grassSprite, NULL);
+	  checkResources(GUI, y, x, env);
 	}
     }
 }
@@ -77,16 +72,14 @@ void			drawPlayers(t_gui *GUI, t_env *env)
   spritePos.width = 30;
   spritePos.height = 32;
   while (++i < MAX_FD)
-    {
-      if (env->users[i].socket != -1)
-  	{
-	  pos.x = env->users[i].posX * sfSprite_getGlobalBounds(GUI->_grassSprite).width;
-	  pos.y = env->users[i].posY *sfSprite_getGlobalBounds(GUI->_grassSprite).height;
-	  sfSprite_setPosition(GUI->_playerSprite, pos);
-  	  sfSprite_setTextureRect(GUI->_playerSprite, spritePos);
-  	  sfRenderWindow_drawSprite(GUI->_win, GUI->_playerSprite, NULL);
-  	}
-    }
+    if (env->users[i].socket != -1)
+      {
+	pos.x = env->users[i].posX * sfSprite_getGlobalBounds(GUI->_grassSprite).width;
+	pos.y = env->users[i].posY *sfSprite_getGlobalBounds(GUI->_grassSprite).height;
+	sfSprite_setPosition(GUI->_playerSprite, pos);
+	sfSprite_setTextureRect(GUI->_playerSprite, spritePos);
+	sfRenderWindow_drawSprite(GUI->_win, GUI->_playerSprite, NULL);
+      }
 }
 
 void			drawGUI(t_gui *GUI, t_env *env)
