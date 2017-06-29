@@ -20,13 +20,16 @@ void  takeParam(t_env *env, char **msg, t_users *user)
 void  setParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &setAction, 7 / env->freq);
+  action = newAction(env->queue, user, &setAction, 7000000 / env->freq);
   addActionData(action, env, msg);
 }
 
-void  IncantationParam(t_env *env, char **msg, t_users *user)
+void  incantationParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &IncantationAction, 7 / env->freq);
+  action = newAction(env->queue, user, &incantationAction,
+                      300000000 / env->freq);
   addActionData(action, env, msg);
+  dprintf(user->socket, "Elevation underway\n");
+  printf("--> Sent \"Elevation underway\" to socket %d\n", user->socket);
 }

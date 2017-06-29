@@ -5,14 +5,18 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 29 18:06:12 2017 Matthias Prost
-** Last update Thu Jun 29 18:13:54 2017 Matthias Prost
+** Last update Thu Jun 29 18:53:26 2017 Matthias Prost
 */
 
 #include "server.h"
 
-void  IncantationAction(t_env *env, char **msg, t_users *user)
+void  incantationAction(t_env *env, char **msg, t_users *user)
 {
-  (void)msg;
   (void)env;
-  (void)user;
+  (void)msg;
+  user->lvl += 1;
+  dprintf(user->socket, "Current level: %d\n", user->lvl);
+  printf("User with socket %d level up to %d\n", user->socket, user->lvl);
+  printf("--> Sent \"Current level: %d\" to socket %d\n",
+          user->lvl, user->socket);
 }

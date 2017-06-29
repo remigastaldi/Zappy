@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Thu Jun 29 18:33:24 2017 Matthias Prost
+** Last update Thu Jun 29 18:46:17 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -66,7 +66,7 @@ void                koParam(t_env *env, char **msg, t_users *user);
 void                inventoryParam(t_env *env, char **msg, t_users *user);
 void                takeParam(t_env *env, char **msg, t_users *user);
 void                setParam(t_env *env, char **msg, t_users *user);
-void                IncantationParam(t_env *env, char **msg, t_users *user);
+void                incantationParam(t_env *env, char **msg, t_users *user);
 
 void                forwardAction(t_env *env, char **msg, t_users *user);
 void                rightAction(t_env *env, char **msg, t_users *user);
@@ -75,7 +75,7 @@ void                connect_nbrAction(t_env *env, char **msg, t_users *user);
 void                inventoryAction(t_env *env, char **msg, t_users *user);
 void                takeAction(t_env *env, char **msg, t_users *user);
 void                setAction(t_env *env, char **msg, t_users *user);
-void                IncantationAction(t_env *env, char **msg, t_users *user);
+void                incantationAction(t_env *env, char **msg, t_users *user);
 
 void                lookAction(t_env *env, char **msg, t_users *user);
 
@@ -90,8 +90,8 @@ int                 deleteAction(t_queue *, t_action *);
 
 char                *cmd_look(t_env *env);
 
-void		        addUserTab(t_env *env, int socket);
-void	            removeUserTab(t_env *env, int socket);
+void		            addUserTab(t_env *env, int socket);
+void	              removeUserTab(t_env *env, int socket);
 
 void                free_env(t_env *env);
 void                free_tab(char **tab);
