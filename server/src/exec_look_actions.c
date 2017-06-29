@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 16:56:20 2017 gastal_r
-** Last update Thu Jun 29 12:56:41 2017 gastal_r
+** Last update Thu Jun 29 18:07:35 2017 gastal_r
 */
 
 #include      "server.h"
@@ -14,7 +14,7 @@
 void          lookParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &lookAction, 7 / env->freq);
+  action = newAction(env->queue, user, &lookAction, 7000000 / env->freq);
   addActionData(action, env, msg);
 }
 

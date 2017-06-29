@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 23 15:43:06 2017 Matthias Prost
-** Last update Wed Jun 28 19:58:01 2017 gastal_r
+** Last update Thu Jun 29 18:07:22 2017 gastal_r
 */
 
 #include "server.h"
@@ -13,28 +13,28 @@
 void  forwardParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &forwardAction, 7 / env->freq);
+  action = newAction(env->queue, user, &forwardAction, 7000000 / env->freq);
   addActionData(action, env, msg);
 }
 
 void  rightParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &rightAction, 7 / env->freq);
+  action = newAction(env->queue, user, &rightAction, 7000000 / env->freq);
   addActionData(action, env, msg);
 }
 
 void  leftParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &leftAction, 7 / env->freq);
+  action = newAction(env->queue, user, &leftAction, 7000000 / env->freq);
   addActionData(action, env, msg);
 }
 
 void  inventoryParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
-  action = newAction(env->queue, user, &inventoryAction, 1 / env->freq);
+  action = newAction(env->queue, user, &inventoryAction, 1000000 / env->freq);
   addActionData(action, env, msg);
 }
 

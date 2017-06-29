@@ -30,7 +30,7 @@ void		createServer(t_env *env)
   if (listen(s, 42) == -1)
     s_error("listen");
   printf("Server started on port %d\nSize of the world: %d x %d\n"
-          "Max clients per Team: %d\nFrequency: %d\n",
+          "Max clients per Team: %d\nFrequency: %ld\n",
           env->port, env->width, env->height, env->clientsNb, env->freq);
   display_names(env->names);
   print_map(env);

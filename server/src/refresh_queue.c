@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Wed Jun 28 16:40:11 2017 gastal_r
+** Last update Thu Jun 29 18:34:09 2017 gastal_r
 */
 
 #include      "utilities.h"
@@ -13,12 +13,15 @@
 
 void          refresh_queue(t_env *env)
 {
-  double      curr_clock;
+  struct      timeval curr_time;
+  long  long  curr_clock;
   t_action    *action;
   t_action    *tmp;
 
+
   action = env->queue->head;
-  curr_clock = clock() / CLOCKS_PER_SEC;
+  gettimeofday(&curr_time, NULL);
+  curr_clock = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
   while (action)
   {
     if (curr_clock >= action->time_limit)

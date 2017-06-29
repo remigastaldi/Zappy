@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Thu Jun 29 16:11:32 2017 Matthias Prost
+** Last update Thu Jun 29 18:30:03 2017 gastal_r
 */
 
 #include "server.h"
@@ -24,9 +24,11 @@ t_queue    *initWorkingQueue()
 t_action    *newAction(t_queue *queue, t_users *user, void *func, double ac_time)
 {
   t_action  *newAction;
+  struct    timeval curr_time;
 
+  gettimeofday(&curr_time, NULL);
   newAction = xmalloc(sizeof(t_action));
-  newAction->time_limit = clock() / CLOCKS_PER_SEC + ac_time;
+  newAction->time_limit = curr_time.tv_sec * 1000000 + curr_time.tv_usec + ac_time;
   newAction->user = user;
   newAction->next = NULL;
   newAction->prev = NULL;

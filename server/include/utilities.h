@@ -74,7 +74,8 @@ typedef struct		s_env
   int               nbrRessources;
   char              **names;
   int               clientsNb;
-  int               freq;
+
+  long              freq;
   t_users		    users[MAX_FD];
   char			    fd_type[MAX_FD];
   fct				fct_read[MAX_FD];
@@ -84,7 +85,7 @@ typedef struct		s_env
 
 typedef struct      s_action
 {
-    double          time_limit;
+    long  long      time_limit;
     void		    (*p)(t_env *, char **, t_users *);
     t_env           *env;
     char            **msg;
