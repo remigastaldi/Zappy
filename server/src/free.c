@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Tue Jun 27 16:33:53 2017 gastal_r
-** Last update Wed Jun 28 21:03:22 2017 gastal_r
+** Last update Thu Jun 29 18:41:49 2017 gastal_r
 */
 
 #include    "utilities.h"
@@ -22,10 +22,6 @@ void        free_env(t_env *env)
   while (env->names[++i])
     free(env->names[i]);
   free(env->names);
-  i = -1;
-  while (env->users[++i].teamName)
-    if (env->users[i].teamName != NULL)
-      free(env->users[i].teamName);
 }
 
 void      free_tab(char **tab)
