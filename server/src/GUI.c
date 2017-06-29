@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Wed Jun 28 12:00:50 2017 gastal_r
+** Last update Thu Jun 29 13:00:48 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -58,7 +58,6 @@ bool			checkClickedSprite(t_gui *GUI, t_env *env)
 	    (mouseInWorld.y > y * 100 && mouseInWorld.y < y * 100 + 100))
 	  {
 	    GUI->_caseInfos = env->map[x][y];
-	    /* printf("=== MAP INFOS ===\nlinemate = %d\nderaumere = %d\nsibur = %d\nmendiane = %d\nphiras = %d\nthystame = %d\n\n=== GET INFOS ===\nlinemate = %d\nderaumere = %d\nsibur = %d\nmendiane = %d\nphiras = %d\nthystame = %d\n", env->map[11][11].linemate, env->map[11][11].deraumere, env->map[11][11].sibur, env->map[11][11].mendiane, env->map[11][11].phiras, env->map[11][11].thystame, env->map[x][y].linemate, env->map[x][y].deraumere, env->map[x][y].sibur, env->map[x][y].mendiane, env->map[x][y].phiras, env->map[x][y].thystame); */
 	    return (true);
 	  }
     }

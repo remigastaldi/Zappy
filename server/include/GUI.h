@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 10:57:50 2017 sellet_f
-** Last update Wed Jun 28 11:23:58 2017 gastal_r
+** Last update Thu Jun 29 11:46:35 2017 sellet_f
 */
 
 #ifndef __GUI_H__
@@ -18,6 +18,12 @@
 
 # include "utilities.h"
 
+typedef enum		Sprite
+  {
+    DEFAULT,
+    MENU,
+    PLAYER
+  }			Sprite;
 
 typedef struct		s_gui
 {
@@ -35,6 +41,8 @@ typedef struct		s_gui
   sfSprite		*_grassSprite;
   sfTexture		*_stoneTexture;
   sfSprite		*_stoneSprite;
+  sfTexture		*_playerTexture;
+  sfSprite		*_playerSprite;
 
   sfFont		*_font;
   t_items		_caseInfos;
@@ -42,9 +50,9 @@ typedef struct		s_gui
 
 /* initGUI.c */
 void		initValueResource(sfVector2f, sfText *, t_gui *, int);
-void  	initText(sfText **, sfVector2f *, t_gui *);
+sfVector2f  	initText(sfText **, sfVector2f, t_gui *);
 bool		initGUI(t_gui *, t_env *);
-sfSprite	*initSprite(sfSprite *, sfVector2f, sfTexture *, bool);
+/* sfSprite	*initSprite(sfSprite *, sfVector2f, sfTexture *, bool); */
 bool		initTexture(t_gui *, sfVector2f);
 
 /* GUI.c */
