@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Wed Jun 28 21:09:18 2017 gastal_r
+** Last update Thu Jun 29 13:19:17 2017 gastal_r
 */
 
 #include "server.h"
@@ -51,7 +51,7 @@ char            *ressource_to_string(t_env *env, int x, int y)
         str = my_strcat(str, "food", -1, -1);
       (nb_item  != 0 ? str = my_strcat(str, " ", -1, -1) : 0);
     }
-    printf("return==> %s\n", str);
+    // printf("return==> %s\n", str);
   return (str);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Thu Jun 29 13:00:48 2017 sellet_f
+** Last update Thu Jun 29 15:16:44 2017 gastal_r
 */
 
 #include "GUI.h"
@@ -91,8 +91,10 @@ void		destroyGUI(t_gui *GUI)
   sfSprite_destroy(GUI->_grassSprite);
   sfTexture_destroy(GUI->_pannelTexture);
   sfSprite_destroy(GUI->_pannelSprite);
+  sfTexture_destroy(GUI->_playerTexture);
   sfTexture_destroy(GUI->_playerInfoTexture);
   sfSprite_destroy(GUI->_playerInfoSprite);
+  sfSprite_destroy(GUI->_playerSprite);
   sfTexture_destroy(GUI->_stoneTexture);
   sfSprite_destroy(GUI->_stoneSprite);
   sfFont_destroy(GUI->_font);

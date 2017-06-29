@@ -56,3 +56,6 @@ dkms.conf
 # Binaries
 zappy_server
 zappy_ai
+
+# Valgrind
+vgcore.*

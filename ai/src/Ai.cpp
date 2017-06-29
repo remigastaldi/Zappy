@@ -179,7 +179,6 @@ bool      Ai::checkIfNeedResources(void) noexcept
 void    Ai::actualiseView(void)
 {
   sendCommand("Look");
-  _answer = "player,,,thystame,,food,,,,,,linemate,,,,,";
 
   _view.clear();
   size_t posCase = 0;
@@ -244,7 +243,6 @@ int       Ai::findFoodCase(void) noexcept
 bool      Ai::lookForResources(void)
 {
   size_t caseNbr(0);
-  std::cout << "Look command result: " << std::endl;
   for (const auto & caseIt : _view)
   {
     std::cout << "[" << caseNbr++ << "]";

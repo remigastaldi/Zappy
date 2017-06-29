@@ -23,7 +23,7 @@ void  fillRessourcesMap(t_env *env)
   {
     while (++x != env->width)
     {
-      if ((rand() % 6) == 3)
+      if ((rand() % 2) == 0)
       {
         nbr += (env->map[y][x].linemate = rand() % LINEMATE);
         nbr += (env->map[y][x].deraumere = rand() % DERAUMERE);
