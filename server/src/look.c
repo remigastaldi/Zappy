@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Wed Jun 28 17:34:40 2017 Cyril Puccio
+** Last update Wed Jun 28 21:09:18 2017 gastal_r
 */
 
 #include "server.h"
@@ -29,28 +29,29 @@ char            *ressource_to_string(t_env *env, int x, int y)
   int           nb_item;
   t_items       tmp;
 
-  str = strdup("");
+  str = NULL;
   tmp = env->map[y][x];
   nb_item = tmp.linemate + tmp.deraumere + tmp.sibur + tmp.food;
   nb_item += tmp.mendiane + tmp.phiras + tmp.thystame;
   while (nb_item-- != 0)
     {
       if (tmp.linemate-- > 0)
-        str = my_strcat(str, "linemate");
+        str = my_strcat(str, "linemate", -1, -1);
       else if (tmp.deraumere-- > 0)
-        str = my_strcat(str, "deraumere");
+        str = my_strcat(str, "deraumere", -1, -1);
       else if (tmp.sibur-- > 0)
-        str = my_strcat(str, "sibur");
+        str = my_strcat(str, "sibur", -1, -1);
       else if (tmp.mendiane-- > 0)
-        str = my_strcat(str, "mendiane");
+        str = my_strcat(str, "mendiane", -1, -1);
       else if (tmp.phiras-- > 0)
-        str = my_strcat(str, "phiras");
+        str = my_strcat(str, "phiras", -1, -1);
       else if (tmp.thystame-- > 0)
-        str = my_strcat(str, "thystame");
+        str = my_strcat(str, "thystame", -1, -1);
       else if (tmp.food-- > 0)
-        str = my_strcat(str, "food");
-      (nb_item   != 0 ? str = my_strcat(str, " ") : 0);
+        str = my_strcat(str, "food", -1, -1);
+      (nb_item  != 0 ? str = my_strcat(str, " ", -1, -1) : 0);
     }
+    printf("return==> %s\n", str);
   return (str);
 }
 
@@ -107,21 +108,26 @@ char            *check_case(t_env *env, char *pos, int i)
   int           j;
   int           x;
   int           y;
+  char          *res;
 
   j = -1;
   x = env->users->posX;
   y = env->users->posY;
   printf("x: %d y: %d\n", x, y);
-  pos = my_strcat(pos, ressource_to_string(env, x, y));
-  pos = my_strcat(pos, ",");
+  if ((res = ressource_to_string(env, x, y)) != NULL)
+    pos = my_strcat(pos, res, -1, -1);
+  res != NULL ? free(res) : 0;
+  pos = my_strcat(pos, ",", -1, -1);
   calc_pos(env, &x, &y, i);
   while (++j != (i * 2 + 1) - 1)
     {
-      pos = my_strcat(pos, ressource_to_string(env, x, y));
-      pos = my_strcat(pos, ",");
+      if ((res = ressource_to_string(env, x, y)) != NULL)
+        pos = my_strcat(pos, ressource_to_string(env, x, y), -1, -1);
+      res != NULL ? free(res) : 0;
+      pos = my_strcat(pos, ",", -1, -1);
       change_case(env, &x, &y);
     }
-  pos = my_strcat(pos, "\0");
+  pos = my_strcat(pos, "\0", -1, -1);
   return (pos);
 }
 
@@ -131,7 +137,7 @@ char            *final_output(t_env *env, int lvl)
   int           i;
 
   i = 0;
-  pos = "";
+  pos = NULL;
   while (++i != lvl + 1)
     {
       pos = check_case(env, pos, i);
@@ -142,19 +148,11 @@ char            *final_output(t_env *env, int lvl)
 
 char            *cmd_look(t_env *env)
 {
-  char          *tmp;
   char          *final;
 
-  env->users->lvl = 2;
-  env->users->direction = 0;
-  env->users->posX = 5;
-  env->users->posY = 4;
+  env->users->lvl = 3;
   printf("userlvl: %d\n", env->users->lvl);
-  // printf("pos: x: %d y: %d\n", env->users->posX, env->users->posY);
-  tmp = final_output(env, env->users->lvl);
-  final = malloc (sizeof(char) * strlen(tmp) + 3);
-  sprintf(final, "[%s]", tmp);
+  final = final_output(env, env->users->lvl);
   printf("%s\n", final);
-  free(tmp);
   return (final);
 }

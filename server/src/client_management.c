@@ -12,7 +12,7 @@
 
 void    initInventory(t_env *env, int i)
 {
-  env->users[i].inventory.food = 0;
+  env->users[i].inventory.food = 10;
   env->users[i].inventory.linemate = 0;
   env->users[i].inventory.deraumere = 0;
   env->users[i].inventory.sibur = 0;

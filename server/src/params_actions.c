@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 23 15:43:06 2017 Matthias Prost
-** Last update Wed Jun 28 18:49:33 2017 Leo Hubert Froideval
+** Last update Wed Jun 28 19:58:01 2017 gastal_r
 */
 
 #include "server.h"
@@ -28,13 +28,6 @@ void  leftParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
   action = newAction(env->queue, user, &leftAction, 7 / env->freq);
-  addActionData(action, env, msg);
-}
-
-void  lookParam(t_env *env, char **msg, t_users *user)
-{
-  t_action *action;
-  action = newAction(env->queue, user, &lookAction, 7 / env->freq);
   addActionData(action, env, msg);
 }
 

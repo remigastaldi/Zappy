@@ -110,6 +110,6 @@ void                print_map(t_env *env);
 void                *xmalloc(size_t);
 void                print_tab(char **tab);
 char            	**toWordtab(char *str, char c);
-char                *my_strcat(char *dest, char *src);
+char                *my_strcat(char *dest, char *src, int, int);
 
 #endif /* !_UTILS_H_ */

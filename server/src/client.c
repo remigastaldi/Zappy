@@ -34,15 +34,15 @@ void  checkParams(t_env *env, char *msg, int fd)
   user = get_user(env, fd);
   while (++i != NBR_PARAMS)
   {
-    if (strncmp(tab[0], g_params[i].params, strlen(tab[0])) == 0)
+    if (strcmp(tab[0], g_params[i].params) == 0)
     {
-      g_params[i].p(env, tab, user);
+      (*g_params[i].p)(env, tab, user);
       check = 1;
       break;
     }
   }
   if (check != 1)
-    g_params[NBR_PARAMS - 1].p(env, tab, user);
+    (*g_params[NBR_PARAMS - 1].p)(env, tab, user);
   free_tab(tab);
 }
 

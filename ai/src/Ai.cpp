@@ -8,11 +8,6 @@
 // Last update Wed Jun 21 13:20:39 2017
 //
 
-
-// To not forget to remove sleep
-#include <chrono>
-#include <thread>
-
 #include      "Ai.hpp"
 #include      "Utils.hpp"
 
@@ -149,18 +144,22 @@ void      Ai::actualiseInventory(void)
 
   size_t posCase = 0;
   std::string item;
+  size_t posItem;
   while ((posCase = _answer.find(",")) != std::string::npos)
   {
     item = _answer.substr(0, posCase);
-    size_t posItem = 0;
     posItem = item.find(" ");
     std::string itemName(item.substr(0, posItem));
     item.erase(0, posItem + 1);
-    std::cout << itemName << std::endl;
-    std::cout << item << std::endl;
+    std::cout << itemName << " " << item << std::endl;
     _currentItems[Utils::stringToEnum(itemName)] = std::stoi(item);
     _answer.erase(0, posCase + 2);
   }
+  posItem = _answer.find(" ");
+  std::string itemName(_answer.substr(0, posItem));
+  _answer.erase(0, posItem + 1);
+  std::cout << itemName << " " << _answer << std::endl;
+  _currentItems[Utils::stringToEnum(itemName)] = std::stoi(_answer);
 }
 
 bool      Ai::checkIfNeedResources(void) noexcept
@@ -349,7 +348,8 @@ void      Ai::calculatePath(int resourceCase) noexcept
       offsetY += 1;
       offsetX += 1;
       currentCase = offsetY * offsetY + offsetX;
-      curDirection != Ai::Direction::UP ? _path.push_back(Ai::Direction::UP) : (void)0;
+      (curDirection == Ai::Direction::LEFT ? _path.push_back(Ai::Direction::RIGHT) : (void)0);
+      (curDirection == Ai::Direction::RIGHT ? _path.push_back(Ai::Direction::LEFT) : (void)0);
       curDirection = Ai::Direction::UP;
     }
     else if (direction == 2)
@@ -360,7 +360,6 @@ void      Ai::calculatePath(int resourceCase) noexcept
       curDirection = Ai::Direction::RIGHT;
     }
     _path.push_back(Ai::Direction::FORWARD);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::cout  << std::endl;
   }
 }
