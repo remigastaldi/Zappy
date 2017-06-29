@@ -15,8 +15,9 @@ t_params g_params [NBR_PARAMS] = {
   {"Right", &rightParam},
   {"Left", &leftParam},
   {"Look", &lookParam},
-  {"Connect_nbr", &connect_nbrParam},
+  {"Connect_nbr", &connect_nbrAction},
   {"Inventory", &inventoryParam},
+  {"Take", &takeParam},
   {"ko", &koParam}
 };
 
@@ -43,7 +44,6 @@ void  checkParams(t_env *env, char *msg, int fd)
   }
   if (check != 1)
     (*g_params[NBR_PARAMS - 1].p)(env, tab, user);
-  free_tab(tab);
 }
 
 int     checkNames(t_env *env, char *buff)

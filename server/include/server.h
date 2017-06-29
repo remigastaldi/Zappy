@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Wed Jun 28 18:33:01 2017 Leo Hubert Froideval
+** Last update Thu Jun 29 16:55:21 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -19,7 +19,7 @@
 #define FD_SERVER	2
 
 #define NBR_ARGS    6
-#define NBR_PARAMS  7
+#define NBR_PARAMS  8
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -64,14 +64,14 @@ void                leftParam(t_env *env, char **msg, t_users *user);
 void                lookParam(t_env *env, char **msg, t_users *user);
 void                koParam(t_env *env, char **msg, t_users *user);
 void                inventoryParam(t_env *env, char **msg, t_users *user);
-
-void                connect_nbrParam(t_env *env, char **msg, t_users *user);
+void                takeParam(t_env *env, char **msg, t_users *user);
 
 void                forwardAction(t_env *env, char **msg, t_users *user);
 void                rightAction(t_env *env, char **msg, t_users *user);
 void                leftAction(t_env *env, char **msg, t_users *user);
 void                connect_nbrAction(t_env *env, char **msg, t_users *user);
 void                inventoryAction(t_env *env, char **msg, t_users *user);
+void                takeAction(t_env *env, char **msg, t_users *user);
 
 void                lookAction(t_env *env, char **msg, t_users *user);
 

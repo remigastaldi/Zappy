@@ -51,6 +51,6 @@ void  print_tab(char **tab)
 
   i = -1;
   while (tab[++i])
-    printf("%s ", tab[i]);
+    printf("%s - ", tab[i]);
   printf("\n");
 }
