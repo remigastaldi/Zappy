@@ -16,3 +16,10 @@ void  takeParam(t_env *env, char **msg, t_users *user)
   action = newAction(env->queue, user, &takeAction, 7 / env->freq);
   addActionData(action, env, msg);
 }
+
+void  setParam(t_env *env, char **msg, t_users *user)
+{
+  t_action *action;
+  action = newAction(env->queue, user, &setAction, 7 / env->freq);
+  addActionData(action, env, msg);
+}
