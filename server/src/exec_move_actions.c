@@ -68,7 +68,14 @@ void  rightAction(t_env *env, char **msg, t_users *user)
 {
   (void)msg;
   (void)env;
-  user->direction = RIGHT;
+  if (user->direction == UP)
+    user->direction = RIGHT;
+  else if (user->direction == RIGHT)
+    user->direction = DOWN;
+  else if (user->direction == DOWN)
+    user->direction = LEFT;
+  else if (user->direction == LEFT)
+    user->direction = UP;
   printf("User with socket %d turn 90 deg right\n", user->socket);
   dprintf(user->socket, "ok\n");
   printf("--> Sent: \"ok\" to socket %d\n", user->socket);
@@ -78,7 +85,14 @@ void  leftAction(t_env *env, char **msg, t_users *user)
 {
   (void)msg;
   (void)env;
-  user->direction = LEFT;
+  if (user->direction == UP)
+    user->direction = LEFT;
+  else if (user->direction == LEFT)
+    user->direction = DOWN;
+  else if (user->direction == DOWN)
+    user->direction = RIGHT;
+  else if (user->direction == RIGHT)
+    user->direction = UP;
   printf("User with socket %d turn 90 deg left\n", user->socket);
   dprintf(user->socket, "ok\n");
   printf("--> Sent: \"ok\" to socket %d\n", user->socket);

@@ -38,7 +38,7 @@ void  print_map(t_env *env)
       printf("sibur: %d ", env->map[y][x].sibur);
       printf("mendi: %d ", env->map[y][x].mendiane);
       printf("phir: %d ", env->map[y][x].phiras);
-      printf("thys: %d\n", env->map[y][x].thystame);
+      printf("thys: %d ", env->map[y][x].thystame);
       printf("food: %d\n", env->map[y][x].food);
     }
     x = -1;
