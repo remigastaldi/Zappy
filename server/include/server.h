@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 30 16:22:32 2017 Matthias Prost
+** Last update Fri Jun 30 18:43:18 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -105,7 +105,7 @@ void                free_tab(char **tab);
 void                refresh_queue(t_env *env);
 void                refresh_player_food(t_env *env);
 
-void                add_opened_egg(t_env *env, int x, int y, int level);
+void                add_opened_egg(t_env *env, int x, int y);
 void                delete_front_egg(t_env *env);
 
 

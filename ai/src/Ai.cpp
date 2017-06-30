@@ -11,7 +11,7 @@
 #include      "Ai.hpp"
 #include      "Utils.hpp"
 
-Ai::Ai(int port, const std::string &machine, const std::string &teamName) noexcept
+Ai::Ai(int port, const std::string &teamName, const std::string &machine) noexcept
   : Communication(port, teamName, machine),
   _riseUpConditions({
   {1, {{Ai::Properties::NB_PLAYER, 1}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},
@@ -26,6 +26,16 @@ Ai::Ai(int port, const std::string &machine, const std::string &teamName) noexce
   _currentLevel(1),
   _eventCase(1)
 {}
+
+Ai::~Ai()
+{
+  for (auto & it : _threads)
+  {
+    std::cout << "WAIT THREAD" << std::endl;
+    it.join();
+  }
+  std::cout << "EXIT THREAD" << std::endl;
+}
 
 void      Ai::start(Ai::State state) noexcept
 {
@@ -46,19 +56,19 @@ void      Ai::start(Ai::State state) noexcept
   }
   catch (const Event::Dead &event)
   {
-    std::cout << "Player " <<  _machine << " die" << std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << "Player " <<  _machine << " die" << std::endl;
   }
   catch (const Event::Ko &event)
   {
-    std::cout << "Server return KO " << std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << "Server return KO " << std::endl;
   }
   catch (const Event::GameOver &event)
   {
-    std::cout << "Team : " << event.getTeamName() << " won"<< std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << "Team : " << event.getTeamName() << " won"<< std::endl;
   }
   catch (const Event::Broadcast &event)
   {
-    std::cout << "Broadcast : " << event.getCase() << std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << "Broadcast : " << event.getCase() << std::endl;
     _eventCase = event.getCase();
     if (event.getCase() == 0)
     {
@@ -76,7 +86,7 @@ void      Ai::start(Ai::State state) noexcept
 void      Ai::primaryState(void)
 {
   actualiseInventory();
-  if (_currentItems[Ai::Properties::FOOD] < 5)
+  if (_currentItems[Ai::Properties::FOOD] < 3)
   {
     for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
     {
@@ -106,7 +116,6 @@ void      Ai::primaryState(void)
   }
   else
   {
-    actualiseView();
     powerupState();
     return (primaryState());
   }
@@ -114,16 +123,11 @@ void      Ai::primaryState(void)
 
 void      Ai::powerupState(void)
 {
-  // if (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
   if (countPlayer() == 0)
-  {
+    forkPlayer();
+  while (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
     sendCommand("Broadcast");
-    powerupState();
-  }
-  else
-  {
-    startIncantation();
-  }
+  startIncantation();
 }
 
 size_t    Ai::countPlayer(void) const noexcept
@@ -151,14 +155,14 @@ void      Ai::actualiseInventory(void)
     posItem = item.find(" ");
     std::string itemName(item.substr(0, posItem));
     item.erase(0, posItem + 1);
-    std::cout << itemName << " " << item << std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << itemName << " " << item << std::endl;
     _currentItems[Utils::stringToEnum(itemName)] = std::stoi(item);
     _answer.erase(0, posCase + 2);
   }
   posItem = _answer.find(" ");
   std::string itemName(_answer.substr(0, posItem));
   _answer.erase(0, posItem + 1);
-  std::cout << itemName << " " << _answer << std::endl;
+  std::cout << "[" << std::this_thread::get_id() << "] " << itemName << " " << _answer << std::endl;
   _currentItems[Utils::stringToEnum(itemName)] = std::stoi(_answer);
 }
 
@@ -242,10 +246,10 @@ int       Ai::findFoodCase(void) noexcept
 
 bool      Ai::lookForResources(void)
 {
-  size_t caseNbr(0);
+  size_t caseNbr = 0;
   for (const auto & caseIt : _view)
   {
-    std::cout << "[" << caseNbr++ << "]";
+    std::cout << "[" << std::this_thread::get_id() << "] " << "[" << caseNbr++ << "]";
     for (const auto & item : caseIt)
     {
       std::cout << " " << (int) item << " ";
@@ -322,13 +326,13 @@ void      Ai::calculatePath(int resourceCase) noexcept
   int   currentCase = 0;
   Ai::Direction curDirection = Ai::Direction::FORWARD;
 
-  std::cout << "ressourceCase => " << resourceCase << std::endl << std::endl;
+  std::cout << "[" << std::this_thread::get_id() << "] " << "ressourceCase => " << resourceCase << std::endl << std::endl;
   while (currentCase != resourceCase)
   {
     curMinOffsetX = offsetY * offsetY;
     curMaxOffsetX = curMinOffsetX + offsetY * 2;
-    // std::cout << "curMinOffsetX: " << curMinOffsetX << std::endl;
-    // std::cout << "curMaxOffsetX: " << curMaxOffsetX << std::endl;
+    // std::cout << "[" << std::this_thread::get_id() << "] " << "curMinOffsetX: " << curMinOffsetX << std::endl;
+    // std::cout << "[" << std::this_thread::get_id() << "] " << "curMaxOffsetX: " << curMaxOffsetX << std::endl;
     nextLineOffset = ((offsetY + 1) * (offsetY + 1)) + (offsetY > 0 ? offsetX + 1 : offsetX);
     std::cout << "currentCase: " << currentCase << std::endl;
     int direction = calculateDirection(resourceCase, (currentCase - 1 < curMinOffsetX ? currentCase : currentCase - 1), nextLineOffset,
@@ -358,7 +362,7 @@ void      Ai::calculatePath(int resourceCase) noexcept
       curDirection = Ai::Direction::RIGHT;
     }
     _path.push_back(Ai::Direction::FORWARD);
-    std::cout  << std::endl;
+    std::cout << std::endl;
   }
 }
 
@@ -371,8 +375,8 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   aLength < 0 ? aLength *= -1 : 0;
   bLength < 0 ? bLength *= -1 : 0;
   cLength < 0 ? cLength *= -1 : 0;
-  // std::cout << "a: " << a << "  b: " << b << "  c: " << c << std::endl;
-  // std::cout << "aLength: " << aLength << "  bLength: " << bLength << "  cLength: " << cLength << std::endl;
+  // std::cout << "[" << std::this_thread::get_id() << "] " << "a: " << a << "  b: " << b << "  c: " << c << std::endl;
+  // std::cout << "[" << std::this_thread::get_id() << "] " << "aLength: " << aLength << "  bLength: " << bLength << "  cLength: " << cLength << std::endl;
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
 }
 
@@ -411,7 +415,17 @@ void    Ai::walkToDir(void)
 void    Ai::startIncantation(void)
 {
   sendCommand("Incantation");
-  std::cout << _answer << std::endl;
+  std::cout << "[" << std::this_thread::get_id() << "] " << _answer << std::endl;
   receiveCommand();
   _currentLevel++;
+}
+
+void    Ai::forkPlayer(void)
+{
+  sendCommand("Fork");
+  _threads.push_back(std::thread([=]()
+  {
+    std::unique_ptr<Ai> ai(new Ai(_port, _teamName, _machine));
+    ai->start(Ai::State::START);
+  ;}));
 }

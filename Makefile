@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Fri Jun 30 16:24:51 2017 Matthias Prost
+## Last update Fri Jun 30 16:55:26 2017 gastal_r
 ##
 
 .DEFAULT_GOAL := all
@@ -35,7 +35,7 @@ CFLAGS			+=	-Wextra -Wall -Werror -W -g -g3
 CFLAGS			+=  -I./server/include/
 CFLAGS			+=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
-CXXFLAGS		+=	-O3 -Wextra -Wall -Werror -W -g -g3
+CXXFLAGS		+=	-O3 -lpthread -Wextra -Wall -Werror -W -g -g3
 CXXFLAGS		+=  -I./ai/include/
 
 SRC_SERVER	+=	server/src/main.c

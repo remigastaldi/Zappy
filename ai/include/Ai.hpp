@@ -52,6 +52,12 @@ public:
 public:
   Ai(int port, const std::string &teamName, const std::string &machine) noexcept;
 
+  ~Ai();
+  Ai(const Ai& other) = default;
+  Ai(Ai&& other) = default;
+  Ai& operator=(const Ai& other) = default;
+  Ai& operator=(Ai&& other) = default;
+
   void  start(Ai::State) noexcept;
 
 protected:
@@ -71,6 +77,7 @@ protected:
   void    walkToBroadcaster(int caseId);
   void    walkToDir(void);
   void    startIncantation(void);
+  void    forkPlayer(void);
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;
@@ -81,6 +88,7 @@ private:
   std::vector<std::vector<Ai::Properties>> _view;
   std::vector<Ai::Direction> _path;
   Ai::Properties  _objectToTake;
+  std::vector<std::thread>  _threads;
   int   _eventCase;
 };
 

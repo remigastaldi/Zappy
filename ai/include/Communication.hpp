@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Fri Jun 30 10:50:52 2017 gastal_r
+// Last update Fri Jun 30 17:07:28 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -19,6 +19,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include  <thread>
 
 #include "FdStream.hpp"
 #include "Event.hpp"
@@ -26,18 +27,19 @@
 class   Communication
 {
 private:
-  int                 _port;
   struct protoent     *_pe;
   int                 _fd;
   struct sockaddr_in  _s_in;
   std::unique_ptr<FdStream> _fdStream;
 
 protected:
+  int                 _port;
+  std::string         _teamName;
   std::string         _machine;
   std::string         _answer;
 
 public:
-  Communication(int port, const std::string &machine, const std::string &teamName) noexcept;
+  Communication(int port, const std::string &teamName, const std::string &machine) noexcept;
 
   void                checkIfEventMessage();
   void                sendCommand(const std::string &command);

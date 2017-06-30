@@ -47,7 +47,6 @@ typedef struct      s_egg
 {
   int               x;
   int               y;
-  int               level;
   struct s_egg      *next;
 }                   t_egg;
 

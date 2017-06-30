@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 17:50:43 2017 gastal_r
-// Last update Tue Jun 27 15:35:33 2017 gastal_r
+// Last update Fri Jun 30 17:54:54 2017 gastal_r
 //
 
 #ifndef       _UTILS_HPP_
@@ -77,6 +77,15 @@ public:
       return ("Up");
     }
     return ("unknow");
+  }
+
+  static inline const std::string threadNumber()
+  {
+    return (std::string(""));
+    // std::basic_ostream<typename _CharT, optional typename _Traits>
+    // std::ostream *os = new std::ostream(std::cout.rdbuf());
+    // *os << "[" << std::this_thread::get_id() << "] ";
+    // return *os;
   }
 };
 
