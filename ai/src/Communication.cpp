@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Wed Jun 28 17:57:59 2017 gastal_r
+// Last update Fri Jun 30 10:51:47 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -57,9 +57,14 @@ void         Communication::checkIfEventMessage()
 
 void            Communication::sendCommand(const std::string &command)
 {
-  _answer.clear();
   std::cout << "Send ==> " << command << std::endl;
   *_fdStream << command;
+  receiveCommand();
+}
+
+void          Communication::receiveCommand(void)
+{
+  _answer.clear();
   *_fdStream >> _answer;
   std::cout << "Received <== " << _answer << std::endl;
   checkIfEventMessage();

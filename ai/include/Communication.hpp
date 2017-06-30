@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Tue Jun 27 16:07:40 2017 gastal_r
+// Last update Fri Jun 30 10:50:52 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -40,7 +40,8 @@ public:
   Communication(int port, const std::string &machine, const std::string &teamName) noexcept;
 
   void                checkIfEventMessage();
-  void                sendCommand(const std::string &command) ;
+  void                sendCommand(const std::string &command);
+  void                receiveCommand(void);
 };
 
 #endif //COMMUNICATION_HPP

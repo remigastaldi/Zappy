@@ -411,5 +411,7 @@ void    Ai::walkToDir(void)
 void    Ai::startIncantation(void)
 {
   sendCommand("Incantation");
+  std::cout << _answer << std::endl;
+  receiveCommand();
   _currentLevel++;
 }
