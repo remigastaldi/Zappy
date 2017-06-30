@@ -120,7 +120,9 @@ void  takeAction(t_env *env, char **msg, t_users *user)
         && takeObjectPhiThy(env, msg, user) == 0
           && takeObjectFood(env, msg, user) == 0)
   {
-    dprintf(user->socket, "ko\n");
-    printf("--> Sent: \"ko\" to socket %d\n", user->socket);
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    // dprintf(user->socket, "ko\n");
+    // printf("--> Sent: \"ko\" to socket %d\n", user->socket);
   }
 }

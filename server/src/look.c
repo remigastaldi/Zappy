@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Fri Jun 30 19:17:32 2017 gastal_r
+** Last update Fri Jun 30 23:58:10 2017 gastal_r
 */
 
 #include "server.h"
@@ -146,12 +146,12 @@ char            *final_output(t_env *env, int lvl)
   return (pos);
 }
 
-char            *cmd_look(t_env *env)
+char            *cmd_look(t_env *env, t_users *user)
 {
   char          *final;
 
 
-  final = final_output(env, env->users->lvl);
+  final = final_output(env, user->lvl);
   printf("%s\n", final);
   return (final);
 }

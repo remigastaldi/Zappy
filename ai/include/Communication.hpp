@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Fri Jun 30 17:07:28 2017 gastal_r
+// Last update Fri Jun 30 23:24:09 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -28,11 +28,11 @@ class   Communication
 {
 private:
   struct protoent     *_pe;
-  int                 _fd;
   struct sockaddr_in  _s_in;
   std::unique_ptr<FdStream> _fdStream;
 
 protected:
+  int                 _fd;
   int                 _port;
   std::string         _teamName;
   std::string         _machine;

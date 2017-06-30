@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Fri Jun 30 20:52:17 2017 gastal_r
+** Last update Fri Jun 30 21:01:14 2017 gastal_r
 */
 
 #include      "utilities.h"
@@ -57,6 +57,7 @@ void           refresh_player_food(t_env *env)
       {
         delete_all_player_actions(env, &env->users[i]);
         dprintf(env->users[i].socket, "dead");
+        removeUserTab(env, env->users[i].socket);
       }
       else
         env->users[i].food_timer = curr_clock + (12600000 / env->freq);

@@ -44,6 +44,7 @@ void      Ai::start(Ai::State state) noexcept
     switch (state)
     {
     case Ai::State::START:
+      take_all_food();
       primaryState();
       break;
     case Ai::State::INCANTATION:
@@ -56,7 +57,7 @@ void      Ai::start(Ai::State state) noexcept
   }
   catch (const Event::Dead &event)
   {
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Player " <<  _machine << " die" << std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << "Player " <<  _fd << " die" << std::endl;
   }
   catch (const Event::Ko &event)
   {
@@ -83,21 +84,27 @@ void      Ai::start(Ai::State state) noexcept
   }
 }
 
+void      Ai::take_all_food(void)
+{
+  for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
+  {
+    actualiseView();
+    if (lookForFood())
+      return;
+    sendCommand("Right");
+  }
+  for (size_t i = 0; i < _currentLevel; ++i)
+    _path.push_back(Ai::Direction::FORWARD);
+  walkToDir();
+  return (take_all_food());
+}
+
 void      Ai::primaryState(void)
 {
   actualiseInventory();
-  if (_currentItems[Ai::Properties::FOOD] < 3)
+  if (_currentItems[Ai::Properties::FOOD] < 6)
   {
-    for (int checkRotation = 0;  checkRotation < 3; ++checkRotation)
-    {
-      actualiseView();
-      if (lookForFood())
-        return (primaryState());
-      sendCommand("Right");
-    }
-    for (size_t i = 0; i < _currentLevel; ++i)
-      _path.push_back(Ai::Direction::FORWARD);
-    walkToDir();
+    take_all_food();
     return (primaryState());
   }
   else if (checkIfNeedResources())
@@ -126,7 +133,12 @@ void      Ai::powerupState(void)
   if (countPlayer() == 0)
     forkPlayer();
   while (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
+  {
     sendCommand("Broadcast");
+    actualiseInventory();
+    if (_currentItems[Ai::Properties::FOOD] < 5)
+      take_all_food();
+  }
   startIncantation();
 }
 
@@ -214,14 +226,19 @@ bool    Ai::lookForFood(void)
     return (false);
   else if (foodCase == 0)
   {
-    sendCommand("Take " + Utils::enumToString(_objectToTake));
+    int nb = std::count(_view.at(0).begin(), _view.at(0).end(), Ai::Properties::FOOD);
+    for (int i = 0; i < nb; ++i)
+      sendCommand("Take " + Utils::enumToString(_objectToTake));
   }
   else
   {
     calculatePath(foodCase);
     walkToDir();
-    actualiseView();
-    return (lookForFood());
+    int nb = std::count(_view.at(0).begin(), _view.at(0).end(), Ai::Properties::FOOD);
+    for (int i = 0; i < nb; ++i)
+      sendCommand("Take " + Utils::enumToString(_objectToTake));
+    // actualiseView();
+    // return (lookForFood());
   }
   return (true);
 }
@@ -267,8 +284,10 @@ bool      Ai::lookForResources(void)
   {
     calculatePath(resourceCase);
     walkToDir();
-    actualiseView();
-    return (lookForResources());
+    sendCommand("Take " + Utils::enumToString(_objectToTake));
+    return (true);
+    // actualiseView();
+    // return (lookForResources());
   }
   return (true);
 }
@@ -326,7 +345,7 @@ void      Ai::calculatePath(int resourceCase) noexcept
   int   currentCase = 0;
   Ai::Direction curDirection = Ai::Direction::FORWARD;
 
-  std::cout << "[" << std::this_thread::get_id() << "] " << "ressourceCase => " << resourceCase << std::endl << std::endl;
+  std::cout << "[" << std::this_thread::get_id() << "] " << "ressourceCase => " << resourceCase << std::endl;
   while (currentCase != resourceCase)
   {
     curMinOffsetX = offsetY * offsetY;
@@ -334,10 +353,10 @@ void      Ai::calculatePath(int resourceCase) noexcept
     // std::cout << "[" << std::this_thread::get_id() << "] " << "curMinOffsetX: " << curMinOffsetX << std::endl;
     // std::cout << "[" << std::this_thread::get_id() << "] " << "curMaxOffsetX: " << curMaxOffsetX << std::endl;
     nextLineOffset = ((offsetY + 1) * (offsetY + 1)) + (offsetY > 0 ? offsetX + 1 : offsetX);
-    std::cout << "currentCase: " << currentCase << std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << "currentCase: " << currentCase << std::endl;
     int direction = calculateDirection(resourceCase, (currentCase - 1 < curMinOffsetX ? currentCase : currentCase - 1), nextLineOffset,
       (currentCase + 1 > curMaxOffsetX ? currentCase : currentCase + 1));
-    std::cout << "direction=> " << direction << std::endl;
+    std::cout << "[" << std::this_thread::get_id() << "] " << "direction=> " << direction << std::endl;
     if (direction == 0)
     {
       offsetX -= 1;
@@ -362,7 +381,6 @@ void      Ai::calculatePath(int resourceCase) noexcept
       curDirection = Ai::Direction::RIGHT;
     }
     _path.push_back(Ai::Direction::FORWARD);
-    std::cout << std::endl;
   }
 }
 

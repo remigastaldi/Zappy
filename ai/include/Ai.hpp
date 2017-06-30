@@ -14,6 +14,7 @@
 #include  <unordered_map>
 #include  <vector>
 #include  <string>
+#include  <algorithm>
 
 #include  "Event.hpp"
 #include  "Communication.hpp"
@@ -61,6 +62,7 @@ public:
   void  start(Ai::State) noexcept;
 
 protected:
+  void    take_all_food(void);
   void    primaryState(void);
   bool    checkCriticalFood(void);
   void    powerupState(void);
