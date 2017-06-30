@@ -109,6 +109,8 @@ void                add_opened_egg(t_env *env, int x, int y, int level);
 void                delete_front_egg(t_env *env);
 
 
+int                 broadcast(t_users *us, t_users *ur, t_env *env);
+
 extern t_commands g_commands[NBR_ARGS];
 
 #endif
