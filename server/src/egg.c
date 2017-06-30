@@ -5,12 +5,12 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Fri Jun 30 13:25:04 2017 gastal_r
-** Last update Fri Jun 30 15:27:54 2017 gastal_r
+** Last update Fri Jun 30 18:19:02 2017 gastal_r
 */
 
 #include      "utilities.h"
 
-void          add_opened_egg(t_env *env, int x, int y, int level)
+void          add_opened_egg(t_env *env, int x, int y)
 {
   t_egg       *egg;
   t_egg       *tmp;
@@ -18,7 +18,6 @@ void          add_opened_egg(t_env *env, int x, int y, int level)
   egg = xmalloc(sizeof(t_egg));
   egg->x = x;
   egg->y = y;
-  egg->level = level;
   egg->next = NULL;
   if (env->egg == NULL)
     env->egg = egg;

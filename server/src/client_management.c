@@ -24,7 +24,8 @@ void    initInventory(t_env *env, int i)
 
 void    add_user_by_egg(t_env *env, int i)
 {
-  env->users[i].lvl = env->egg->level;
+  printf("============================== %d %d", env->egg->x, env->egg->y);
+  env->users[i].lvl = 1;
   env->users[i].posX = env->egg->x;
   env->users[i].posY = env->egg->y;
   delete_front_egg(env);
