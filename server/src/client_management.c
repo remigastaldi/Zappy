@@ -28,6 +28,7 @@ void    add_user_by_egg(t_env *env, int i)
   env->users[i].lvl = 1;
   env->users[i].posX = env->egg->x;
   env->users[i].posY = env->egg->y;
+  env->map[env->egg->x][env->egg->y].egg--;
   delete_front_egg(env);
 }
 
