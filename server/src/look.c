@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Fri Jun 30 12:03:14 2017 gastal_r
+** Last update Fri Jun 30 19:17:32 2017 gastal_r
 */
 
 #include "server.h"
@@ -119,7 +119,7 @@ char            *check_case(t_env *env, char *pos, int i)
   res != NULL ? free(res) : 0;
   pos = my_strcat(pos, ",", -1, -1);
   calc_pos(env, &x, &y, i);
-  while (++j != (i * 2 + 1) - 1)
+  while (++j != (i * 2 + 1))
     {
       if ((res = ressource_to_string(env, x, y)) != NULL)
         pos = my_strcat(pos, ressource_to_string(env, x, y), -1, -1);
@@ -149,6 +149,7 @@ char            *final_output(t_env *env, int lvl)
 char            *cmd_look(t_env *env)
 {
   char          *final;
+
 
   final = final_output(env, env->users->lvl);
   printf("%s\n", final);

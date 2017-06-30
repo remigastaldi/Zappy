@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Fri Jun 30 15:13:29 2017 gastal_r
+** Last update Fri Jun 30 20:27:21 2017 gastal_r
 */
 
 #include      "utilities.h"
@@ -54,9 +54,7 @@ void           refresh_player_food(t_env *env)
       printf("Player %d have %d food left\n", env->users[i].socket,
         env->users[i].inventory.food);
       if (env->users[i].inventory.food == 0)
-      {
-        //TODO player die
-      }
+        dprintf(env->users[i].socket, "dead");
       else
         env->users[i].food_timer = curr_clock + (12600000 / env->freq);
     }

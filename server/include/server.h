@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 30 18:43:18 2017 gastal_r
+** Last update Fri Jun 30 20:44:50 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -27,7 +27,7 @@
 #define MENDIANA    2
 #define PHIRAS      3
 #define THYSTAME    2
-#define FOOD        5
+#define FOOD        6
 
 typedef struct	    s_commands
 {
@@ -92,6 +92,7 @@ void                addActionData(t_action *, t_env *, char **);
 void                printWorkingQueue(t_queue *);
 void                freeWorkingQueue(t_queue *);
 int                 deleteAction(t_env *env, t_queue *, t_action *);
+void                delete_all_player_actions(t_env *env, t_users *player);
 
 char                *cmd_look(t_env *env);
 
