@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 30 12:21:30 2017 gastal_r
+** Last update Fri Jun 30 13:25:48 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -44,6 +44,7 @@ typedef struct	    s_params
 int                 s_error(char *str);
 
 void                printUsage();
+void                print_error(char *str);
 
 void                widthArg(t_env *env, char **av, int i);
 void                heightArg(t_env *env, char **av, int i);

@@ -54,3 +54,9 @@ void  print_tab(char **tab)
     printf("%s - ", tab[i]);
   printf("\n");
 }
+
+void  print_error(char *str)
+{
+  printf("%s\n", str);
+  exit(EXIT_FAILURE);
+}
