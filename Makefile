@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Thu Jun 29 18:33:43 2017 Matthias Prost
+## Last update Fri Jun 30 15:26:19 2017 gastal_r
 ##
 
 .DEFAULT_GOAL := all
@@ -59,6 +59,7 @@ SRC_SERVER	+=	server/src/exec_set_actions.c
 SRC_SERVER	+=	server/src/params_objects.c
 SRC_SERVER	+=	server/src/exec_incantation_action.c
 SRC_SERVER	+=	server/src/count_number_team.c
+SRC_SERVER	+=	server/src/egg.c
 
 SRC_SERVER	+=	server/src/GUI.c
 SRC_SERVER	+=	server/src/initGUI.c
@@ -99,7 +100,7 @@ zappy_server    :   $(NAME_SERVER)
 zappy_ai        :   $(NAME_AI)
 
 clean						:
-										@rm -f $(OBJ_SERVER) $(OBJ_AI)
+										@rm -f $(OBJ_SERVER) $(OBJ_AI) $(OBJ_UTILS)
 
 fclean					:		clean
 										@rm -f $(NAME_SERVER) $(NAME_AI)
