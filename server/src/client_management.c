@@ -21,19 +21,33 @@ void    initInventory(t_env *env, int i)
   env->users[i].inventory.thystame = 0;
 }
 
+void    add_user_by_egg(t_env *env, int i)
+{
+  env->users[i].lvl = env->egg->level;
+  env->users[i].posX = env->egg->x;
+  env->users[i].posY = env->egg->y;
+  delete_front_egg(env);
+}
+
 void		addUserTab(t_env *env, int socket)
 {
   int		i;
 
   i = -1;
   while (++i != MAX_FD)
+  {
     if (env->users[i].socket == -1)
       {
       	env->users[i].socket = socket;
-        env->users[i].lvl = 1;
-        env->users[i].posX = rand() % env->width;
-        env->users[i].posY = rand() % env->height;
-        env->users[i].direction = rand() % 4;
+        if (env->egg != NULL)
+          add_user_by_egg(env, i);
+        else
+        {
+          env->users[i].lvl = 1;
+          env->users[i].posX = rand() % env->width;
+          env->users[i].posY = rand() % env->height;
+          env->users[i].direction = rand() % 4;
+        }
         env->users[i].teamName = NULL;
         initInventory(env, i);
         printf("Socket: %d\tlvl: %d\t\tposY: %d\t\tposX: %d\t\tdirection: %d\n",
@@ -41,6 +55,7 @@ void		addUserTab(t_env *env, int socket)
           env->users[i].posX, env->users[i].direction);
       	break;
       }
+  }
 }
 
 void		removeUserTab(t_env *env, int socket)

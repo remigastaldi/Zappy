@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Fri Jun 30 12:17:49 2017 gastal_r
+** Last update Fri Jun 30 15:13:29 2017 gastal_r
 */
 
 #include      "utilities.h"
@@ -28,7 +28,7 @@ void          refresh_queue(t_env *env)
     {
       tmp = action->next;
       (*action->p)(action->env, action->msg, action->user);
-      deleteAction(env->queue, action);
+      deleteAction(env, env->queue, action);
       action = tmp;
     }
     if (action != NULL)

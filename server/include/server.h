@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 30 15:00:47 2017 Matthias Prost
+** Last update Fri Jun 30 15:11:09 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -89,10 +89,11 @@ t_action            *newAction(t_queue *, t_users *, void *, double ac_time);
 void                addActionData(t_action *, t_env *, char **);
 void                printWorkingQueue(t_queue *);
 void                freeWorkingQueue(t_queue *);
-int                 deleteAction(t_queue *, t_action *);
+int                 deleteAction(t_env *env, t_queue *, t_action *);
 
 char                *cmd_look(t_env *env);
 
+void                add_user_by_egg(t_env *env, int i);
 void		            addUserTab(t_env *env, int socket);
 void	              removeUserTab(t_env *env, int socket);
 
@@ -101,6 +102,10 @@ void                free_tab(char **tab);
 
 void                refresh_queue(t_env *env);
 void                refresh_player_food(t_env *env);
+
+void                add_opened_egg(t_env *env, int x, int y, int level);
+void                delete_front_egg(t_env *env);
+
 
 extern t_commands g_commands[NBR_ARGS];
 

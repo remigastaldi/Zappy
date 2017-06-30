@@ -43,6 +43,14 @@ typedef enum        Direction
     LEFT
 }                   Direction;
 
+typedef struct      s_egg
+{
+  int               x;
+  int               y;
+  int               level;
+  struct s_egg      *next;
+}                   t_egg;
+
 typedef struct      s_items
 {
     int             linemate;
@@ -82,6 +90,7 @@ typedef struct		s_env
   fct				fct_read[MAX_FD];
   fct				fct_write[MAX_FD];
   t_queue           *queue;
+  t_egg             *egg;
 }				    t_env;
 
 typedef struct      s_action
@@ -93,6 +102,8 @@ typedef struct      s_action
     t_users         *user;
     struct s_action *next;
     struct s_action *prev;
+    int             x;
+    int             y;
 }                   t_action;
 
 typedef struct      s_queue

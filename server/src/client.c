@@ -81,8 +81,11 @@ void    joinTeam(t_env *env, char *buff, int fd)
     }
     counter = env->clientsNb - counter;
     if (counter >= 1)
+    {
       user->teamName = strdup(buff);
-    user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec + (12600000 / env->freq);
+      user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec +
+        (12600000 / env->freq);
+    }
     dprintf(fd, "%d\n", counter);
     dprintf(fd, "%d %d\n", env->width, env->height);
     printf("--> Sent: \"%d\" to socket %d\n", counter, fd);

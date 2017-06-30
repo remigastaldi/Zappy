@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Fri Jun 30 11:30:31 2017 gastal_r
+** Last update Fri Jun 30 13:59:41 2017 gastal_r
 */
 
 #include "server.h"
@@ -37,6 +37,7 @@ void		serverInit(t_env *env)
   memset(env->fd_type, FD_FREE, MAX_FD);
   createMap(env);
   createServer(env);
+  env->egg = NULL;
 }
 
 void  args(t_env *env, char **av)

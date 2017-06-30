@@ -55,22 +55,22 @@ public:
   void  start(Ai::State) noexcept;
 
 protected:
-  void    primaryState(void) ;
-  bool    checkCriticalFood(void) ;
-  void    powerupState(void) ;
+  void    primaryState(void);
+  bool    checkCriticalFood(void);
+  void    powerupState(void);
   size_t  countPlayer(void) const noexcept;
-  void    actualiseInventory(void) ;
+  void    actualiseInventory(void);
   bool    checkIfNeedResources(void) noexcept;
-  void    actualiseView(void) ;
-  bool    lookForFood(void) ;
+  void    actualiseView(void);
+  bool    lookForFood(void);
   int     findFoodCase(void) noexcept;
-  bool    lookForResources(void) ;
+  bool    lookForResources(void);
   int     findNeededResourceCase(void) noexcept;
   void    calculatePath(int resourceCase) noexcept;
   int     calculateDirection(int destination, int a, int b, int c) noexcept;
-  void    walkToBroadcaster(int caseId) ;
-  void    walkToDir(void) ;
-  void    startIncantation(void) ;
+  void    walkToBroadcaster(int caseId);
+  void    walkToDir(void);
+  void    startIncantation(void);
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;
