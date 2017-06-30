@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Thu Jun 29 13:19:17 2017 gastal_r
+** Last update Fri Jun 30 12:03:14 2017 gastal_r
 */
 
 #include "server.h"
@@ -81,7 +81,7 @@ int             calc_pos(t_env *env, int *x, int *y, int lvl)
   ((*y) < 0 ? (*y) += env->height : 0);
   ((*x) > env->width - 1 ? (*x) -= env->width : 0);
   ((*y) > env->height - 1 ? (*y) -= env->height : 0);
-  printf("calc: %d calc: %d\n", *x, *y);
+  // printf("calc: %d calc: %d\n", *x, *y);
   return (0);
 }
 
@@ -99,7 +99,7 @@ int             change_case(t_env *env, int *x, int *y)
   ((*y) < 0 ? (*y) += env->height : 0);
   ((*x) > env->width - 1 ? (*x) -= env->width : 0);
   ((*y) > env->height - 1 ? (*y) -= env->height : 0);
-  printf("changex: %d changey: %d\n", *x, *y);
+  // printf("changex: %d changey: %d\n", *x, *y);
   return (0);
 }
 
@@ -150,8 +150,6 @@ char            *cmd_look(t_env *env)
 {
   char          *final;
 
-  env->users->lvl = 3;
-  printf("userlvl: %d\n", env->users->lvl);
   final = final_output(env, env->users->lvl);
   printf("%s\n", final);
   return (final);
