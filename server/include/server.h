@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 30 15:11:09 2017 gastal_r
+** Last update Fri Jun 30 16:22:32 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -19,7 +19,7 @@
 #define FD_SERVER	2
 
 #define NBR_ARGS    6
-#define NBR_PARAMS  11
+#define NBR_PARAMS  12
 
 #define LINEMATE    3
 #define DERAUMERE   2
@@ -69,6 +69,7 @@ void                takeParam(t_env *env, char **msg, t_users *user);
 void                setParam(t_env *env, char **msg, t_users *user);
 void                incantationParam(t_env *env, char **msg, t_users *user);
 void                forkParam(t_env *env, char **msg, t_users *user);
+void                broadcastParam(t_env *env, char **msg, t_users *user);
 
 void                forwardAction(t_env *env, char **msg, t_users *user);
 void                rightAction(t_env *env, char **msg, t_users *user);
@@ -79,6 +80,7 @@ void                takeAction(t_env *env, char **msg, t_users *user);
 void                setAction(t_env *env, char **msg, t_users *user);
 void                incantationAction(t_env *env, char **msg, t_users *user);
 void                forkAction(t_env *env, char **msg, t_users *user);
+void                broadcastAction(t_env *env, char **msg, t_users *user);
 
 void                lookAction(t_env *env, char **msg, t_users *user);
 

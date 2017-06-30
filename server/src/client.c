@@ -21,6 +21,7 @@ t_params g_params [NBR_PARAMS] = {
   {"Set", &setParam},
   {"Incantation", &incantationParam},
   {"Fork", &forkParam},
+  {"Broadcast", &broadcastParam},
   {"ko", &koParam}
 };
 

@@ -19,6 +19,7 @@ void    initInventory(t_env *env, int i)
   env->users[i].inventory.mendiane = 0;
   env->users[i].inventory.phiras = 0;
   env->users[i].inventory.thystame = 0;
+  env->users[i].inventory.egg = 0;
 }
 
 void    add_user_by_egg(t_env *env, int i)
