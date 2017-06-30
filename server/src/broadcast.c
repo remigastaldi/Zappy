@@ -77,21 +77,31 @@ int         cartdinal(t_users *us, t_users *ur, t_env *env)
 
   x = us->posX - ur->posX;
   y = us->posY - ur->posY;
-  (x < 0 ? x *= -1 : 0);
-  (y < 0 ? y *= -1 : 0);
   if (is_cardinal(us, ur) == 2)
   {
-    if (x > (env->width / 2))
-      return (5);
+    if (x > 0)
+      if (x > (env->width / 2))
+        return (5);
+      else
+        return (1);
     else
-      return (1);
+      if (x * (-1) > (env->width / 2))
+        return (1);
+      else
+        return (5);
   }
   else if (is_cardinal(us, ur) == 1)
   {
-    if (y > (env->height / 2))
-      return (3);
+    if (y > 0)
+      if (y > (env->height / 2))
+        return (3);
+      else
+        return (7);
     else
-      return (7);
+      if (y * (-1) > (env->height / 2))
+        return (7);
+      else
+        return (3);
   }
   return (0);
 }
@@ -107,6 +117,7 @@ int         cartdinal(t_users *us, t_users *ur, t_env *env)
 //   (y < 0 ? y *= -1 : 0);
 //   if (x > (env->width / 2))
 //   {
+//     if (y > (env->width / 2)
 //
 //   }
 //   else if (y > (env->width / 2)
@@ -121,9 +132,9 @@ int         broadcast(t_users *us, t_users *ur, t_env *env)
   int       dir;
 
   dir = 0;
-  us->posX = 8;
+  us->posX = 2;
   us->posY = 8;
-  ur->posX = 5;
+  ur->posX = 6;
   ur->posY = 8;
   us->direction = 0;
   ur->direction = 2;
