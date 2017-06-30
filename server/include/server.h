@@ -27,7 +27,7 @@
 #define MENDIANA    2
 #define PHIRAS      3
 #define THYSTAME    2
-#define FOOD        4
+#define FOOD        5
 
 typedef struct	    s_commands
 {
