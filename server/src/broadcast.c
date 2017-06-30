@@ -96,6 +96,26 @@ int         cartdinal(t_users *us, t_users *ur, t_env *env)
   return (0);
 }
 
+// int         diagonal(t_users *us, t_users *ur, t_env *env)
+// {
+//   int       x;
+//   int       y;
+//
+//   x = us->posX - ur->posX;
+//   y = us->posY - ur->posY;
+//   (x < 0 ? x *= -1 : 0);
+//   (y < 0 ? y *= -1 : 0);
+//   if (x > (env->width / 2))
+//   {
+//
+//   }
+//   else if (y > (env->width / 2)
+//   {
+//
+//   }
+//   return (0);
+// }
+
 int         broadcast(t_users *us, t_users *ur, t_env *env)
 {
   int       dir;
@@ -109,6 +129,8 @@ int         broadcast(t_users *us, t_users *ur, t_env *env)
   ur->direction = 2;
   if (is_cardinal(us, ur) >= 0)
     dir = cartdinal(us, ur, env);
+  // else
+  //   dir = diagonale(us, ur, env);
   printf("dir: %d\n", dir);
   return (0);
 }
