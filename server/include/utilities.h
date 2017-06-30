@@ -63,6 +63,7 @@ typedef struct	    s_users
   char              *teamName;
   Direction         direction;
   t_items           inventory;
+  long long         food_timer;
 }				    t_users;
 
 typedef struct		s_env

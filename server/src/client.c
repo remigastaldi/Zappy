@@ -61,6 +61,7 @@ int     checkNames(t_env *env, char *buff)
 
 void    joinTeam(t_env *env, char *buff, int fd)
 {
+  struct      timeval curr_time;
   t_users   *user;
   int       i;
   int       counter;
@@ -68,6 +69,7 @@ void    joinTeam(t_env *env, char *buff, int fd)
   i = -1;
   counter = 0;
   user = get_user(env, fd);
+  gettimeofday(&curr_time, NULL);
   if (checkNames(env, buff) == 0)
   {
     while (++i != MAX_FD)
@@ -79,6 +81,7 @@ void    joinTeam(t_env *env, char *buff, int fd)
     counter = env->clientsNb - counter;
     if (counter >= 1)
       user->teamName = strdup(buff);
+    user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec + (12600000 / env->freq);
     dprintf(fd, "%d\n", counter);
     dprintf(fd, "%d %d\n", env->width, env->height);
     printf("--> Sent: \"%d\" to socket %d\n", counter, fd);

@@ -69,6 +69,7 @@ void		serverLoop(t_env *env)
 	if (FD_ISSET(i, &fd_read))
 	  env->fct_read[i](env, i);
     refresh_queue(env);
+    refresh_player_food(env);
     drawGUI(&GUI, env);
     }
   destroyGUI(&GUI);

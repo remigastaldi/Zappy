@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 14:29:06 2017 Matthias Prost
-** Last update Thu Jun 29 15:18:57 2017 Matthias Prost
+** Last update Fri Jun 30 11:30:31 2017 gastal_r
 */
 
 #include "server.h"
@@ -32,6 +32,7 @@ void		serverInit(t_env *env)
     env->users[i].posX = 0;
     env->users[i].posY = 0;
     env->users[i].teamName = NULL;
+    env->users[i].food_timer = 0;
   }
   memset(env->fd_type, FD_FREE, MAX_FD);
   createMap(env);

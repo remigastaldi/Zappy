@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Thu Jun 29 18:46:17 2017 Matthias Prost
+** Last update Fri Jun 30 12:21:30 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -97,6 +97,7 @@ void                free_env(t_env *env);
 void                free_tab(char **tab);
 
 void                refresh_queue(t_env *env);
+void                refresh_player_food(t_env *env);
 
 extern t_commands g_commands[NBR_ARGS];
 
