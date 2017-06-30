@@ -60,6 +60,7 @@ typedef struct      s_items
     int             phiras;
     int             thystame;
     int             food;
+    int             egg;
 }                   t_items;
 
 typedef struct	    s_users
@@ -83,7 +84,6 @@ typedef struct		s_env
   int               nbrRessources;
   char              **names;
   int               clientsNb;
-
   long              freq;
   t_users		    users[MAX_FD];
   char			    fd_type[MAX_FD];

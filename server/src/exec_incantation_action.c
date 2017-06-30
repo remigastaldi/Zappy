@@ -1,5 +1,5 @@
 /*
-** exec_incantation_action.c for Zappy in /home/prost_m/Rendu/Semestre_4/Zappy/server/src/
+** exec_incantation_action.c for Zappy
 **
 ** Made by Matthias Prost
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
@@ -25,6 +25,7 @@ void  forkAction(t_env *env, char **msg, t_users *user)
 {
   (void)env;
   (void)msg;
+  env->map[user->posY][user->posX].egg =+ 1;
   dprintf(user->socket, "ok\n");
   printf("--> Sent \"ok\" to socket %d\n", user->socket);
 }

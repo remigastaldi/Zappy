@@ -1,5 +1,5 @@
 /*
-** main.c for Zappy in /home/prost_m/Rendu/Semestre_4/Zappy/sources/server
+** main.c for Zappy
 **
 ** Made by Matthias Prost
 ** Login   <matthias.prost@epitech.eu>
