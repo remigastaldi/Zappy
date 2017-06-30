@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Wed Jun 28 15:53:40 2017 Leo Hubert Froideval
-** Last update Fri Jun 30 20:44:22 2017 gastal_r
+** Last update Fri Jun 30 20:51:08 2017 gastal_r
 */
 
 #include "server.h"
@@ -22,13 +22,16 @@ void    addActionData(t_action *action, t_env *env, char **msg)
 void    delete_all_player_actions(t_env *env, t_users *player)
 {
   t_action  *ptr;
+  t_action  *tmp;
 
   if (env->queue == NULL)
     return;
   ptr = env->queue->head;
   while (ptr != NULL)
   {
+    tmp = ptr->next;
     if (ptr->user == player)
       deleteAction(env, env->queue, ptr);
+    ptr = tmp;
   }
 }
