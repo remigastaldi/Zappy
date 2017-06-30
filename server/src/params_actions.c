@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 23 15:43:06 2017 Matthias Prost
-** Last update Thu Jun 29 18:07:22 2017 gastal_r
+** Last update Fri Jun 30 12:09:17 2017 gastal_r
 */
 
 #include "server.h"
@@ -44,4 +44,5 @@ void  koParam(t_env *env, char **msg, t_users *user)
   (void)msg;
   dprintf(user->socket, "ko\n");
   printf("--> Sent: \"ko\" to socket %d\n", user->socket);
+  free_tab(msg);
 }
