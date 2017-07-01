@@ -131,7 +131,11 @@ void      Ai::primaryState(void)
 void      Ai::powerupState(void)
 {
   if (countPlayer() == 0)
-    forkPlayer();
+  {
+    sendCommand("Connect_nbr");
+    if (std::stoi(_answer) > 0)
+      forkPlayer();
+  }
   while (countPlayer() < _riseUpConditions[_currentLevel][Ai::Properties::NB_PLAYER])
   {
     sendCommand("Broadcast");
