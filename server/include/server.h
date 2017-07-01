@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 30 23:58:13 2017 gastal_r
+** Last update Fri Jun 30 16:53:46 2017 sellet_f
 */
 
 #ifndef _SERVER_H_
@@ -83,8 +83,6 @@ void                forkAction(t_env *env, char **msg, t_users *user);
 void                broadcastAction(t_env *env, char **msg, t_users *user);
 
 void                lookAction(t_env *env, char **msg, t_users *user);
-
-int                 count_number_team(char *str, t_env  *env);
 
 t_queue             *initWorkingQueue();
 t_action            *newAction(t_queue *, t_users *, void *, double ac_time);

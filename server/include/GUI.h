@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 10:57:50 2017 sellet_f
-** Last update Thu Jun 29 17:42:01 2017 sellet_f
+** Last update Sat Jul  1 13:22:45 2017 sellet_f
 */
 
 #ifndef __GUI_H__
@@ -22,7 +22,8 @@ typedef enum		Sprite
   {
     DEFAULT,
     MENU,
-    PLAYER
+    PLAYER,
+    INVENTORY
   }			Sprite;
 
 typedef enum		Resources
@@ -54,6 +55,7 @@ typedef struct		s_gui
   sfEvent		_event;
   sfView		*_camera;
   sfView		*_interface;
+  sfFont		*_font;
 
   sfTexture		*_pannelTexture;
   sfSprite		*_pannelSprite;
@@ -66,26 +68,39 @@ typedef struct		s_gui
   sfTexture		*_resourcesTexture;
   sfSprite		*_resourcesSprite;
 
-  sfFont		*_font;
   t_items		_caseInfos;
+  int			_caseX;
+  int			_caseY;
+  t_users		_userInfos;
 }			t_gui;
 
-/* initGUI.c */
-void		initValueResource(sfVector2f, sfText *, t_gui *, int);
+/* init.c */
 sfVector2f  	initText(sfText **, sfVector2f, t_gui *);
 bool		initTexture(t_gui *, sfVector2f);
 bool		initGUI(t_gui *, t_env *);
 
 /* GUI.c */
-void		destroyGUI(t_gui *);
-bool		inputsAndEvents(t_gui *, t_env *);
-void		checkResources(t_gui *, int, int, t_env *);
-
-/* drawGUI.c */
-void		drawText(t_gui *);
 void		drawGUI(t_gui *, t_env *);
+void		checkMovs(t_gui *, sfVector2f);
+bool		checkClickedSprite(t_gui *, t_env *);
+bool		inputsAndEvents(t_gui *, t_env *);
+void		destroyGUI(t_gui *);
 
-/* GUImap.c */
+/* map.c */
+void		drawResources(t_gui *, int, int, enum Resources);
+void		checkResources(t_gui *, int, int, t_env *);
 void		drawMap(t_gui *, t_env*);
 
+/* pannel.c */
+void		initValueInventory(sfVector2f, sfText *, t_gui *, char *);
+void		initValueResource(sfVector2f, sfText *, t_gui *, int);
+void		drawInventoryResources(t_gui *, sfVector2f, sfText *);
+void		drawInventory(t_gui *, sfVector2f, sfText *, t_env *);
+void		drawText(t_gui *, t_env *);
+
+/* users.c */
+int		countNumberTeam(char *, t_env *);
+void		drawPlayers(t_gui *, t_env *);
+int		countPlayers(t_gui *, t_env *, bool);
+void		checkPlayerOnTile(t_gui *, t_env *);
 #endif

@@ -5,10 +5,27 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Thu Jun 29 18:02:38 2017 sellet_f
+** Last update Sat Jul  1 01:40:57 2017 sellet_f
 */
 
 #include "GUI.h"
+
+void			drawGUI(t_gui *GUI, t_env *env)
+{
+  sfRenderWindow_clear(GUI->_win, sfBlack);
+  inputsAndEvents(GUI, env);
+  if (sfRenderWindow_isOpen(GUI->_win))
+    {
+      sfRenderWindow_setView(GUI->_win, GUI->_camera);
+      drawMap(GUI, env);
+      drawPlayers(GUI, env);
+      sfRenderWindow_setView(GUI->_win, GUI->_interface);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_pannelSprite, NULL);
+      sfRenderWindow_drawSprite(GUI->_win, GUI->_playerInfoSprite, NULL);
+      drawText(GUI, env);
+      sfRenderWindow_display(GUI->_win);
+    }
+}
 
 void			checkMovs(t_gui *GUI, sfVector2f vec)
 {
@@ -58,6 +75,9 @@ bool			checkClickedSprite(t_gui *GUI, t_env *env)
 	    (mouseInWorld.y > y * 100 && mouseInWorld.y < y * 100 + 100))
 	  {
 	    GUI->_caseInfos = env->map[y][x];
+	    GUI->_caseX = x;
+	    GUI->_caseY = y;
+	    checkPlayerOnTile(GUI, env);
 	    return (true);
 	  }
     }

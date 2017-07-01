@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Fri Jun 30 16:55:26 2017 gastal_r
+## Last update Sat Jul  1 01:42:08 2017 sellet_f
 ##
 
 .DEFAULT_GOAL := all
@@ -58,16 +58,18 @@ SRC_SERVER	+=	server/src/exec_take_actions.c
 SRC_SERVER	+=	server/src/exec_set_actions.c
 SRC_SERVER	+=	server/src/params_objects.c
 SRC_SERVER	+=	server/src/exec_incantation_action.c
-SRC_SERVER	+=	server/src/count_number_team.c
 SRC_SERVER	+=	server/src/egg.c
 SRC_SERVER	+=	server/src/exec_broadcast_action.c
 SRC_SERVER	+=	server/src/params_broadcast.c
 SRC_SERVER	+=	server/src/broadcast.c
 
-SRC_SERVER	+=	server/src/GUI.c
-SRC_SERVER	+=	server/src/initGUI.c
-SRC_SERVER	+=	server/src/drawGUI.c
-SRC_SERVER	+=	server/src/GUImap.c
+SRC_SERVER	+=	server/src/GUI/GUI.c
+SRC_SERVER	+=	server/src/GUI/init.c
+SRC_SERVER	+=	server/src/GUI/map.c
+SRC_SERVER	+=	server/src/GUI/users.c
+SRC_SERVER	+=	server/src/GUI/pannel.c
+
+
 
 SRC_AI			+=	ai/src/main.cpp
 SRC_AI			+=	ai/src/Ai.cpp

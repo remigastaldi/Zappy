@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Mon Jun 26 15:25:06 2017 Matthias Prost
-** Last update Wed Jun 28 18:56:39 2017 Leo Hubert Froideval
+** Last update Sat Jul  1 14:17:10 2017 sellet_f
 */
 
 #include "server.h"
@@ -28,7 +28,7 @@ void    add_user_by_egg(t_env *env, int i)
   env->users[i].lvl = 1;
   env->users[i].posX = env->egg->x;
   env->users[i].posY = env->egg->y;
-  env->map[env->egg->x][env->egg->y].egg--;
+  env->map[env->egg->y][env->egg->x].egg--;
   delete_front_egg(env);
 }
 

@@ -1,11 +1,11 @@
 /*
-** GUImap.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
+** map.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
 ** 
 ** Made by sellet_f
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Thu Jun 29 17:16:57 2017 sellet_f
-** Last update Thu Jun 29 17:52:00 2017 sellet_f
+** Last update Sat Jul  1 01:29:53 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -17,7 +17,8 @@ t_mapResource		spriteValues[] = {
   {30, 70, 19, 32, 2, 35},
   {0, 0, 16, 31, 2, 67},
   {60, 1, 17, 31, 81, 40},
-  {60, 40, 20, 22, 78, 76}
+  {60, 40, 20, 22, 78, 76},
+  {0, 69, 23, 33, 40, 66}
 };
 
 void			drawResource(t_gui *GUI, int x, int y, enum Resources res)
@@ -54,8 +55,8 @@ void			checkResources(t_gui *GUI, int y, int x, t_env *env)
     drawResource(GUI, x, y, THYSTAME);
   if (env->map[y][x].food > 0)
     drawResource(GUI, x, y, FOOD);
-  /* if (env->map[x][y].egg > 0) */
-  /*   drawResource(GUI, x, y, FOOD); */
+  if (env->map[y][x].egg > 0)
+    drawResource(GUI, x, y, EGG);
 }
 
 void			drawMap(t_gui *GUI, t_env *env)

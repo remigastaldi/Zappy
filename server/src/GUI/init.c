@@ -1,26 +1,15 @@
 /*
-** initGUI.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
+** init.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
 **
 ** Made by sellet_f
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Tue Jun 27 17:37:13 2017 sellet_f
-** Last update Thu Jun 29 16:05:04 2017 sellet_f
+** Last update Sat Jul  1 01:29:44 2017 sellet_f
 */
 
 #include "GUI.h"
 
-void			initValueResource(sfVector2f pos, sfText *text,
-					  t_gui *GUI, int resource)
-{
-  char			str[4];
-
-  bzero(str, 4);
-  sfText_setPosition(text, pos);
-  sprintf(str, "%d", resource);
-  sfText_setString(text, str);
-  sfRenderWindow_drawText(GUI->_win, text, NULL);
-}
 
 sfVector2f	initText(sfText **text, sfVector2f pos, t_gui *GUI)
 {
@@ -50,6 +39,7 @@ bool		initGUI(t_gui *GUI, t_env *env)
   GUI-> _caseInfos.linemate = GUI->_caseInfos.deraumere = 0;
   GUI->_caseInfos.sibur = GUI->_caseInfos.mendiane = 0;
   GUI->_caseInfos.phiras = GUI->_caseInfos.thystame = GUI->_caseInfos.food = 0;
+  GUI->_caseInfos.egg = 0;
   GUI->_interface = sfView_copy(sfRenderWindow_getView(GUI->_win));
   GUI->_camera = sfView_copy(GUI->_interface);
   vector.x = env->width / 2 * sfTexture_getSize(GUI->_grassTexture).x;
@@ -73,8 +63,7 @@ sfSprite	*initSprite(sfSprite *sprite, sfVector2f spritePos,
   spriteColor.r = 255;
   spriteColor.g = 255;
   spriteColor.b = 255;
-  spriteColor.a = 255;
-
+  spriteColor.a = type == INVENTORY ? 0 : 255;
   sprite = sfSprite_create();
   sfSprite_setTexture(sprite, texture, sfTrue);
   sfSprite_setScale(sprite, spriteScale);
@@ -88,7 +77,7 @@ bool	initTexture(t_gui *GUI, sfVector2f spritePos)
   if (!(GUI->_pannelTexture =
        sfTexture_createFromFile("./server/media/pannel.png", NULL)) ||
       !(GUI->_playerInfoTexture =
-	sfTexture_createFromFile("./server/media/playerFound.png", NULL)) ||
+	sfTexture_createFromFile("./server/media/playerInfos2.png", NULL)) ||
       !(GUI->_grassTexture =
 	sfTexture_createFromFile("./server/media/grass2.jpg", NULL)) ||
       !(GUI->_resourcesTexture =
@@ -98,10 +87,10 @@ bool	initTexture(t_gui *GUI, sfVector2f spritePos)
     return (false);
 
   GUI->_pannelSprite = initSprite(GUI->_pannelSprite, spritePos, GUI->_pannelTexture, MENU);
-  spritePos.x = GUI->_mode.height * 0.73489;
-  spritePos.y = GUI->_mode.width * 0.66851;
+  spritePos.x += 72;
+  spritePos.y += 713;
   GUI->_playerInfoSprite = initSprite(GUI->_playerInfoSprite,
-  				      spritePos, GUI->_playerInfoTexture, DEFAULT);
+  				      spritePos, GUI->_playerInfoTexture, INVENTORY);
   GUI->_grassSprite = initSprite(GUI->_grassSprite, spritePos,
 				 GUI->_grassTexture, DEFAULT);
   GUI->_resourcesSprite = initSprite(GUI->_resourcesSprite, spritePos,
