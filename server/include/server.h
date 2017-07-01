@@ -93,6 +93,7 @@ int                 deleteAction(t_env *env, t_queue *, t_action *);
 void                delete_all_player_actions(t_env *env, t_users *player);
 
 char                *cmd_look(t_env *env, t_users *user);
+char                *ressource_to_string(t_env *env, t_users *user, int x, int y);
 
 void                add_user_by_egg(t_env *env, int i);
 void		            addUserTab(t_env *env, int socket);

@@ -48,6 +48,7 @@ SRC_SERVER	+=	server/src/params_actions.c
 SRC_SERVER	+=	server/src/workingQueue.c
 SRC_SERVER	+=	server/src/client_management.c
 SRC_SERVER	+=	server/src/look.c
+SRC_SERVER	+=	server/src/look2.c
 SRC_SERVER	+=	server/src/free.c
 SRC_SERVER	+=	server/src/refresh_queue.c
 SRC_SERVER	+=	server/src/exec_client.c
