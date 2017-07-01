@@ -114,11 +114,13 @@ void      Ai::primaryState(void)
       actualiseView();
       if (lookForResources())
         return (primaryState());
-      else if (lookForFood())
-        return (primaryState());
+      // else if (lookForFood())
+      //   return (primaryState());
       sendCommand("Right");
     }
-    sendCommand("Forward");
+    for (size_t i = 0; i < _currentLevel; ++i)
+      _path.push_back(Ai::Direction::FORWARD);
+    walkToDir();
     return (primaryState());
   }
   else

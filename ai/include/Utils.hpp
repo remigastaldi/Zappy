@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 17:50:43 2017 gastal_r
-// Last update Fri Jun 30 17:54:54 2017 gastal_r
+// Last update Sat Jul  1 14:19:18 2017 gastal_r
 //
 
 #ifndef       _UTILS_HPP_
@@ -24,7 +24,7 @@ public:
       return (Ai::Properties::FOOD);
     else if (value == "linemate")
       return (Ai::Properties::LINEMATE);
-    else if (value == "deraumer")
+    else if (value == "deraumere")
       return (Ai::Properties::DERAUMERE);
     else if (value == "sibur")
       return (Ai::Properties::SIBUR);
@@ -48,7 +48,7 @@ public:
     case Ai::Properties::LINEMATE:
       return ("linemate");
     case Ai::Properties::DERAUMERE:
-      return ("deraumer");
+      return ("deraumere");
     case Ai::Properties::SIBUR:
       return ("sibur");
     case Ai::Properties::MENDIANE:
