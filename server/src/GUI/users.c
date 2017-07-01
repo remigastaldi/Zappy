@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Sat Jul  1 01:19:42 2017 sellet_f
-** Last update Sat Jul  1 14:18:18 2017 sellet_f
+** Last update Sat Jul  1 14:41:55 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -26,7 +26,7 @@ int			countNumberTeam(char *str, t_env  *env)
 void			checkPlayerLvl(t_users user, sfIntRect *spritePos)
 {
   spritePos->top = 0;
-  spritePos->left = 32 + ((user.lvl - 1) * 32);
+  spritePos->left = 32 + (user.lvl * 32);
   if (user.lvl % 8 > 3)
     spritePos->top = 128;
   if (user.direction == LEFT)

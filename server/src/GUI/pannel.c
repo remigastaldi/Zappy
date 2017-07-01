@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Sat Jul  1 01:16:35 2017 sellet_f
-** Last update Sat Jul  1 01:37:08 2017 sellet_f
+** Last update Sat Jul  1 14:40:33 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -34,8 +34,13 @@ void			initValueResource(sfVector2f pos, sfText *text,
 void			drawInventoryResources(t_gui *GUI, sfVector2f pos,
 					       sfText *text)
 {
-  pos.y += 148;
-  pos.x += 33;
+  pos.y = 650;
+  pos.x = 1600;
+  initValueInventory(pos, text, GUI, "Level ");
+  pos.x += 100;
+  initValueResource(pos, text, GUI, GUI->_userInfos.lvl);
+  pos.y += 220;
+  pos.x -= 215;
   sfText_setCharacterSize(text, 50);
   initValueResource(pos, text, GUI, GUI->_userInfos.inventory.phiras);
   pos.y += 115;
