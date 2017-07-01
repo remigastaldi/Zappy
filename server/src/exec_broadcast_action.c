@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sat Jul  1 15:03:52 2017 Matthias Prost
+** Last update Sat Jul  1 15:23:47 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -31,7 +31,7 @@ void      fill_distance(t_distance *user_distance)
   }
 }
 
-void      bubble_sort(t_distance *user_distance, t_users *user)
+void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env)
 {
   int        i;
   double     buffer;
@@ -53,8 +53,10 @@ void      bubble_sort(t_distance *user_distance, t_users *user)
   }
   if (user_dest != NULL)
     {
-      dprintf(user_dest->user->socket, "K\n");
-      printf("--> Sent: \"K //implement brodcast function to replace K\" to socket %d\n", user_dest->user->socket);
+      dprintf(user_dest->user->socket, "message %d\n",
+              broadcast(user, user_dest->user, env));
+      printf("--> Sent: \"message %d\" to socket%d\n", user_dest->user->socket,
+              broadcast(user, user_dest->user, env));
       user_dest->user = NULL;
       user_dest->distance = -1;
     }
@@ -86,7 +88,7 @@ void      broadcastAction(t_env *env, char **msg, t_users *user)
   }
   a = -1;
   while (++a != user->lvl)
-    bubble_sort(&user_distance[0], user);
+    bubble_sort(&user_distance[0], user, env);
   dprintf(user->socket, "ok\n");
   printf("--> Sent: \"ok\" to socket %d\n", user->socket);
 }

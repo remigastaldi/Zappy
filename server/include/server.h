@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Fri Jun 30 16:53:46 2017 sellet_f
+** Last update Sat Jul  1 15:22:41 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -106,7 +106,6 @@ void                refresh_player_food(t_env *env);
 
 void                add_opened_egg(t_env *env, int x, int y);
 void                delete_front_egg(t_env *env);
-
 
 int                 broadcast(t_users *us, t_users *ur, t_env *env);
 
