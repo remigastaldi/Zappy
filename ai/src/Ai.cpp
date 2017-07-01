@@ -44,7 +44,7 @@ void      Ai::start(Ai::State state) noexcept
     switch (state)
     {
     case Ai::State::START:
-      take_all_food();
+      // take_all_food();
       primaryState();
       break;
     case Ai::State::INCANTATION:
@@ -96,7 +96,7 @@ void      Ai::take_all_food(void)
   for (size_t i = 0; i < _currentLevel; ++i)
     _path.push_back(Ai::Direction::FORWARD);
   walkToDir();
-  return (take_all_food());
+  // return (take_all_food());
 }
 
 void      Ai::primaryState(void)
@@ -138,6 +138,7 @@ void      Ai::powerupState(void)
     actualiseInventory();
     if (_currentItems[Ai::Properties::FOOD] < 5)
       take_all_food();
+    actualiseView();
   }
   startIncantation();
 }
@@ -226,19 +227,15 @@ bool    Ai::lookForFood(void)
     return (false);
   else if (foodCase == 0)
   {
-    int nb = std::count(_view.at(0).begin(), _view.at(0).end(), Ai::Properties::FOOD);
-    for (int i = 0; i < nb; ++i)
-      sendCommand("Take " + Utils::enumToString(_objectToTake));
+    sendCommand("Take " + Utils::enumToString(_objectToTake));
   }
   else
   {
     calculatePath(foodCase);
     walkToDir();
-    int nb = std::count(_view.at(0).begin(), _view.at(0).end(), Ai::Properties::FOOD);
-    for (int i = 0; i < nb; ++i)
-      sendCommand("Take " + Utils::enumToString(_objectToTake));
-    // actualiseView();
-    // return (lookForFood());
+    sendCommand("Take " + Utils::enumToString(_objectToTake));
+    actualiseView();
+    return (lookForFood());
   }
   return (true);
 }
@@ -284,10 +281,8 @@ bool      Ai::lookForResources(void)
   {
     calculatePath(resourceCase);
     walkToDir();
-    sendCommand("Take " + Utils::enumToString(_objectToTake));
-    return (true);
-    // actualiseView();
-    // return (lookForResources());
+    actualiseView();
+    return (lookForResources());
   }
   return (true);
 }

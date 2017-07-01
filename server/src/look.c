@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Fri Jun 30 23:58:10 2017 gastal_r
+** Last update Sat Jul  1 13:33:37 2017 gastal_r
 */
 
 #include "server.h"
@@ -23,19 +23,41 @@ int             get_number_of_visible_space(int level)
   return (nb);
 }
 
-char            *ressource_to_string(t_env *env, int x, int y)
+int              get_player(t_env *env, t_users *user, int x, int y)
+{
+  int            i;
+  int            nb;
+
+  i = -1;
+  nb = 0;
+  while (++i < 255)
+  {
+    if (env->users[i].teamName != NULL && env->users[i].socket != user->socket
+      && env->users[i].posX == x && env->users[i].posY == y)
+    {
+      nb++;
+    }
+  }
+  return (nb);
+}
+
+char            *ressource_to_string(t_env *env, t_users *user, int x, int y)
 {
   char          *str;
   int           nb_item;
+  int           player;
   t_items       tmp;
 
   str = NULL;
+  player = get_player(env, user, x, y);
   tmp = env->map[y][x];
   nb_item = tmp.linemate + tmp.deraumere + tmp.sibur + tmp.food;
   nb_item += tmp.mendiane + tmp.phiras + tmp.thystame;
   while (nb_item-- != 0)
     {
-      if (tmp.linemate-- > 0)
+      if (player-- > 0)
+        str = my_strcat(str, "player", -1, -1);
+      else if (tmp.linemate-- > 0)
         str = my_strcat(str, "linemate", -1, -1);
       else if (tmp.deraumere-- > 0)
         str = my_strcat(str, "deraumere", -1, -1);
@@ -103,7 +125,7 @@ int             change_case(t_env *env, int *x, int *y)
   return (0);
 }
 
-char            *check_case(t_env *env, char *pos, int i)
+char            *check_case(t_env *env, t_users *user, char *pos, int i)
 {
   int           j;
   int           x;
@@ -111,18 +133,18 @@ char            *check_case(t_env *env, char *pos, int i)
   char          *res;
 
   j = -1;
-  x = env->users->posX;
-  y = env->users->posY;
+  x = user->posX;
+  y = user->posY;
   printf("x: %d y: %d\n", x, y);
-  if ((res = ressource_to_string(env, x, y)) != NULL)
+  if ((res = ressource_to_string(env, user, x, y)) != NULL)
     pos = my_strcat(pos, res, -1, -1);
   res != NULL ? free(res) : 0;
   pos = my_strcat(pos, ",", -1, -1);
   calc_pos(env, &x, &y, i);
   while (++j != (i * 2 + 1))
     {
-      if ((res = ressource_to_string(env, x, y)) != NULL)
-        pos = my_strcat(pos, ressource_to_string(env, x, y), -1, -1);
+      if ((res = ressource_to_string(env, user, x, y)) != NULL)
+        pos = my_strcat(pos, ressource_to_string(env, user, x, y), -1, -1);
       res != NULL ? free(res) : 0;
       pos = my_strcat(pos, ",", -1, -1);
       change_case(env, &x, &y);
@@ -131,7 +153,7 @@ char            *check_case(t_env *env, char *pos, int i)
   return (pos);
 }
 
-char            *final_output(t_env *env, int lvl)
+char            *final_output(t_env *env, t_users *user, int lvl)
 {
   char          *pos;
   int           i;
@@ -140,8 +162,7 @@ char            *final_output(t_env *env, int lvl)
   pos = NULL;
   while (++i != lvl + 1)
     {
-      pos = check_case(env, pos, i);
-
+      pos = check_case(env, user, pos, i);
     }
   return (pos);
 }
@@ -150,8 +171,7 @@ char            *cmd_look(t_env *env, t_users *user)
 {
   char          *final;
 
-
-  final = final_output(env, user->lvl);
+  final = final_output(env, user, user->lvl);
   printf("%s\n", final);
   return (final);
 }
