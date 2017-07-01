@@ -85,7 +85,7 @@ void    joinTeam(t_env *env, char *buff, int fd)
     {
       user->teamName = strdup(buff);
       user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec +
-        (12600000 / env->freq);
+        (126000000 / env->freq);
     }
     dprintf(fd, "%d\n", counter);
     dprintf(fd, "%d %d\n", env->width, env->height);

@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Fri Jun 30 21:01:14 2017 gastal_r
+** Last update Sat Jul  1 10:34:43 2017 gastal_r
 */
 
 #include      "utilities.h"
@@ -20,10 +20,10 @@ void          refresh_queue(t_env *env)
 
 
   action = env->queue->head;
-  gettimeofday(&curr_time, NULL);
-  curr_clock = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
   while (action)
   {
+    gettimeofday(&curr_time, NULL);
+    curr_clock = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
     if (curr_clock >= action->time_limit)
     {
       tmp = action->next;
@@ -43,10 +43,10 @@ void           refresh_player_food(t_env *env)
   int         i;
 
   i = -1;
-  gettimeofday(&curr_time, NULL);
-  curr_clock = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
   while (++i < 255)
   {
+    gettimeofday(&curr_time, NULL);
+    curr_clock = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
     if (env->users[i].teamName != NULL
       && curr_clock >= env->users[i].food_timer)
     {
@@ -60,7 +60,7 @@ void           refresh_player_food(t_env *env)
         removeUserTab(env, env->users[i].socket);
       }
       else
-        env->users[i].food_timer = curr_clock + (12600000 / env->freq);
+        env->users[i].food_timer = curr_clock + (126000000 / env->freq);
     }
   }
 }
