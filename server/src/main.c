@@ -90,11 +90,7 @@ int		main(int ac, char **av)
   env.freq = 100;
   args(&env, av);
   serverInit(&env);
-  t_users u;
-  // cmd_look(&env, &u);
-  t_users u2;
-  broadcast(&u, &u2, &env);
-  // serverLoop(&env);
+  serverLoop(&env);
   free_env(&env);
   freeWorkingQueue(env.queue);
   return (0);
