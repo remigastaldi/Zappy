@@ -37,7 +37,7 @@ Ai::~Ai()
   std::cout << "EXIT THREAD" << std::endl;
 }
 
-void      Ai::start(Ai::State state) noexcept
+void      Ai::start(Ai::State state)
 {
   try
   {
@@ -49,9 +49,11 @@ void      Ai::start(Ai::State state) noexcept
       break;
     case Ai::State::INCANTATION:
       startIncantation();
+      primaryState();
       break;
     case Ai::State::WALK_TO_BROADCASTER:
       walkToBroadcaster(_eventCase);
+      primaryState();
       break;
     }
   }
@@ -125,6 +127,7 @@ void      Ai::primaryState(void)
   }
   else
   {
+    actualiseView();
     powerupState();
     return (primaryState());
   }
@@ -401,6 +404,7 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
 
 void    Ai::walkToBroadcaster(int caseId)
 {
+std::cout << "CASE: " << caseId << std::endl;
   if (caseId == 1 || caseId == 2 || caseId == 8)
     _path.push_back(Ai::Direction::FORWARD);
   else if (caseId == 3)
@@ -442,9 +446,9 @@ void    Ai::startIncantation(void)
 void    Ai::forkPlayer(void)
 {
   sendCommand("Fork");
-  _threads.push_back(std::thread([=]()
+  _threads.push_back(std::thread([&]
   {
     std::unique_ptr<Ai> ai(new Ai(_port, _teamName, _machine));
     ai->start(Ai::State::START);
-  ;}));
+  }));
 }

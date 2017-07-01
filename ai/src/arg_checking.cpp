@@ -61,7 +61,7 @@ int   is_alpha(char *str)
       i++;
     else
     {
-      std::cout << "The argumen after -p must be a int" << std::endl;
+      std::cout << "The argument after -p must be a int" << std::endl;
       return (1);
     }
   }
@@ -116,10 +116,10 @@ int          check_arg(char **av)
   }
   else
   {
-    std::cout << "USAGE: ./zappy_ai -p port -n name -h machine" << std::endl;
-    std::cout << "\tmachine is the name of the machine; localhost by default" << std::endl;
-    std::cout << "\tname is the name of the team" << std::endl;
-    std::cout << "\tport is the port number" << std::endl;
+    std::cout << "USAGE:t ./zappy_ai -p port -n name -h machine" << std::endl;
+    std::cout << "\tmachine ist the name of the machine; localhost by default" << std::endl;
+    std::cout << "\tname ist the name of the team" << std::endl;
+    std::cout << "\tport ist the port number" << std::endl;
     return (0);
   }
 }

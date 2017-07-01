@@ -59,7 +59,7 @@ public:
   Ai& operator=(const Ai& other) = default;
   Ai& operator=(Ai&& other) = default;
 
-  void  start(Ai::State) noexcept;
+  void  start(Ai::State);
 
 protected:
   void    take_all_food(void);
