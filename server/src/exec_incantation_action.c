@@ -25,7 +25,6 @@ void  forkAction(t_env *env, char **msg, t_users *user)
 {
   (void)env;
   (void)msg;
-  env->map[user->posY][user->posX].egg += 1;
   dprintf(user->socket, "ok\n");
   printf("--> Sent \"ok\" to socket %d\n", user->socket);
 }

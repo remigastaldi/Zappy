@@ -37,6 +37,7 @@ void  incantationParam(t_env *env, char **msg, t_users *user)
 void  forkParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
+  env->map[user->posY][user->posX].egg += 1;
   action = newAction(env->queue, user, &forkAction,
                       42000000 / env->freq);
   addActionData(action, env, msg);
