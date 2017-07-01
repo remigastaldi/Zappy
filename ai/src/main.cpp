@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Wed Jun 21 16:14:06 2017 gastal_r
-// Last update Tue Jun 27 12:52:13 2017 gastal_r
+// Last update Sat Jul  1 16:12:42 2017 gastal_r
 //
 
 #include      "Ai.hpp"
@@ -18,10 +18,10 @@ int           main(int ac, char *av[])
 
   if (ac != 7)
   {
-    std::cout << "[" << std::this_thread::get_id() << "] " << "USAGE: ./zappy_ai -p port -n name -h machine" << std::endl;
-    std::cout << "[" << std::this_thread::get_id() << "] " << "\tmachine is the name of the machine; localhost by default" << std::endl;
-    std::cout << "[" << std::this_thread::get_id() << "] " << "\tname is the name of the team" << std::endl;
-    std::cout << "[" << std::this_thread::get_id() << "] " << "\tport is the port number" << std::endl;
+    std::cout << "USAGE: ./zappy_ai -p port -n name -h machine" << std::endl;
+    std::cout << "\tmachine is the name of the machine; localhost by default" << std::endl;
+    std::cout << "\tname is the name of the team" << std::endl;
+    std::cout << "\tport is the port number" << std::endl;
     return (0);
   }
   if (check_arg(av) == 1)

@@ -25,13 +25,13 @@ Communication::Communication(int port, const std::string &teamName, const std::s
     _fdStream.reset(new FdStream(_fd));
 
     *_fdStream >> _answer;
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Received <== " << _answer << std::endl;
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Send ==> " << teamName << std::endl;
+    std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
+    std::cout << "[" << _fd << "] " << "Send ==> " << teamName << std::endl;
     *_fdStream << teamName;
     *_fdStream >> _answer;
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Received <== " << _answer << std::endl;
+    std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
     *_fdStream >> _answer;
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Received <== " << _answer << std::endl;
+    std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
 }
 
 void         Communication::checkIfEventMessage()
@@ -59,7 +59,7 @@ void         Communication::checkIfEventMessage()
 
 void            Communication::sendCommand(const std::string &command)
 {
-  std::cout << "[" << std::this_thread::get_id() << "] " << "Send ==> " << command << std::endl;
+  std::cout << "[" << _fd << "] " << "Send ==> " << command << std::endl;
   *_fdStream << command;
   receiveCommand();
 }
@@ -68,6 +68,6 @@ void          Communication::receiveCommand(void)
 {
   _answer.clear();
   *_fdStream >> _answer;
-  std::cout << "[" << std::this_thread::get_id() << "] " << "Received <== " << _answer << std::endl;
+  std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
   checkIfEventMessage();
 }

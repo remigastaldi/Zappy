@@ -57,19 +57,19 @@ void      Ai::start(Ai::State state) noexcept
   }
   catch (const Event::Dead &event)
   {
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Player " <<  _fd << " die" << std::endl;
+    std::cout << "[" << _fd << "] " << "Player " <<  _fd << " die" << std::endl;
   }
   catch (const Event::Ko &event)
   {
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Server return KO " << std::endl;
+    std::cout << "[" << _fd << "] " << "Server return KO " << std::endl;
   }
   catch (const Event::GameOver &event)
   {
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Team : " << event.getTeamName() << " won"<< std::endl;
+    std::cout << "[" << _fd << "] " << "Team : " << event.getTeamName() << " won"<< std::endl;
   }
   catch (const Event::Broadcast &event)
   {
-    std::cout << "[" << std::this_thread::get_id() << "] " << "Broadcast : " << event.getCase() << std::endl;
+    std::cout << "[" << _fd << "] " << "Broadcast : " << event.getCase() << std::endl;
     _eventCase = event.getCase();
     if (event.getCase() == 0)
     {
@@ -174,14 +174,14 @@ void      Ai::actualiseInventory(void)
     posItem = item.find(" ");
     std::string itemName(item.substr(0, posItem));
     item.erase(0, posItem + 1);
-    std::cout << "[" << std::this_thread::get_id() << "] " << itemName << " " << item << std::endl;
+    std::cout << "[" << _fd << "] " << itemName << " " << item << std::endl;
     _currentItems[Utils::stringToEnum(itemName)] = std::stoi(item);
     _answer.erase(0, posCase + 2);
   }
   posItem = _answer.find(" ");
   std::string itemName(_answer.substr(0, posItem));
   _answer.erase(0, posItem + 1);
-  std::cout << "[" << std::this_thread::get_id() << "] " << itemName << " " << _answer << std::endl;
+  std::cout << "[" << _fd << "] " << itemName << " " << _answer << std::endl;
   _currentItems[Utils::stringToEnum(itemName)] = std::stoi(_answer);
 }
 
@@ -269,7 +269,7 @@ bool      Ai::lookForResources(void)
   size_t caseNbr = 0;
   for (const auto & caseIt : _view)
   {
-    std::cout << "[" << std::this_thread::get_id() << "] " << "[" << caseNbr++ << "]";
+    std::cout << "[" << _fd << "] " << "[" << caseNbr++ << "]";
     for (const auto & item : caseIt)
     {
       std::cout << " " << (int) item << " ";
@@ -346,18 +346,18 @@ void      Ai::calculatePath(int resourceCase) noexcept
   int   currentCase = 0;
   Ai::Direction curDirection = Ai::Direction::FORWARD;
 
-  std::cout << "[" << std::this_thread::get_id() << "] " << "ressourceCase => " << resourceCase << std::endl;
+  std::cout << "[" << _fd << "] " << "ressourceCase => " << resourceCase << std::endl;
   while (currentCase != resourceCase)
   {
     curMinOffsetX = offsetY * offsetY;
     curMaxOffsetX = curMinOffsetX + offsetY * 2;
-    // std::cout << "[" << std::this_thread::get_id() << "] " << "curMinOffsetX: " << curMinOffsetX << std::endl;
-    // std::cout << "[" << std::this_thread::get_id() << "] " << "curMaxOffsetX: " << curMaxOffsetX << std::endl;
+    // std::cout << "[" << _fd << "] " << "curMinOffsetX: " << curMinOffsetX << std::endl;
+    // std::cout << "[" << _fd << "] " << "curMaxOffsetX: " << curMaxOffsetX << std::endl;
     nextLineOffset = ((offsetY + 1) * (offsetY + 1)) + (offsetY > 0 ? offsetX + 1 : offsetX);
-    std::cout << "[" << std::this_thread::get_id() << "] " << "currentCase: " << currentCase << std::endl;
+    std::cout << "[" << _fd << "] " << "currentCase: " << currentCase << std::endl;
     int direction = calculateDirection(resourceCase, (currentCase - 1 < curMinOffsetX ? currentCase : currentCase - 1), nextLineOffset,
       (currentCase + 1 > curMaxOffsetX ? currentCase : currentCase + 1));
-    std::cout << "[" << std::this_thread::get_id() << "] " << "direction=> " << direction << std::endl;
+    std::cout << "[" << _fd << "] " << "direction=> " << direction << std::endl;
     if (direction == 0)
     {
       offsetX -= 1;
@@ -394,8 +394,8 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   aLength < 0 ? aLength *= -1 : 0;
   bLength < 0 ? bLength *= -1 : 0;
   cLength < 0 ? cLength *= -1 : 0;
-  // std::cout << "[" << std::this_thread::get_id() << "] " << "a: " << a << "  b: " << b << "  c: " << c << std::endl;
-  // std::cout << "[" << std::this_thread::get_id() << "] " << "aLength: " << aLength << "  bLength: " << bLength << "  cLength: " << cLength << std::endl;
+  // std::cout << "[" << _fd << "] " << "a: " << a << "  b: " << b << "  c: " << c << std::endl;
+  // std::cout << "[" << _fd << "] " << "aLength: " << aLength << "  bLength: " << bLength << "  cLength: " << cLength << std::endl;
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
 }
 
@@ -434,7 +434,7 @@ void    Ai::walkToDir(void)
 void    Ai::startIncantation(void)
 {
   sendCommand("Incantation");
-  std::cout << "[" << std::this_thread::get_id() << "] " << _answer << std::endl;
+  std::cout << "[" << _fd << "] " << _answer << std::endl;
   receiveCommand();
   _currentLevel++;
 }
