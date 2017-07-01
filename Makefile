@@ -62,6 +62,7 @@ SRC_SERVER	+=	server/src/egg.c
 SRC_SERVER	+=	server/src/exec_broadcast_action.c
 SRC_SERVER	+=	server/src/params_broadcast.c
 SRC_SERVER	+=	server/src/broadcast.c
+SRC_SERVER 	+=	server/src/broadcast_diagonal.c
 
 SRC_SERVER	+=	server/src/GUI/GUI.c
 SRC_SERVER	+=	server/src/GUI/init.c

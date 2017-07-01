@@ -69,6 +69,20 @@ int         is_cardinal(t_users *us, t_users *ur)
   return (-1);
 }
 
+int         handle_cardinal(t_env *env, int y)
+{
+  if (y > 0)
+    if (y > (env->height / 2))
+      return (3);
+    else
+      return (7);
+  else
+    if (y * (-1) > (env->height / 2))
+      return (7);
+    else
+      return (3);
+}
+
 int         cartdinal(t_users *us, t_users *ur, t_env *env)
 {
   int       x;
@@ -91,53 +105,7 @@ int         cartdinal(t_users *us, t_users *ur, t_env *env)
   }
   else if (is_cardinal(us, ur) == 1)
   {
-    if (y > 0)
-      if (y > (env->height / 2))
-        return (3);
-      else
-        return (7);
-    else
-      if (y * (-1) > (env->height / 2))
-        return (7);
-      else
-        return (3);
-  }
-  return (0);
-}
-
-int         diagonal(t_users *us, t_users *ur, t_env *env)
-{
-  int       x;
-  int       y;
-
-  x = us->posX - ur->posX;
-  y = us->posY - ur->posY;
-  printf("x: %d y: %d\n", x, y);
-  if (x > 0)
-  {
-    if (y > 0)
-      if (x > (env->width / 2) || y > (env->height / 2))
-        return (4);
-      else
-        return (8);
-    else
-      if (x > (env->width / 2) || y > (env->height / 2))
-        return (6);
-      else
-        return (2);
-  }
-  else if (x < 0)
-  {
-    if (y > 0)
-      if (x * (-1) > (env->width / 2) || y * (-1) > (env->height / 2))
-        return (2);
-      else
-        return (6);
-    else
-      if (x * (-1) > (env->width / 2) || y * (-1) > (env->height / 2))
-        return (8);
-      else
-        return (4);
+    return (handle_cardinal(env, y));
   }
   return (0);
 }
@@ -145,18 +113,23 @@ int         diagonal(t_users *us, t_users *ur, t_env *env)
 int         broadcast(t_users *us, t_users *ur, t_env *env)
 {
   int       dir;
+  int       fin_dir;
 
   dir = 0;
+  fin_dir = -1;
   us->posX = 2;
   us->posY = 9;
   ur->posX = 9;
   ur->posY = 2;
   us->direction = 0;
-  ur->direction = 2;
+  ur->direction = 0;
   if (is_cardinal(us, ur) >= 0)
     dir = cartdinal(us, ur, env);
   else
     dir = diagonal(us, ur, env);
-  printf("dir: %d\n", dir);
-  return (0);
+  fin_dir = find_case_hor(ur, dir);
+  if (fin_dir == dir)
+    fin_dir = find_case_vert(ur, dir);
+  printf("dir: %d\n", fin_dir);
+  return (fin_dir);
 }

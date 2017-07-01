@@ -108,6 +108,13 @@ void                add_opened_egg(t_env *env, int x, int y);
 void                delete_front_egg(t_env *env);
 
 int                 broadcast(t_users *us, t_users *ur, t_env *env);
+int                 cartdinal(t_users *us, t_users *ur, t_env *env);
+int                 handle_cardinal(t_env *env, int y);
+int                 is_cardinal(t_users *us, t_users *ur);
+int                 find_case_vert(t_users *us, int dir);
+int                 find_case_hor(t_users *us, int dir);
+int                 diagonal(t_users *us, t_users *ur, t_env *env);
+int                 diagonal2(int x, int y, t_env *env);
 
 extern t_commands g_commands[NBR_ARGS];
 
