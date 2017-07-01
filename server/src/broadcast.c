@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Fri Jun 30 15:10:54 2017 Cyril Puccio
-** Last update Fri Jun 30 15:10:55 2017 Cyril Puccio
+** Last update Sat Jul  1 14:22:44 2017 gastal_r
 */
 
 #include "server.h"
@@ -131,12 +131,14 @@ int         diagonal(t_users *us, t_users *ur, t_env *env)
   // y = us->posY - ur->posY;
   // (x < 0 ? x *= -1 : 0);
   // (y < 0 ? y *= -1 : 0);
-  int         dd;
+  // int         dd;
   // int         dg;
   // int         dbd;
   // int         dbg;
-
-  dd = diagonal_droite(us, ur, env);
+(void)us;
+(void)ur;
+(void)env;
+  // dd = diagonal_droite(us, ur, env);
   // dg = diagonal_gauche(us, ur, env);
   // dbd = diagonal_basdroite(us, ur, env);
   // dbg = diagnal_basgauche(us, ur, env);
