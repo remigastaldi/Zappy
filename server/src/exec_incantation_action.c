@@ -10,6 +10,27 @@
 
 #include "server.h"
 
+int		ressources[8][6] = {
+  {0, 0, 0, 0, 0, 0},
+  {1, 0, 0, 0, 0, 0},
+  {1, 1, 1, 0, 0, 0},
+  {2, 0, 1, 0, 2, 0},
+  {1, 1, 2, 0, 1, 0},
+  {1, 2, 1, 3, 0, 0},
+  {1, 2, 3, 0, 1, 0},
+  {2, 2, 2, 2, 2, 1}
+};
+
+void  takeOffRessources(t_users *user)
+{
+  user->inventory.linemate -= ressources[user->lvl][0];
+  user->inventory.deraumere -= ressources[user->lvl][1];
+  user->inventory.sibur -= ressources[user->lvl][2];
+  user->inventory.mendiane -= ressources[user->lvl][3];
+  user->inventory.phiras -= ressources[user->lvl][4];
+  user->inventory.thystame -= ressources[user->lvl][5];
+}
+
 void  incantationAction(t_env *env, char **msg, t_users *user)
 {
   (void)env;
