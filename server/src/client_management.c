@@ -50,6 +50,8 @@ void		addUserTab(t_env *env, int socket)
           env->users[i].posX = rand() % env->width;
           env->users[i].posY = rand() % env->height;
         }
+        env->users[i].graphicY = rand() % 68;
+        env->users[i].graphicX = rand() % 68;
         env->users[i].direction = rand() % 4;
         env->users[i].teamName = NULL;
         initInventory(env, i);
@@ -66,6 +68,7 @@ void		removeUserTab(t_env *env, int socket)
   int		i;
 
   i = -1;
+  close(socket);
   while (++i != MAX_FD)
   if (env->users[i].socket == socket)
   {
@@ -73,6 +76,8 @@ void		removeUserTab(t_env *env, int socket)
     env->users[i].lvl = 1;
     env->users[i].posX = 0;
     env->users[i].posY = 0;
+    env->users[i].graphicX = 0;
+    env->users[i].graphicY = 0;
     free(env->users[i].teamName);
     env->users[i].teamName = NULL;
     break;

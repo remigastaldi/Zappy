@@ -68,6 +68,8 @@ typedef struct	    s_users
   int				        socket;
   int               posY;
   int               posX;
+  int               graphicY;
+  int               graphicX;
   int               lvl;
   char              *teamName;
   Direction         direction;
