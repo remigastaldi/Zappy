@@ -106,26 +106,42 @@ int         cartdinal(t_users *us, t_users *ur, t_env *env)
   return (0);
 }
 
-// int         diagonal(t_users *us, t_users *ur, t_env *env)
-// {
-//   int       x;
-//   int       y;
+int         diagonal_droite(t_users *us, t_users *ur, t_env *env)
+{
+  int   x;
+  int   y;
+
+  if (ur->posX < us->posX)
+      x = us->posX - ur->posX;
+  else
+      x = (env->width - ur->posX) + us->posX;
+  if (ur->posY < us->posY)
+      y = us->posY - ur->posY;
+  else
+      y = (env->height - ur->posY) + us->posY;
+  return (x + y);
+}
 //
-//   x = us->posX - ur->posX;
-//   y = us->posY - ur->posY;
-//   (x < 0 ? x *= -1 : 0);
-//   (y < 0 ? y *= -1 : 0);
-//   if (x > (env->width / 2))
-//   {
-//     if (y > (env->width / 2)
-//
-//   }
-//   else if (y > (env->width / 2)
-//   {
-//
-//   }
-//   return (0);
-// }
+int         diagonal(t_users *us, t_users *ur, t_env *env)
+{
+  // int       x;
+  // int       y;
+  //
+  // x = us->posX - ur->posX;
+  // y = us->posY - ur->posY;
+  // (x < 0 ? x *= -1 : 0);
+  // (y < 0 ? y *= -1 : 0);
+  int         dd;
+  // int         dg;
+  // int         dbd;
+  // int         dbg;
+
+  dd = diagonal_droite(us, ur, env);
+  // dg = diagonal_gauche(us, ur, env);
+  // dbd = diagonal_basdroite(us, ur, env);
+  // dbg = diagnal_basgauche(us, ur, env);
+  return (0);
+}
 
 int         broadcast(t_users *us, t_users *ur, t_env *env)
 {
@@ -135,7 +151,7 @@ int         broadcast(t_users *us, t_users *ur, t_env *env)
   us->posX = 2;
   us->posY = 8;
   ur->posX = 6;
-  ur->posY = 8;
+  ur->posY = 6;
   us->direction = 0;
   ur->direction = 2;
   if (is_cardinal(us, ur) >= 0)
