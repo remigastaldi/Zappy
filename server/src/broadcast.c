@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Fri Jun 30 15:10:54 2017 Cyril Puccio
-** Last update Sat Jul  1 14:22:44 2017 gastal_r
+** Last update Fri Jun 30 15:10:55 2017 Cyril Puccio
 */
 
 #include "server.h"
@@ -105,44 +105,10 @@ int         cartdinal(t_users *us, t_users *ur, t_env *env)
   return (0);
 }
 
-int         diagonal_droite(t_users *us, t_users *ur, t_env *env)
-{
-  int   x;
-  int   y;
-
-  if (ur->posX < us->posX)
-      x = us->posX - ur->posX;
-  else
-      x = (env->width - ur->posX) + us->posX;
-  if (ur->posY < us->posY)
-      y = us->posY - ur->posY;
-  else
-      y = (env->height - ur->posY) + us->posY;
-  return (x + y);
-}
-//
 int         diagonal(t_users *us, t_users *ur, t_env *env)
 {
-  // int       x;
-  // int       y;
-  //
-  // x = us->posX - ur->posX;
-  // y = us->posY - ur->posY;
-  // (x < 0 ? x *= -1 : 0);
-  // (y < 0 ? y *= -1 : 0);
-  // int         dd;
-  // int         dg;
-  // int         dbd;
-  // int         dbg;
-(void)us;
-(void)ur;
-(void)env;
-  // dd = diagonal_droite(us, ur, env);
-  // dg = diagonal_gauche(us, ur, env);
-  // dbd = diagonal_basdroite(us, ur, env);
-  // dbg = diagnal_basgauche(us, ur, env);
-  return (0);
-}
+  int       x;
+  int       y;
 
   x = us->posX - ur->posX;
   y = us->posY - ur->posY;
@@ -182,9 +148,9 @@ int         broadcast(t_users *us, t_users *ur, t_env *env)
 
   dir = 0;
   us->posX = 2;
-  us->posY = 8;
-  ur->posX = 6;
-  ur->posY = 6;
+  us->posY = 9;
+  ur->posX = 9;
+  ur->posY = 2;
   us->direction = 0;
   ur->direction = 2;
   if (is_cardinal(us, ur) >= 0)
