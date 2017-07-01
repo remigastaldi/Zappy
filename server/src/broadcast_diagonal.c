@@ -1,5 +1,23 @@
 #include "server.h"
 
+int         find_case_hor(t_users *ur, int dir)
+{
+  if (ur->direction == RIGHT)
+      return (dir);
+  if (ur->direction == LEFT)
+    {
+      return ((dir == 1 ? 5 :
+              dir == 2 ? 6 :
+              dir == 3 ? 7 :
+              dir == 4 ? 8 :
+              dir == 5 ? 1 :
+              dir == 6 ? 2 :
+              dir == 7 ? 3 :
+              dir == 8 ? 4 : 0));
+    }
+  return (dir);
+}
+
 int         diagonal2(int x, int y, t_env *env)
 {
   if (y > 0)
