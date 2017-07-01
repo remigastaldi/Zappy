@@ -61,7 +61,6 @@ int         is_cardinal(t_users *us, t_users *ur)
     return (0);
   else if ((us->posX == ur->posX) || (us->posY == ur->posY))
     {
-      printf("here\n");
       if (us->posX == ur->posX)
         return (1);
       if (us->posY == ur->posY)
@@ -145,6 +144,38 @@ int         diagonal(t_users *us, t_users *ur, t_env *env)
   return (0);
 }
 
+  x = us->posX - ur->posX;
+  y = us->posY - ur->posY;
+  printf("x: %d y: %d\n", x, y);
+  if (x > 0)
+  {
+    if (y > 0)
+      if (x > (env->width / 2) || y > (env->height / 2))
+        return (4);
+      else
+        return (8);
+    else
+      if (x > (env->width / 2) || y > (env->height / 2))
+        return (6);
+      else
+        return (2);
+  }
+  else if (x < 0)
+  {
+    if (y > 0)
+      if (x * (-1) > (env->width / 2) || y * (-1) > (env->height / 2))
+        return (2);
+      else
+        return (6);
+    else
+      if (x * (-1) > (env->width / 2) || y * (-1) > (env->height / 2))
+        return (8);
+      else
+        return (4);
+  }
+  return (0);
+}
+
 int         broadcast(t_users *us, t_users *ur, t_env *env)
 {
   int       dir;
@@ -158,8 +189,8 @@ int         broadcast(t_users *us, t_users *ur, t_env *env)
   ur->direction = 2;
   if (is_cardinal(us, ur) >= 0)
     dir = cartdinal(us, ur, env);
-  // else
-  //   dir = diagonale(us, ur, env);
+  else
+    dir = diagonal(us, ur, env);
   printf("dir: %d\n", dir);
   return (0);
 }
