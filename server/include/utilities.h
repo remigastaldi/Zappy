@@ -12,6 +12,7 @@
 #define _UTILS_H_
 
 #include <time.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -64,7 +65,7 @@ typedef struct      s_items
 
 typedef struct	    s_users
 {
-  int				socket;
+  int				        socket;
   int               posY;
   int               posX;
   int               lvl;
@@ -72,11 +73,17 @@ typedef struct	    s_users
   Direction         direction;
   t_items           inventory;
   long long         food_timer;
-}				    t_users;
+}				            t_users;
 
-typedef struct		s_env
+typedef struct      s_distance
 {
-  int				port;
+  t_users           *user;
+  double            distance;
+}                   t_distance;
+
+typedef struct		  s_env
+{
+  int				        port;
   int               width;
   int               height;
   t_items           **map;
@@ -84,18 +91,18 @@ typedef struct		s_env
   char              **names;
   int               clientsNb;
   long              freq;
-  t_users		    users[MAX_FD];
-  char			    fd_type[MAX_FD];
-  fct				fct_read[MAX_FD];
-  fct				fct_write[MAX_FD];
+  t_users		        users[MAX_FD];
+  char			        fd_type[MAX_FD];
+  fct				        fct_read[MAX_FD];
+  fct				        fct_write[MAX_FD];
   t_queue           *queue;
   t_egg             *egg;
-}				    t_env;
+}				            t_env;
 
 typedef struct      s_action
 {
     long  long      time_limit;
-    void		    (*p)(t_env *, char **, t_users *);
+    void		        (*p)(t_env *, char **, t_users *);
     t_env           *env;
     char            **msg;
     t_users         *user;
@@ -121,7 +128,7 @@ t_users             *get_user(t_env *env, int fd);
 void                print_map(t_env *env);
 void                *xmalloc(size_t);
 void                print_tab(char **tab);
-char            	**toWordtab(char *str, char c);
+char            	  **toWordtab(char *str, char c);
 char                *my_strcat(char *dest, char *src, int, int);
 
 #endif /* !_UTILS_H_ */

@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Sat Jul  1 01:42:08 2017 sellet_f
+## Last update Sat Jul  1 09:56:56 2017 Matthias Prost
 ##
 
 .DEFAULT_GOAL := all
@@ -31,7 +31,7 @@ GREEN				=		"\033[0;32m"
 TEAL				= 	"\033[1;36m"
 RED					=		"\033[5;31m"
 
-CFLAGS			+=	-Wextra -Wall -Werror -W -g -g3
+CFLAGS			+=	-Wextra -Wall -Werror -W -g -g3 -lm
 CFLAGS			+=  -I./server/include/
 CFLAGS			+=	-lcsfml-graphics -lcsfml-window -lcsfml-system
 
