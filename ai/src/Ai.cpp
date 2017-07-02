@@ -92,10 +92,6 @@ void      Ai::start(Ai::State state)
   {
     start(Ai::State::EGG_ECLOSION);
   }
-  catch (const Event::Exit &event)
-  {
-    std::cout << event.what() << std::endl;
-  }
 }
 
 void      Ai::take_all_food(void)

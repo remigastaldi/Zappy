@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Wed Jun 21 16:14:06 2017 gastal_r
-// Last update Sat Jul  1 16:12:42 2017 gastal_r
+// Last update Sun Jul  2 17:14:40 2017 gastal_r
 //
 
 #include      "Ai.hpp"
@@ -29,7 +29,14 @@ int           main(int ac, char *av[])
   port = checkPort(av);
   name = checkName(av);
   host = checkHost(av);
-  Ai   ai(port, name.c_str(), host.c_str());
-  ai.start(Ai::State::START);
+  try
+  {
+    Ai   ai(port, name.c_str(), host.c_str());
+    ai.start(Ai::State::START);
+  }
+  catch (const Event::Exit &event)
+  {
+    std::cout << event.what() << std::endl;
+  }
   return (0);
 }
