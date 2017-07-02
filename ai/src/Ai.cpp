@@ -457,8 +457,8 @@ void    Ai::startIncantation(void)
 
 void    Ai::forkPlayer(void)
 {
-  sendCommand("Fork");
-  eggEclosion();
+  // sendCommand("Fork");
+  // eggEclosion();
 }
 
 void    Ai::eggEclosion(void)
