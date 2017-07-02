@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Sat Jul  1 01:19:42 2017 sellet_f
-** Last update Sun Jul  2 15:46:31 2017 Matthias Prost
+** Last update Sun Jul  2 17:20:09 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -49,7 +49,7 @@ void			drawPlayers(t_gui *GUI, t_env *env, int i)
   sfVector2f		pos;
   spritePos.width = spritePos.height = 32;
   while (++i < MAX_FD)
-    if (env->users[i].socket != -1)
+    if (env->users[i].socket != -1 && env->users[i].teamName)
       {
 	checkPlayerInfos(env->users[i], &spritePos, true);
 	pos.x = env->users[i].posX * sfSprite_getGlobalBounds

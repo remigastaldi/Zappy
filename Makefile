@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Sun Jul  2 14:41:59 2017 Matthias Prost
+## Last update Sun Jul  2 17:14:48 2017 sellet_f
 ##
 
 .DEFAULT_GOAL := all
@@ -72,6 +72,7 @@ SRC_SERVER	+=	server/src/GUI/map.c
 SRC_SERVER	+=	server/src/GUI/users.c
 SRC_SERVER	+=	server/src/GUI/pannel.c
 SRC_SERVER	+=	server/src/GUI/refreshInfos.c
+SRC_SERVER	+=	server/src/GUI/sprites.c
 
 
 SRC_AI			+=	ai/src/main.cpp
