@@ -1,3 +1,13 @@
+/*
+** broadcast_diagonal.c for  in /home/puccio_c/rendu/PSU/Zappy
+** 
+** Made by Cyril Puccio
+** Login   <cyril.puccio@epitech.eu>
+** 
+** Started on  Sun Jul  2 14:11:39 2017 Cyril Puccio
+** Last update Sun Jul  2 14:11:40 2017 Cyril Puccio
+*/
+
 #include "server.h"
 
 int         find_case_hor(t_users *ur, int dir)
