@@ -1,3 +1,13 @@
+/*
+** arg_checking.cpp for Zappy in /Users/leohubertfroideval/Shared/PSU_2016/Zappy/ai/src
+**
+** Made by Leo Hubert Froideval
+** Login   <leohubertfroideval@epitech.eu>
+**
+** Started on  Sun Jul 02 14:11:38 2017 Leo Hubert Froideval
+** Last update Sun Jul 02 14:11:40 2017 Leo Hubert Froideval
+*/
+
 #include "Ai.hpp"
 
 int           checkPort(char **av)
