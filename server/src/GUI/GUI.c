@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Sun Jul  2 02:32:30 2017 sellet_f
+** Last update Sun Jul  2 16:56:57 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -30,26 +30,22 @@ void			drawGUI(t_gui *GUI, t_env *env)
 
 void			checkMovs(t_gui *GUI, sfVector2f vec)
 {
-  if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue ||
-      sfKeyboard_isKeyPressed(sfKeyQ) == sfTrue)
+  if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue)
     {
       vec.x = -5;
       sfView_move(GUI->_camera, vec);
     }
-  else if (sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue ||
-	   sfKeyboard_isKeyPressed(sfKeyD) == sfTrue)
+  else if (sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue)
     {
       vec.x = 5;
       sfView_move(GUI->_camera, vec);
     }
-  else if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue ||
-	   sfKeyboard_isKeyPressed(sfKeyZ) == sfTrue)
+  else if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue)
     {
       vec.y = -5;
       sfView_move(GUI->_camera, vec);
     }
-  else if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue ||
-	   sfKeyboard_isKeyPressed(sfKeyS) == sfTrue)
+  else if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue)
     {
       vec.y = 5;
       sfView_move(GUI->_camera, vec);
