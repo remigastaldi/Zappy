@@ -30,8 +30,11 @@ void  incantationParam(t_env *env, char **msg, t_users *user)
   action = newAction(env->queue, user, &incantationAction,
                       300000000 / env->freq);
   addActionData(action, env, msg);
-  dprintf(user->socket, "Elevation underway\n");
-  printf("--> Sent \"Elevation underway\" to socket %d\n", user->socket);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "Elevation underway\n");
+    printf("--> Sent \"Elevation underway\" to socket %d\n", user->socket);
+  }
 }
 
 void  forkParam(t_env *env, char **msg, t_users *user)

@@ -20,8 +20,11 @@ void  forwardYMoving(t_env *env, t_users *user)
       user->posY = user->posY - 1;
     printf("User with socket %d moved UP on position %dy : %dx\n",
           user->socket, user->posY, user->posX);
-    dprintf(user->socket, "ok\n");
-    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    if (user->socket != -1)
+    {
+      dprintf(user->socket, "ok\n");
+      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    }
   }
   else if (user->direction == DOWN)
   {
@@ -31,8 +34,11 @@ void  forwardYMoving(t_env *env, t_users *user)
       user->posY = user->posY + 1;
     printf("User with socket %d moved DOWN on position %dy : %dx\n",
           user->socket, user->posY, user->posX);
-    dprintf(user->socket, "ok\n");
-    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    if (user->socket != -1)
+    {
+      dprintf(user->socket, "ok\n");
+      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    }
   }
 }
 
@@ -48,8 +54,11 @@ void  forwardAction(t_env *env, char **msg, t_users *user)
       user->posX = user->posX - 1;
     printf("User with socket %d moved LEFT on position %dy : %dx\n",
           user->socket, user->posY, user->posX);
-    dprintf(user->socket, "ok\n");
-    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    if (user->socket != -1)
+    {
+      dprintf(user->socket, "ok\n");
+      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    }
   }
   else if (user->direction == RIGHT)
   {
@@ -59,8 +68,11 @@ void  forwardAction(t_env *env, char **msg, t_users *user)
       user->posX = user->posX + 1;
     printf("User with socket %d moved RIGHT on position %dy : %dx\n",
           user->socket, user->posY, user->posX);
-    dprintf(user->socket, "ok\n");
-    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    if (user->socket != -1)
+    {
+      dprintf(user->socket, "ok\n");
+      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+    }
   }
 }
 
@@ -77,8 +89,11 @@ void  rightAction(t_env *env, char **msg, t_users *user)
   else if (user->direction == LEFT)
     user->direction = UP;
   printf("User with socket %d turn 90 deg right\n", user->socket);
-  dprintf(user->socket, "ok\n");
-  printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+  }
 }
 
 void  leftAction(t_env *env, char **msg, t_users *user)
@@ -94,6 +109,9 @@ void  leftAction(t_env *env, char **msg, t_users *user)
   else if (user->direction == RIGHT)
     user->direction = UP;
   printf("User with socket %d turn 90 deg left\n", user->socket);
-  dprintf(user->socket, "ok\n");
-  printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+  }
 }

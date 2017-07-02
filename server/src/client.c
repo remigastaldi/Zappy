@@ -87,12 +87,15 @@ void    joinTeam(t_env *env, char *buff, int fd)
       user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec +
         (126000000 / env->freq);
     }
-    dprintf(fd, "%d\n", counter);
-    dprintf(fd, "%d %d\n", env->width, env->height);
+    if (fd != -1)
+    {
+      dprintf(fd, "%d\n", counter);
+      dprintf(fd, "%d %d\n", env->width, env->height);
+    }
     printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
     printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
   }
-  else
+  else if (fd != -1)
   {
     dprintf(fd, "ko\n");
     printf("--> Sent: \"ko\" to socket %d\n", fd);

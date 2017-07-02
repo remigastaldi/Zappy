@@ -36,10 +36,13 @@ void  incantationAction(t_env *env, char **msg, t_users *user)
   (void)env;
   (void)msg;
   user->lvl += 1;
-  dprintf(user->socket, "Current level: %d\n", user->lvl);
-  printf("User with socket %d level up to %d\n", user->socket, user->lvl);
-  printf("--> Sent \"Current level: %d\" to socket %d\n",
-          user->lvl, user->socket);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "Current level: %d\n", user->lvl);
+    printf("User with socket %d level up to %d\n", user->socket, user->lvl);
+    printf("--> Sent \"Current level: %d\" to socket %d\n",
+            user->lvl, user->socket);
+  }
 }
 
 void  forkAction(t_env *env, char **msg, t_users *user)
@@ -47,6 +50,8 @@ void  forkAction(t_env *env, char **msg, t_users *user)
   (void)env;
   (void)msg;
   if (user->socket != -1)
+  {
     dprintf(user->socket, "ok\n");
-  printf("--> Sent \"ok\" to socket %d\n", user->socket);
+    printf("--> Sent \"ok\" to socket %d\n", user->socket);
+  }
 }

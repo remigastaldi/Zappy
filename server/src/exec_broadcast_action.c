@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sun Jul  2 11:33:31 2017 Matthias Prost
+** Last update Sun Jul  2 13:13:41 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -56,10 +56,10 @@ void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env)
     {
       delete_all_fd_actions(env, user_dest->user->socket);
       broad = broadcast(user, user_dest->user, env);
-      printf("--> Sent: \"message %d\" to socket%d\n", broad,
-            user_dest->user->socket);
       dprintf(user_dest->user->socket, "message %d\n",
               broad);
+      printf("--> Sent: \"message %d\" to socket%d\n", broad,
+              user_dest->user->socket);
       user_dest->user = NULL;
       user_dest->distance = -1;
     }
@@ -93,6 +93,9 @@ void      broadcastAction(t_env *env, char **msg, t_users *user)
           }
   }
   bubble_sort(&user_distance[0], user, env);
-  dprintf(user->socket, "ok\n");
-  printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
+  }
 }

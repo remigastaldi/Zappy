@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Wed Jun 28 16:38:50 2017 Matthias Prost
-** Last update Wed Jun 28 17:49:54 2017 Matthias Prost
+** Last update Sun Jul  2 13:14:03 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -25,6 +25,9 @@ void  connect_nbrAction(t_env *env, char **msg, t_users *user)
       counter++;
   }
   counter = env->clientsNb - counter;
-  dprintf(user->socket, "%d\n", counter);
-  printf("--> Sent: \"%d\" to socket %d\n", counter, user->socket);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "%d\n", counter);
+    printf("--> Sent: \"%d\" to socket %d\n", counter, user->socket);
+  }
 }

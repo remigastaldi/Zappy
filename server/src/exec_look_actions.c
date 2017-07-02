@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 16:56:20 2017 gastal_r
-** Last update Fri Jun 30 23:58:26 2017 gastal_r
+** Last update Sun Jul  2 13:16:47 2017 Matthias Prost
 */
 
 #include      "server.h"
@@ -24,7 +24,11 @@ void          lookAction(t_env *env, char **msg, t_users *user)
 
   (void)msg;
   look = cmd_look(env, user);
-  dprintf(user->socket, "%s\n", look);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "%s\n", look);
+    printf("--> Sent: \"%s\n\" to socket %d\n", look, user->socket);
+  }
   free(look);
 }
 
@@ -33,12 +37,15 @@ void          inventoryAction(t_env *env, char **msg, t_users *user)
   (void)env;
   (void)msg;
 
-  dprintf(user->socket, "linemate %d, deraumere %d, sibur %d, mendiane %d, phiras %d, thystame %d, food %d\n",
-   user->inventory.linemate,
-   user->inventory.deraumere,
-   user->inventory.sibur,
-   user->inventory.mendiane,
-   user->inventory.phiras,
-   user->inventory.thystame,
-   user->inventory.food);
+  if (user->socket != -1)
+  {
+    dprintf(user->socket, "linemate %d, deraumere %d, sibur %d, mendiane %d, phiras %d, thystame %d, food %d\n",
+     user->inventory.linemate,
+     user->inventory.deraumere,
+     user->inventory.sibur,
+     user->inventory.mendiane,
+     user->inventory.phiras,
+     user->inventory.thystame,
+     user->inventory.food);
+   }
 }

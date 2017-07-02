@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Sat Jul  1 10:34:43 2017 gastal_r
+** Last update Sun Jul  2 13:31:36 2017 Matthias Prost
 */
 
 #include      "utilities.h"
@@ -56,7 +56,11 @@ void           refresh_player_food(t_env *env)
       if (env->users[i].inventory.food == 0)
       {
         delete_all_player_actions(env, &env->users[i]);
-        dprintf(env->users[i].socket, "dead");
+        if (env->users[i].socket != -1)
+        {
+          dprintf(env->users[i].socket, "dead\n");
+          printf("--> Sent: \"dead\" to socket %d", env->users[i].socket);
+        }
         removeUserTab(env, env->users[i].socket);
       }
       else
