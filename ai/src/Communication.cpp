@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Sun Jul  2 11:39:57 2017 gastal_r
+// Last update Sun Jul  2 16:07:45 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -20,7 +20,8 @@ Communication::Communication(int port, const std::string &teamName, const std::s
     _s_in.sin_family = AF_INET;
     _s_in.sin_port = htons(_port);
     _s_in.sin_addr.s_addr = inet_addr(_machine.c_str());
-    connect(_fd, (struct sockaddr *)&_s_in, sizeof(_s_in));
+    if (connect(_fd, (struct sockaddr *)&_s_in, sizeof(_s_in)) == -1)
+      exit(0);
 
     _fdStream.reset(new FdStream(_fd));
 
