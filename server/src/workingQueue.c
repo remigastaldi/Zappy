@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Sun Jul  2 14:07:58 2017 gastal_r
+** Last update Sun Jul 02 16:15:18 2017 Leo Hubert Froideval
 */
 
 #include "server.h"
@@ -66,7 +66,7 @@ int         deleteAction(t_env *env, t_queue *queue, t_action *action)
         ptr->next->prev = ptr->prev;
       if (ptr == queue->head)
         queue->head = ptr->next;
-      else if (ptr == queue->end)
+      if (ptr == queue->end)
         queue->end = ptr->prev;
       queue->actions--;
       free_tab(ptr->msg);
