@@ -5,12 +5,12 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:12:22 2017 Matthias Prost
-** Last update Thu Jun 22 16:26:09 2017 Leo Hubert Froideval
+** Last update Sun Jul  2 17:45:56 2017 Matthias Prost
 */
 
 #include "utilities.h"
 
-char    *initialisation(char *ret, int *tab, int *nb, char *buff)
+char	*initialisation(char *ret, int *tab, int *nb, char *buff)
 {
   *nb = *nb - 1;
   ret[tab[2]] = buff[tab[0]];
@@ -19,10 +19,10 @@ char    *initialisation(char *ret, int *tab, int *nb, char *buff)
   return (ret);
 }
 
-char    *myRealloc(char *ret, int *tab, int *nb, char *buff)
+char	*myRealloc(char *ret, int *tab, int *nb, char *buff)
 {
-  char  *save;
-  int   i;
+  char	*save;
+  int	i;
 
   i = -1;
   buff[*nb] = 0;
@@ -37,7 +37,7 @@ char    *myRealloc(char *ret, int *tab, int *nb, char *buff)
   return (save);
 }
 
-char    *end(char *ret, int *tab, int *nb)
+char	*end(char *ret, int *tab, int *nb)
 {
   tab[0] = tab[0] + 1;
   *nb = *nb - 1;
@@ -45,7 +45,7 @@ char    *end(char *ret, int *tab, int *nb)
   return (ret);
 }
 
-char    *verif(char *ret, int *tab, int *nb, char *buff)
+char	*verif(char *ret, int *tab, int *nb, char *buff)
 {
   if (tab[1] == 0)
     {
@@ -63,7 +63,7 @@ char    *verif(char *ret, int *tab, int *nb, char *buff)
 	  free(ret);
 	  return (NULL);
 	}
-	buff[*nb] = 0;
+      buff[*nb] = 0;
       tab[0] = 0;
       if (buff[tab[0]] == '\0')
 	return (get_next_line(tab[3]));
@@ -71,12 +71,12 @@ char    *verif(char *ret, int *tab, int *nb, char *buff)
   return (ret);
 }
 
-char    *get_next_line(const int fd)
+char	*get_next_line(const int fd)
 {
-  char          *ret;
-  static int    tab[4];
-  static int    nb = 0;
-  static char   buff[READ_SIZE + 1];
+  char		*ret;
+  static int	tab[4];
+  static int	nb = 0;
+  static char	buff[READ_SIZE + 1];
 
   tab[2] = 0;
   tab[3] = fd;

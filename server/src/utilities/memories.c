@@ -5,14 +5,14 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Thu Jun 22 16:19:50 2017 Leo Hubert Froideval
-** Last update Thu Jun 22 16:26:14 2017 Leo Hubert Froideval
+** Last update Sun Jul  2 17:47:14 2017 Matthias Prost
 */
 
 #include "utilities.h"
 
-void      *xmalloc(size_t size)
+void	*xmalloc(size_t size)
 {
-  void    *ptr;
+  void	*ptr;
 
   if ((ptr = malloc(size)) == NULL)
     exit(0);

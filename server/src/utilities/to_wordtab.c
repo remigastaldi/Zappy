@@ -5,22 +5,22 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Sat Jun 24 14:45:00 2017 Matthias Prost
-** Last update Sat Jun 24 14:45:04 2017 Matthias Prost
+** Last update Sun Jul  2 17:49:47 2017 Matthias Prost
 */
 
 #include "utilities.h"
 
-void 		freeTab(char **tab)
+void		freeTab(char **tab)
 {
-	int 	i;
+  int		i;
 
-	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
+  i = -1;
+  while (tab[++i])
+    free(tab[i]);
+  free(tab);
 }
 
-int			myCount(char *str, char c)
+int		myCount(char *str, char c)
 {
   int		i;
   int		count;
@@ -29,16 +29,16 @@ int			myCount(char *str, char c)
   while (str[i] != '\0')
     {
       while (str[i] && (str[i] == c || str[i] == '\t'))
-				i++;
+	i++;
       if (str[i])
-				count++;
+	count++;
       if (str[i] != '\0')
-				i++;
+	i++;
     }
   return (count);
 }
 
-int			lenTab(const char *str, char c)
+int		lenTab(const char *str, char c)
 {
   int		i;
 
@@ -49,10 +49,10 @@ int			lenTab(const char *str, char c)
 
 char		**toWordtab(char *str, char c)
 {
-	int		i;
-	int		j;
-	int		z;
-  char	**tab;
+  int		i;
+  int		j;
+  int		z;
+  char		**tab;
 
   i = 0;
   z = -1;
@@ -62,14 +62,15 @@ char		**toWordtab(char *str, char c)
     {
       j = 0;
       while (str[i] && (str[i] == c || str[i] == ' ' || str[i] == '\t'))
-				++i;
-      if ((tab[++z] = malloc((lenTab(&str[i], c) + 1) * sizeof(**tab))) == NULL)
-				exit(-1);
+	++i;
+      if ((tab[++z] = malloc((lenTab(&str[i], c) + 1) * sizeof(**tab)))
+	  == NULL)
+	exit(-1);
       while (str[i] && str[i] != c && str[i] != ' ' && str[i] != '\t')
-				tab[z][j++] = str[i++];
+	tab[z][j++] = str[i++];
       tab[z][j] = '\0';
       while (str[i] && (str[i] == c || str[i] == ' ' || str[i] == '\t'))
-				++i;
+	++i;
     }
   tab[z + 1] = '\0';
   return (tab);

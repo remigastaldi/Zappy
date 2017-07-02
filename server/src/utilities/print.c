@@ -10,9 +10,9 @@
 
 #include "utilities.h"
 
-void  display_names(char **tab)
+void	display_names(char **tab)
 {
-  int   i;
+  int	i;
 
   i = -1;
   printf("Names of teams: ");
@@ -21,33 +21,33 @@ void  display_names(char **tab)
   printf("\n");
 }
 
-void  print_map(t_env *env)
+void	print_map(t_env *env)
 {
-  int   x;
-  int   y;
+  int	x;
+  int	y;
 
   x = -1;
   y = -1;
   while (++y != env->height)
-  {
-    while (++x != env->width)
     {
-      printf("Position: y = %d, x = %d  \t", y, x);
-      printf("line: %d ", env->map[y][x].linemate);
-      printf("derau: %d ", env->map[y][x].deraumere);
-      printf("sibur: %d ", env->map[y][x].sibur);
-      printf("mendi: %d ", env->map[y][x].mendiane);
-      printf("phir: %d ", env->map[y][x].phiras);
-      printf("thys: %d ", env->map[y][x].thystame);
-      printf("food: %d\n", env->map[y][x].food);
+      while (++x != env->width)
+	{
+	  printf("Position: y = %d, x = %d  \t", y, x);
+	  printf("line: %d ", env->map[y][x].linemate);
+	  printf("derau: %d ", env->map[y][x].deraumere);
+	  printf("sibur: %d ", env->map[y][x].sibur);
+	  printf("mendi: %d ", env->map[y][x].mendiane);
+	  printf("phir: %d ", env->map[y][x].phiras);
+	  printf("thys: %d ", env->map[y][x].thystame);
+	  printf("food: %d\n", env->map[y][x].food);
+	}
+      x = -1;
     }
-    x = -1;
-  }
 }
 
-void  print_tab(char **tab)
+void	print_tab(char **tab)
 {
-  int   i;
+  int	i;
 
   i = -1;
   while (tab[++i])
@@ -55,7 +55,7 @@ void  print_tab(char **tab)
   printf("\n");
 }
 
-void  print_error(char *str)
+void	print_error(char *str)
 {
   printf("%s\n", str);
   exit(EXIT_FAILURE);
