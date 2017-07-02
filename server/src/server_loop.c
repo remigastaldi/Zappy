@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:18:43 2017 Matthias Prost
-** Last update Sun Jul  2 21:57:11 2017 Matthias Prost
+** Last update Sun Jul  2 23:23:55 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -40,11 +40,37 @@ void			createServer(t_env *env)
   env->fct_write[s] = NULL;
 }
 
-void			serverLoop(t_env *env)
+void			GUIloop(t_env *env, struct timeval timeout, t_gui *GUI)
 {
+  int			i;
   int			fd_max;
   fd_set		fd_read;
-  int			i;
+
+  fd_max = 0;
+  FD_ZERO(&fd_read);
+  i = -1;
+  while (++i < MAX_FD)
+    if (env->fd_type[i] != FD_FREE)
+      {
+	FD_SET(i, &fd_read);
+	fd_max = i;
+      }
+  if (select(fd_max + 1, &fd_read, NULL, NULL, &timeout) == -1)
+    {
+      perror("select");
+      exit(EXIT_FAILURE);
+    }
+  i = -1;
+  while (++i < MAX_FD)
+    if (FD_ISSET(i, &fd_read))
+      env->fct_read[i](env, i);
+  refresh_queue(env);
+  refresh_player_food(env);
+  drawGUI(GUI, env);
+}
+
+void			serverLoop(t_env *env)
+{
   t_gui			GUI;
   struct timeval	timeout;
 
@@ -52,28 +78,6 @@ void			serverLoop(t_env *env)
   timeout.tv_usec = 0;
   initGUI(&GUI, env);
   while (sfRenderWindow_isOpen(GUI._win))
-    {
-      fd_max = 0;
-      FD_ZERO(&fd_read);
-      i = -1;
-      while (++i < MAX_FD)
-	if (env->fd_type[i] != FD_FREE)
-	  {
-	    FD_SET(i, &fd_read);
-	    fd_max = i;
-	  }
-      if (select(fd_max + 1, &fd_read, NULL, NULL, &timeout) == -1)
-	{
-	  perror("select");
-	  exit(EXIT_FAILURE);
-	}
-      i = -1;
-      while (++i < MAX_FD)
-	if (FD_ISSET(i, &fd_read))
-	  env->fct_read[i](env, i);
-      refresh_queue(env);
-      refresh_player_food(env);
-      drawGUI(&GUI, env);
-    }
+    GUIloop(env, timeout, &GUI);
   destroyGUI(&GUI);
 }

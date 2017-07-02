@@ -5,17 +5,15 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 29 15:33:56 2017 Matthias Prost
-** Last update Sun Jul  2 21:47:28 2017 Matthias Prost
+** Last update Sun Jul  2 23:23:03 2017 Matthias Prost
 */
 
 #include "server.h"
 
-int		takeObjectLinDer(t_env *env, char **msg, t_users *user)
+int		takeObjectLinDer(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "linemate") == 0
       && env->map[y][x].linemate > 0)
@@ -40,12 +38,10 @@ int		takeObjectLinDer(t_env *env, char **msg, t_users *user)
   return (0);
 }
 
-int		takeObjectSibMen(t_env *env, char **msg, t_users *user)
+int		takeObjectSibMen(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "sibur") == 0
       && env->map[y][x].sibur > 0)
@@ -70,12 +66,10 @@ int		takeObjectSibMen(t_env *env, char **msg, t_users *user)
   return (0);
 }
 
-int		takeObjectPhiThy(t_env *env, char **msg, t_users *user)
+int		takeObjectPhiThy(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "phiras") == 0
       && env->map[y][x].phiras > 0)
@@ -100,12 +94,10 @@ int		takeObjectPhiThy(t_env *env, char **msg, t_users *user)
   return (0);
 }
 
-int		takeObjectFood(t_env *env, char **msg, t_users *user)
+int		takeObjectFood(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "food") == 0
       && env->map[y][x].food > 0)
@@ -122,10 +114,13 @@ int		takeObjectFood(t_env *env, char **msg, t_users *user)
 
 void		takeAction(t_env *env, char **msg, t_users *user)
 {
-  if (user->socket != -1 && takeObjectLinDer(env, msg, user) == 0
-      && takeObjectSibMen(env, msg, user) == 0
-      && takeObjectPhiThy(env, msg, user) == 0
-      && takeObjectFood(env, msg, user) == 0)
+  int		x;
+
+  x = user->posX;
+  if (user->socket != -1 && takeObjectLinDer(env, msg, user, x) == 0
+      && takeObjectSibMen(env, msg, user, x) == 0
+      && takeObjectPhiThy(env, msg, user, x) == 0
+      && takeObjectFood(env, msg, user, x) == 0)
     {
       dprintf(user->socket, "ok\n");
       printf("--> Sent: \"ok\" to socket %d\n", user->socket);

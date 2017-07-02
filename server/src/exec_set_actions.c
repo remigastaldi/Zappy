@@ -10,12 +10,10 @@
 
 #include "server.h"
 
-int		setObjectLinDer(t_env *env, char **msg, t_users *user)
+int		setObjectLinDer(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "linemate") == 0
       && user->inventory.linemate > 0)
@@ -40,12 +38,10 @@ int		setObjectLinDer(t_env *env, char **msg, t_users *user)
   return (0);
 }
 
-int		setObjectSibMen(t_env *env, char **msg, t_users *user)
+int		setObjectSibMen(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "sibur") == 0
       && user->inventory.sibur > 0)
@@ -70,12 +66,10 @@ int		setObjectSibMen(t_env *env, char **msg, t_users *user)
   return (0);
 }
 
-int		setObjectPhiThy(t_env *env, char **msg, t_users *user)
+int		setObjectPhiThy(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "phiras") == 0
       && user->inventory.phiras > 0)
@@ -100,12 +94,10 @@ int		setObjectPhiThy(t_env *env, char **msg, t_users *user)
   return (0);
 }
 
-int		setObjectFood(t_env *env, char **msg, t_users *user)
+int		setObjectFood(t_env *env, char **msg, t_users *user, int x)
 {
-  int		x;
   int		y;
 
-  x = user->posX;
   y = user->posY;
   if (user->socket != -1 && strcmp(msg[1], "food") == 0
       && user->inventory.food > 0)
@@ -122,10 +114,13 @@ int		setObjectFood(t_env *env, char **msg, t_users *user)
 
 void		setAction(t_env *env, char **msg, t_users *user)
 {
-  if (setObjectLinDer(env, msg, user) == 0
-      && setObjectSibMen(env, msg, user) == 0
-      && setObjectPhiThy(env, msg, user) == 0
-      && setObjectFood(env, msg, user) == 0 && user->socket != -1)
+  int x;
+
+  x = user->posX;
+  if (setObjectLinDer(env, msg, user, x) == 0
+      && setObjectSibMen(env, msg, user, x) == 0
+      && setObjectPhiThy(env, msg, user, x) == 0
+      && setObjectFood(env, msg, user, x) == 0 && user->socket != -1)
     {
       dprintf(user->socket, "ko\n");
       printf("--> Sent: \"ko\" to socket %d\n", user->socket);

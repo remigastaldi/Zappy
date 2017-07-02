@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Sun Jul  2 22:26:08 2017 Matthias Prost
+** Last update Sun Jul  2 22:37:35 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -120,6 +120,11 @@ int                 diagonal(t_users *us, t_users *ur, t_env *env);
 int                 diagonal2(int x, int y, t_env *env);
 
 void                respawn_ressources(t_env *env, char *ressource);
+
+void                first_send(int counter, int fd, t_env *env);
+
+double          		distance_users(t_users *userA, t_users *userB);
+void		            fill_distance(t_distance *user_distance);
 
 extern t_commands g_commands[NBR_ARGS];
 
