@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Wed Jun 28 15:53:40 2017 Leo Hubert Froideval
-** Last update Sun Jul  2 00:39:11 2017 gastal_r
+** Last update Sun Jul  2 10:55:16 2017 gastal_r
 */
 
 #include "server.h"
@@ -29,6 +29,7 @@ void    delete_all_player_actions(t_env *env, t_users *player)
   ptr = env->queue->head;
   while (ptr != NULL)
   {
+    printf("DELETE ACTION BY PLAYER\n");
     tmp = ptr->next;
     if (ptr->user == player && strcmp(ptr->msg[0], "Fork") != 0)
       deleteAction(env, env->queue, ptr);
@@ -49,7 +50,7 @@ void    delete_all_fd_actions(t_env *env, int socket)
     tmp = ptr->next;
     if (ptr->user->socket == socket && strcmp(ptr->msg[0], "Fork") != 0)
     {
-      printf("DELETE ACTION DELETE ACTION\n");
+      printf("DELETE ACTION BY FD\n");
       deleteAction(env, env->queue, ptr);
     }
     ptr = tmp;

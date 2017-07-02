@@ -64,6 +64,7 @@ void      Ai::start(Ai::State state)
   catch (const Event::Ko &event)
   {
     std::cout << "[" << _fd << "] " << "Server return KO " << std::endl;
+    start(Ai::State::START);
   }
   catch (const Event::GameOver &event)
   {
