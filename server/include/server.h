@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Sat Jul  1 15:22:41 2017 Matthias Prost
+** Last update Sat Jul  1 23:49:47 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -91,6 +91,7 @@ void                printWorkingQueue(t_queue *);
 void                freeWorkingQueue(t_queue *);
 int                 deleteAction(t_env *env, t_queue *, t_action *);
 void                delete_all_player_actions(t_env *env, t_users *player);
+void                delete_all_fd_actions(t_env *env, int socket);
 
 char                *cmd_look(t_env *env, t_users *user);
 char                *ressource_to_string(t_env *env, t_users *user, int x, int y);

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sat Jul  1 18:19:50 2017 Matthias Prost
+** Last update Sat Jul  1 23:51:12 2017 gastal_r
 */
 
 #include "server.h"
@@ -54,8 +54,8 @@ void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env)
   }
   if (user_dest != NULL)
     {
-      broad = 1;
-      (void)env;
+      delete_all_fd_actions(env, user_dest->user->socket);
+      broad = broadcast(user, user_dest->user, env);
       printf("==================%d\n", broad);
       printf("--> Sent: \"message %d\" to socket%d\n", broad,
             user_dest->user->socket);

@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Sat Jul  1 18:41:38 2017 gastal_r
+// Last update Sun Jul  2 10:50:39 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -34,34 +34,40 @@ Communication::Communication(int port, const std::string &teamName, const std::s
     std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
 }
 
-void         Communication::checkIfEventMessage()
+bool         Communication::checkIfEventMessage(std::string &msg)
 {
-  std::string answerCp(_answer);
-
-  if (answerCp.find("ko") != std::string::npos)
+  if (msg.find("ko") != std::string::npos)
+  {
     throw Event::Ko();
-  else if (answerCp.find("game over") != std::string::npos)
-  {
-    answerCp.erase(0, answerCp.find("game over") + 9);
-    throw Event::GameOver(answerCp);
   }
-  else if (answerCp.find("message") != std::string::npos)
+  else if (msg.find("game over") != std::string::npos)
   {
-    // if ((size_t)answerCp.at(answerCp.find_first_of("12345678")) == _currentLevel)
-    if (answerCp.find("dead") != std::string::npos)
+    msg.erase(0, msg.find("game over") + 9);
+    throw Event::GameOver(msg);
+  }
+  else if (msg.find("message") != std::string::npos)
+  {
+    // if ((size_t)msg.at(msg.find_first_of("12345678")) == _currentLevel)
+    if (msg.find("dead") != std::string::npos)
       throw Event::DeadBroadcaster();
     else
     {
-      answerCp.erase(0, answerCp.find_last_of(" ") + 1);
-      throw Event::Broadcast(std::stoi(answerCp));
+      msg.erase(0, msg.find_last_of(" ") + 1);
+      throw Event::Broadcast(std::stoi(msg));
     }
   }
-  else if (answerCp.find("dead") != std::string::npos)
+  else if (msg.find("dead") != std::string::npos)
+  {
     throw Event::Dead();
+  }
+  return (true);
 }
 
 void            Communication::sendCommand(const std::string &command)
 {
+  _answer.clear();
+  // std::cout << "Lock" << std::endl;
+  // _lock.exchange(true);
   std::cout << "[" << _fd << "] " << "Send ==> " << command << std::endl;
   *_fdStream << command;
   receiveCommand();
@@ -69,19 +75,7 @@ void            Communication::sendCommand(const std::string &command)
 
 void          Communication::receiveCommand(void)
 {
-  _answer.clear();
-  // std::atomic_bool flag(false);
-
-  // std::thread([&]
-  // {
-  //   std::this_thread::sleep_for(std::chrono::seconds(2));
-  //   std::cout << "====================> " << flag << std::endl;
-  //   if (!flag)
-  //     std::terminate();
-  //   // throw std::exception();
-  // }).detach();
   *_fdStream >> _answer;
-  // flag.exchange(true);
   std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
-  checkIfEventMessage();
+  checkIfEventMessage(_answer);
 }

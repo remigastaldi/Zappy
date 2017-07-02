@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Fri Jun 30 23:24:09 2017 gastal_r
+// Last update Sun Jul  2 10:49:21 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -19,7 +19,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
-#include  <thread>
+#include <thread>
 
 #include "FdStream.hpp"
 #include "Event.hpp"
@@ -38,10 +38,13 @@ protected:
   std::string         _machine;
   std::string         _answer;
 
+  std::thread         _thread;
+  std::string         _buff;
+
 public:
   Communication(int port, const std::string &teamName, const std::string &machine) noexcept;
 
-  void                checkIfEventMessage();
+  bool                checkIfEventMessage(std::string &msg);
   void                sendCommand(const std::string &command);
   void                receiveCommand(void);
 };

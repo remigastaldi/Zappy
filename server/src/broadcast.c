@@ -5,7 +5,7 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Fri Jun 30 15:10:54 2017 Cyril Puccio
-** Last update Fri Jun 30 15:10:55 2017 Cyril Puccio
+** Last update Sun Jul  2 00:21:09 2017 gastal_r
 */
 
 #include "server.h"
@@ -97,14 +97,6 @@ int         broadcast(t_users *us, t_users *ur, t_env *env)
   int       dir;
   int       fin_dir;
 
-  dir = 0;
-  fin_dir = -1;
-  us->posX = 2;
-  us->posY = 9;
-  ur->posX = 9;
-  ur->posY = 2;
-  us->direction = 0;
-  ur->direction = 0;
   if (is_cardinal(us, ur) >= 0)
     dir = cartdinal(us, ur, env);
   else

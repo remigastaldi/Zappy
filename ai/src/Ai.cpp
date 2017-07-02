@@ -405,6 +405,7 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
 void    Ai::walkToBroadcaster(int caseId)
 {
 std::cout << "CASE: " << caseId << std::endl;
+_path.clear();
   if (caseId == 1 || caseId == 2 || caseId == 8)
     _path.push_back(Ai::Direction::FORWARD);
   else if (caseId == 3)
