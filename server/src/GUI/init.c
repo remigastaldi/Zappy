@@ -5,11 +5,10 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Tue Jun 27 17:37:13 2017 sellet_f
-** Last update Sun Jul  2 17:15:23 2017 sellet_f
+** Last update Sun Jul  2 17:48:12 2017 sellet_f
 */
 
 #include "GUI.h"
-
 
 sfVector2f	initText(sfText **text, sfVector2f pos, t_gui *GUI)
 {
@@ -25,7 +24,8 @@ void		initUserInfos(t_gui *GUI)
 {
   GUI->_userInfos.socket = -1;
   GUI->_userInfos.posY = GUI->_userInfos.posX = 0;
-  GUI->_userInfos.graphicX = GUI->_userInfos.graphicY = GUI->_userInfos.lvl = 0;
+  GUI->_userInfos.graphicX = GUI->_userInfos.graphicY = 0;
+  GUI->_userInfos.lvl = 0;
   GUI->_userInfos.teamName = NULL;
   GUI->_userInfos.direction = UP;
   GUI->_userInfos.food_timer = 0;

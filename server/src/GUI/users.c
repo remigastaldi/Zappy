@@ -5,26 +5,26 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Sat Jul  1 01:19:42 2017 sellet_f
-** Last update Sun Jul  2 17:20:09 2017 sellet_f
+** Last update Sun Jul  2 17:48:59 2017 sellet_f
 */
 
 #include "GUI.h"
 
-int			countNumberTeam(char *str, t_env  *env)
+int		countNumberTeam(char *str, t_env *env)
 {
-  int			i;
-  int			counter;
+  int		i;
+  int		counter;
 
   counter = 0;
   i = -1;
   while (++i != MAX_FD)
     if (env->users[i].socket != -1 && env->users[i].teamName != NULL && str
-      && strcmp(env->users[i].teamName, str) == 0)
+	&& strcmp(env->users[i].teamName, str) == 0)
       counter++;
   return (counter);
 }
 
-void			checkPlayerInfos(t_users user, sfIntRect *spritePos, bool checkLvl)
+void		checkPlayerInfos(t_users user, sfIntRect *spritePos, bool checkLvl)
 {
   spritePos->top = 0;
   if (checkLvl == true)
@@ -43,10 +43,10 @@ void			checkPlayerInfos(t_users user, sfIntRect *spritePos, bool checkLvl)
     spritePos->top += 96;
 }
 
-void			drawPlayers(t_gui *GUI, t_env *env, int i)
+void		drawPlayers(t_gui *GUI, t_env *env, int i)
 {
-  sfIntRect		spritePos;
-  sfVector2f		pos;
+  sfIntRect	spritePos;
+  sfVector2f	pos;
   spritePos.width = spritePos.height = 32;
   while (++i < MAX_FD)
     if (env->users[i].socket != -1 && env->users[i].teamName)
@@ -72,10 +72,10 @@ void			drawPlayers(t_gui *GUI, t_env *env, int i)
       }
 }
 
-int			countPlayers(t_gui *GUI, t_env *env, bool fillGUI)
+int		countPlayers(t_gui *GUI, t_env *env, bool fillGUI)
 {
-  int			nb;
-  int			i;
+  int		nb;
+  int		i;
 
   i = -1;
   nb = 0;
@@ -91,9 +91,9 @@ int			countPlayers(t_gui *GUI, t_env *env, bool fillGUI)
   return (nb);
 }
 
-void			checkPlayerOnTile(t_gui *GUI, t_env *env)
+void		checkPlayerOnTile(t_gui *GUI, t_env *env)
 {
-  sfColor		color;
+  sfColor	color;
 
   color.r = 255;
   color.g = 255;

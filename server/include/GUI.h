@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 10:57:50 2017 sellet_f
-** Last update Sun Jul  2 02:32:44 2017 sellet_f
+** Last update Sun Jul  2 17:47:31 2017 sellet_f
 */
 
 #ifndef __GUI_H__
@@ -94,7 +94,7 @@ void		destroyGUI(t_gui *);
 /* map.c */
 void		drawResources(t_gui *, int, int, enum Resources);
 void		checkResources(t_gui *, int, int, t_env *);
-void		drawMap(t_gui *, t_env*);
+void		drawMap(t_gui *, t_env *, int);
 
 /* pannel.c */
 void		initValueInventory(sfVector2f, sfText *, t_gui *, char *);

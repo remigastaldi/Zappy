@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 11:02:53 2017 sellet_f
-** Last update Sun Jul  2 16:56:57 2017 sellet_f
+** Last update Sun Jul  2 17:51:03 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -18,7 +18,7 @@ void			drawGUI(t_gui *GUI, t_env *env)
   if (sfRenderWindow_isOpen(GUI->_win))
     {
       sfRenderWindow_setView(GUI->_win, GUI->_camera);
-      drawMap(GUI, env);
+      drawMap(GUI, env, -1);
       drawPlayers(GUI, env, -1);
       sfRenderWindow_setView(GUI->_win, GUI->_interface);
       sfRenderWindow_drawSprite(GUI->_win, GUI->_pannelSprite, NULL);

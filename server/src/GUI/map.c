@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Thu Jun 29 17:16:57 2017 sellet_f
-** Last update Sat Jul  1 16:37:37 2017 sellet_f
+** Last update Sun Jul  2 17:47:15 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -25,7 +25,7 @@ void			drawResource(t_gui *GUI, int x, int y, enum Resources res)
 {
   sfIntRect		spritePos;
   sfVector2f		posOnMap;
-  
+
   posOnMap.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width
     + spriteValues[res].x;
   posOnMap.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height
@@ -59,11 +59,10 @@ void			checkResources(t_gui *GUI, int y, int x, t_env *env)
     drawResource(GUI, x, y, EGG);
 }
 
-void			drawMap(t_gui *GUI, t_env *env)
+void			drawMap(t_gui *GUI, t_env *env, int y)
 {
   sfVector2f		tilePos;
   int			x;
-  int			y;
 
   y = -1;
   while (++y < env->height)
@@ -76,7 +75,8 @@ void			drawMap(t_gui *GUI, t_env *env)
 	  if (x == GUI->_caseX && y == GUI->_caseY)
 	    {
 	      sfSprite_setPosition(GUI->_selectedGrassSprite, tilePos);
-	      sfRenderWindow_drawSprite(GUI->_win, GUI->_selectedGrassSprite, NULL);
+	      sfRenderWindow_drawSprite(GUI->_win,
+					GUI->_selectedGrassSprite, NULL);
 	    }
 	  else
 	    {

@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Sun Jul  2 17:09:23 2017 sellet_f
-** Last update Sun Jul  2 17:09:45 2017 sellet_f
+** Last update Sun Jul  2 17:45:37 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -58,11 +58,13 @@ bool		initTexture(t_gui *GUI, sfVector2f spritePos)
 {
   if (setTextureValues(GUI) == false)
     return (false);
-  GUI->_pannelSprite = initSprite(GUI->_pannelSprite, spritePos, GUI->_pannelTexture, MENU);
+  GUI->_pannelSprite = initSprite(GUI->_pannelSprite,
+				  spritePos, GUI->_pannelTexture, MENU);
   spritePos.x += 72;
   spritePos.y += 713;
   GUI->_playerInfoSprite = initSprite(GUI->_playerInfoSprite,
-  				      spritePos, GUI->_playerInfoTexture, INVENTORY);
+  				      spritePos, GUI->_playerInfoTexture,
+				      INVENTORY);
   GUI->_grassSprite = initSprite(GUI->_grassSprite, spritePos,
 				 GUI->_grassTexture, DEFAULT);
   GUI->_selectedGrassSprite = initSprite(GUI->_selectedGrassSprite, spritePos,
@@ -71,7 +73,9 @@ bool		initTexture(t_gui *GUI, sfVector2f spritePos)
 				 GUI->_resourcesTexture, DEFAULT);
   GUI->_playerSprite = initSprite(GUI->_playerSprite, spritePos,
 				 GUI->_playerTexture, PLAYER);
-  GUI->_selectedPlayerSprite = initSprite(GUI->_selectedPlayerSprite, spritePos,
-				 GUI->_selectedPlayerTexture, PLAYER);
+  GUI->_selectedPlayerSprite = initSprite(GUI->_selectedPlayerSprite,
+					  spritePos,
+					  GUI->_selectedPlayerTexture,
+					  PLAYER);
   return (true);
 }

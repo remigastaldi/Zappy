@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Sat Jul  1 01:16:35 2017 sellet_f
-** Last update Sat Jul  1 14:40:33 2017 sellet_f
+** Last update Sun Jul  2 17:46:20 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -29,7 +29,6 @@ void			initValueResource(sfVector2f pos, sfText *text,
   sfText_setString(text, str);
   sfRenderWindow_drawText(GUI->_win, text, NULL);
 }
-
 
 void			drawInventoryResources(t_gui *GUI, sfVector2f pos,
 					       sfText *text)
@@ -73,7 +72,8 @@ void			drawInventory(t_gui *GUI, sfVector2f pos,
       pos.x -= 40;
       initValueInventory(pos, text, GUI, "Y = ");
       pos.x -= 350;
-      initValueResource(pos, text, GUI, countNumberTeam(GUI->_userInfos.teamName, env));
+      initValueResource(pos, text, GUI, countNumberTeam
+			(GUI->_userInfos.teamName, env));
       pos.x += 50;
       initValueInventory(pos, text, GUI, " / ");
       pos.x += 50;
