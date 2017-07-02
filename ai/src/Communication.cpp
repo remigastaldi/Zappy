@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Sun Jul  2 16:07:45 2017 gastal_r
+// Last update Sun Jul  2 16:51:54 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -27,16 +27,24 @@ Communication::Communication(int port, const std::string &teamName, const std::s
 
     *_fdStream >> _answer;
     std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
-    std::cout << "[" << _fd << "] " << "Send ==> " << teamName << std::endl;
     *_fdStream << teamName;
+    std::cout << "[" << _fd << "] " << "Send ==> " << teamName << std::endl;
     *_fdStream >> _answer;
     std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
+    if (_answer.find("ko") != std::string::npos)
+      throw Event::Exit("Bad team name");
+    if (std::stoi(_answer) == 0)
+      throw Event::Exit("No more place in this team");
     *_fdStream >> _answer;
     std::cout << "[" << _fd << "] " << "Received <== " << _answer << std::endl;
 }
 
 bool         Communication::checkIfEventMessage(std::string &msg)
 {
+  if (msg.empty())
+  {
+    throw Event::Exit("Serveur down");
+  }
   if (msg.find("egg") != std::string::npos)
   {
     throw Event::Egg();

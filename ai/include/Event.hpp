@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 11:48:19 2017 gastal_r
-// Last update Sun Jul  2 11:39:30 2017 gastal_r
+// Last update Sun Jul  2 16:48:19 2017 gastal_r
 //
 
 #ifndef     _EVENT_HPP_
@@ -69,6 +69,17 @@ public:
   public:
     explicit Egg() {};
     virtual ~Egg() throw() {};
+  };
+
+  class Exit
+  {
+  public:
+    explicit Exit(const std::string &message) : _message(message) {};
+    virtual ~Exit() throw() {};
+    virtual const char* what() const throw() { return(_message.c_str());}
+
+   private:
+      std::string   _message;
   };
 };
 

@@ -33,6 +33,7 @@ void		serverInit(t_env *env)
     env->users[i].posY = 0;
     env->users[i].teamName = NULL;
     env->users[i].food_timer = 0;
+    env->users[i].lock = false;
   }
   memset(env->fd_type, FD_FREE, MAX_FD);
   createMap(env);

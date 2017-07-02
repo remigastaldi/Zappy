@@ -36,7 +36,6 @@ void  incantationAction(t_env *env, char **msg, t_users *user)
   (void)env;
   (void)msg;
   user->lvl += 1;
-  user->lock = false;
   if (user->socket != -1)
   {
     dprintf(user->socket, "Current level: %d\n", user->lvl);
@@ -44,6 +43,7 @@ void  incantationAction(t_env *env, char **msg, t_users *user)
     printf("--> Sent \"Current level: %d\" to socket %d\n",
             user->lvl, user->socket);
   }
+  user->lock = false;
 }
 
 void  forkAction(t_env *env, char **msg, t_users *user)
