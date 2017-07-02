@@ -90,10 +90,6 @@ void      Ai::start(Ai::State state)
   {
     start(Ai::State::START);
   }
-  // catch (const Event::Egg &event)
-  // {
-  //   start(Ai::State::EGG_ECLOSION);
-  // }
 }
 
 void      Ai::take_all_food(void)
@@ -108,7 +104,9 @@ void      Ai::take_all_food(void)
   for (size_t i = 0; i < _currentLevel; ++i)
     _path.push_back(Ai::Direction::FORWARD);
   walkToDir();
-  // return (take_all_food());
+  if (!lookForFood())
+    take_all_food();
+  return (take_all_food());
 }
 
 void      Ai::primaryState(void)
@@ -155,7 +153,7 @@ void      Ai::powerupState(void)
   {
     sendCommand("Broadcast");
     actualiseInventory();
-    if (_currentItems[Ai::Properties::FOOD] < 6)
+    if (_currentItems[Ai::Properties::FOOD] < 5)
       take_all_food();
     actualiseView();
   }
@@ -364,8 +362,6 @@ void      Ai::calculatePath(int resourceCase) noexcept
   {
     curMinOffsetX = offsetY * offsetY;
     curMaxOffsetX = curMinOffsetX + offsetY * 2;
-    // std::cout << "[" << _fd << "] " << "curMinOffsetX: " << curMinOffsetX << std::endl;
-    // std::cout << "[" << _fd << "] " << "curMaxOffsetX: " << curMaxOffsetX << std::endl;
     nextLineOffset = ((offsetY + 1) * (offsetY + 1)) + (offsetY > 0 ? offsetX + 1 : offsetX);
     std::cout << "[" << _fd << "] " << "currentCase: " << currentCase << std::endl;
     int direction = calculateDirection(resourceCase, (currentCase - 1 < curMinOffsetX ? currentCase : currentCase - 1), nextLineOffset,
@@ -407,15 +403,12 @@ int     Ai::calculateDirection(int destination, int a, int b, int c) noexcept
   aLength < 0 ? aLength *= -1 : 0;
   bLength < 0 ? bLength *= -1 : 0;
   cLength < 0 ? cLength *= -1 : 0;
-  // std::cout << "[" << _fd << "] " << "a: " << a << "  b: " << b << "  c: " << c << std::endl;
-  // std::cout << "[" << _fd << "] " << "aLength: " << aLength << "  bLength: " << bLength << "  cLength: " << cLength << std::endl;
   return ((aLength < bLength && aLength < cLength ? 0 : (bLength < aLength && bLength < cLength ? 1 : 2)));
 }
 
 void    Ai::walkToBroadcaster(int caseId)
 {
-std::cout << "CASE: " << caseId << std::endl;
-_path.clear();
+  _path.clear();
   if (caseId == 1 || caseId == 2 || caseId == 8)
     _path.push_back(Ai::Direction::FORWARD);
   else if (caseId == 3)

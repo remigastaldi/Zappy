@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Sun Jul  2 14:36:43 2017 Matthias Prost
-** Last update Sun Jul  2 14:49:49 2017 Matthias Prost
+** Last update Sun Jul  2 20:38:43 2017 gastal_r
 */
 
 #include "server.h"
@@ -30,5 +30,9 @@ void    respawn_ressources(t_env *env, char *ressource)
   if (strcmp(ressource, "thystame") == 0)
     env->map[y][x].thystame += 1;
   if (strcmp(ressource, "food") == 0)
+  {
+    if (env->map[y][x].food > 10)
+      return (respawn_ressources(env, "food"));
     env->map[y][x].food += 1;
+  }
 }
