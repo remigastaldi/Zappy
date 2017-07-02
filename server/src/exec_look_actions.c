@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 16:56:20 2017 gastal_r
-** Last update Sun Jul  2 13:49:38 2017 Matthias Prost
+** Last update Sun Jul  2 18:17:13 2017 Matthias Prost
 */
 
 #include      "server.h"
@@ -23,13 +23,13 @@ void          lookAction(t_env *env, char **msg, t_users *user)
   char  *look;
 
   (void)msg;
-  look = cmd_look(env, user);
   if (user->socket != -1)
   {
+    look = cmd_look(env, user);
     dprintf(user->socket, "%s\n", look);
     printf("--> Sent: \"%s\n\" to socket %d\n", look, user->socket);
+    free(look);
   }
-  free(look);
 }
 
 void          inventoryAction(t_env *env, char **msg, t_users *user)

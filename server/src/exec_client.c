@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Wed Jun 28 16:38:50 2017 Matthias Prost
-** Last update Sun Jul  2 13:14:03 2017 Matthias Prost
+** Last update Sun Jul  2 18:32:41 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -18,15 +18,15 @@ void  connect_nbrAction(t_env *env, char **msg, t_users *user)
   i = -1;
   counter = 0;
   (void)msg;
-  while (env->names[++i])
-  {
-    printf("user teamname: %s - env teamname: %s\n", user->teamName, env->names[i]);
-    if (strcmp(user->teamName, env->names[i]) == 0)
-      counter++;
-  }
-  counter = env->clientsNb - counter;
   if (user->socket != -1)
   {
+    while (env->names[++i])
+    {
+      printf("user teamname: %s - env teamname: %s\n", user->teamName, env->names[i]);
+      if (strcmp(user->teamName, env->names[i]) == 0)
+        counter++;
+    }
+    counter = env->clientsNb - counter;
     dprintf(user->socket, "%d\n", counter);
     printf("--> Sent: \"%d\" to socket %d\n", counter, user->socket);
   }

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sun Jul  2 15:26:07 2017 gastal_r
+** Last update Sun Jul  2 18:33:55 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -75,26 +75,26 @@ void      broadcastAction(t_env *env, char **msg, t_users *user)
   i = -1;
   a = 0;
   fill_distance(&user_distance[0]);
-  while (++i != MAX_FD)
-  {
-    if (env->users[i].lock == false && env->users[i].socket != -1
-      && env->users[i].socket != user->socket && env->users[i].teamName != NULL
-      && user->teamName && strcmp(env->users[i].teamName, user->teamName) == 0
-      && env->users[i].lvl == user->lvl)
-          {
-            printf("Distance between socket %d and socket %d: %lf\n",
-              user->socket, env->users[i].socket,
-                distance_users(user, &env->users[i]));
-            user_distance[a].user = xmalloc(sizeof(t_users));
-            memcpy(user_distance[a].user, &env->users[i], sizeof(t_users));
-            // user_distance[a].user = memcpyenv->users[i];
-            user_distance[a].distance = distance_users(user, &env->users[i]);
-            a++;
-          }
-  }
-  bubble_sort(&user_distance[0], user, env, msg);
   if (user->socket != -1)
   {
+    while (++i != MAX_FD)
+    {
+      if (env->users[i].lock == false && env->users[i].socket != -1
+        && env->users[i].socket != user->socket && env->users[i].teamName != NULL
+        && user->teamName && strcmp(env->users[i].teamName, user->teamName) == 0
+        && env->users[i].lvl == user->lvl)
+            {
+              printf("Distance between socket %d and socket %d: %lf\n",
+                user->socket, env->users[i].socket,
+                  distance_users(user, &env->users[i]));
+              user_distance[a].user = xmalloc(sizeof(t_users));
+              memcpy(user_distance[a].user, &env->users[i], sizeof(t_users));
+              // user_distance[a].user = memcpyenv->users[i];
+              user_distance[a].distance = distance_users(user, &env->users[i]);
+              a++;
+            }
+    }
+    bubble_sort(&user_distance[0], user, env, msg);
     dprintf(user->socket, "ok\n");
     printf("--> Sent: \"ok\" to socket %d\n", user->socket);
   }

@@ -17,28 +17,24 @@ int  setObjectLinDer(t_env *env, char **msg, t_users *user)
 
   x = user->posX;
   y = user->posY;
-  if (strcmp(msg[1], "linemate") == 0 && user->inventory.linemate > 0)
+  if (user->socket != -1 && strcmp(msg[1], "linemate") == 0
+      && user->inventory.linemate > 0)
   {
     env->map[y][x].linemate += 1;
     user->inventory.linemate -= 1;
     printf("User with socket %d set a linemate\n", user->socket);
-    if (user->socket != -1)
-    {
-      dprintf(user->socket, "ok\n");
-      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
-    }
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
     return (1);
   }
-  else if (strcmp(msg[1], "deraumere") == 0 && user->inventory.deraumere > 0)
+  else if (user->socket != -1 && strcmp(msg[1], "deraumere") == 0
+            && user->inventory.deraumere > 0)
   {
     env->map[y][x].deraumere += 1;
     user->inventory.deraumere -= 1;
     printf("User with socket %d set a deraumere\n", user->socket);
-    if (user->socket != -1)
-    {
-      dprintf(user->socket, "ok\n");
-      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
-    }
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
     return (1);
   }
   return (0);
@@ -51,28 +47,24 @@ int  setObjectSibMen(t_env *env, char **msg, t_users *user)
 
   x = user->posX;
   y = user->posY;
-  if (strcmp(msg[1], "sibur") == 0 && user->inventory.sibur > 0)
+  if (user->socket != -1 && strcmp(msg[1], "sibur") == 0
+        && user->inventory.sibur > 0)
   {
     env->map[y][x].sibur += 1;
     user->inventory.sibur -= 1;
     printf("User with socket %d set a sibur\n", user->socket);
-    if (user->socket != -1)
-    {
-      dprintf(user->socket, "ok\n");
-      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
-    }
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
     return (1);
   }
-  else if (strcmp(msg[1], "mendiane") == 0 && user->inventory.mendiane > 0)
+  else if (user->socket != -1 && strcmp(msg[1], "mendiane") == 0
+            && user->inventory.mendiane > 0)
   {
     env->map[y][x].mendiane += 1;
     user->inventory.mendiane -= 1;
     printf("User with socket %d set a mendiane\n", user->socket);
-    if (user->socket != -1)
-    {
-      dprintf(user->socket, "ok\n");
-      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
-    }
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
     return (1);
   }
   return (0);
@@ -85,28 +77,24 @@ int  setObjectPhiThy(t_env *env, char **msg, t_users *user)
 
   x = user->posX;
   y = user->posY;
-  if (strcmp(msg[1], "phiras") == 0 && user->inventory.phiras > 0)
+  if (user->socket != -1 && strcmp(msg[1], "phiras") == 0
+        && user->inventory.phiras > 0)
   {
     env->map[y][x].phiras += 1;
     user->inventory.phiras -= 1;
     printf("User with socket %d set a phiras\n", user->socket);
-    if (user->socket != -1)
-    {
-      dprintf(user->socket, "ok\n");
-      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
-    }
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
     return (1);
   }
-  else if (strcmp(msg[1], "thystame") == 0 && user->inventory.thystame > 0)
+  else if (user->socket != -1 && strcmp(msg[1], "thystame") == 0
+            && user->inventory.thystame > 0)
   {
     env->map[y][x].thystame += 1;
     user->inventory.thystame -= 1;
     printf("User with socket %d set a thystame\n", user->socket);
-    if (user->socket != -1)
-    {
-      dprintf(user->socket, "ok\n");
-      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
-    }
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
     return (1);
   }
   return (0);
@@ -119,16 +107,14 @@ int  setObjectFood(t_env *env, char **msg, t_users *user)
 
   x = user->posX;
   y = user->posY;
-  if (strcmp(msg[1], "food") == 0 && user->inventory.food > 0)
+  if (user->socket != -1 && strcmp(msg[1], "food") == 0
+      && user->inventory.food > 0)
   {
     env->map[y][x].food += 1;
     user->inventory.food -= 1;
     printf("User with socket %d set food\n", user->socket);
-    if (user->socket != -1)
-    {
-      dprintf(user->socket, "ok\n");
-      printf("--> Sent: \"ok\" to socket %d\n", user->socket);
-    }
+    dprintf(user->socket, "ok\n");
+    printf("--> Sent: \"ok\" to socket %d\n", user->socket);
     return (1);
   }
   return (0);
