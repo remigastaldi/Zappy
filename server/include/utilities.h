@@ -75,6 +75,7 @@ typedef struct	    s_users
   Direction         direction;
   t_items           inventory;
   long long         food_timer;
+  bool              lock;
 }				            t_users;
 
 typedef struct      s_distance

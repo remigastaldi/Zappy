@@ -27,6 +27,7 @@ void  setParam(t_env *env, char **msg, t_users *user)
 void  incantationParam(t_env *env, char **msg, t_users *user)
 {
   t_action *action;
+  user->lock = true;
   action = newAction(env->queue, user, &incantationAction,
                       300000000 / env->freq);
   addActionData(action, env, msg);

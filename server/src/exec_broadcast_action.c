@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sun Jul  2 14:28:26 2017 gastal_r
+** Last update Sun Jul  2 15:26:07 2017 gastal_r
 */
 
 #include "server.h"
@@ -77,10 +77,10 @@ void      broadcastAction(t_env *env, char **msg, t_users *user)
   fill_distance(&user_distance[0]);
   while (++i != MAX_FD)
   {
-    if (env->users[i].socket != -1 && env->users[i].socket != user->socket &&
-        env->users[i].teamName != NULL && user->teamName &&
-        strcmp(env->users[i].teamName, user->teamName) == 0
-          && env->users[i].lvl == user->lvl)
+    if (env->users[i].lock == false && env->users[i].socket != -1
+      && env->users[i].socket != user->socket && env->users[i].teamName != NULL
+      && user->teamName && strcmp(env->users[i].teamName, user->teamName) == 0
+      && env->users[i].lvl == user->lvl)
           {
             printf("Distance between socket %d and socket %d: %lf\n",
               user->socket, env->users[i].socket,

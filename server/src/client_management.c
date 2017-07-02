@@ -54,6 +54,7 @@ void		addUserTab(t_env *env, int socket)
         env->users[i].graphicX = rand() % 68;
         env->users[i].direction = rand() % 4;
         env->users[i].teamName = NULL;
+        env->users[i].lock = false;
         initInventory(env, i);
         printf("Socket: %d\tlvl: %d\t\tposY: %d\t\tposX: %d\t\tdirection: %d\n",
           env->users[i].socket, env->users[i].lvl, env->users[i].posY,
