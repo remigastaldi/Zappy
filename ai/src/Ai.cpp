@@ -155,7 +155,7 @@ void      Ai::powerupState(void)
   {
     sendCommand("Broadcast");
     actualiseInventory();
-    if (_currentItems[Ai::Properties::FOOD] < 5)
+    if (_currentItems[Ai::Properties::FOOD] < 6)
       take_all_food();
     actualiseView();
   }

@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Tue Jun 27 16:33:53 2017 gastal_r
-** Last update Fri Jun 30 15:30:47 2017 gastal_r
+** Last update Sun Jul  2 19:20:41 2017 gastal_r
 */
 
 #include    "utilities.h"
@@ -35,6 +35,8 @@ void      free_tab(char **tab)
   int   i;
 
   i = -1;
+  if (tab == NULL)
+    return;
   while (tab[++i])
     free(tab[i]);
   free(tab);
