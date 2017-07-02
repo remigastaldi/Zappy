@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 16:56:20 2017 gastal_r
-** Last update Sun Jul  2 13:16:47 2017 Matthias Prost
+** Last update Sun Jul  2 13:49:38 2017 Matthias Prost
 */
 
 #include      "server.h"
@@ -39,7 +39,8 @@ void          inventoryAction(t_env *env, char **msg, t_users *user)
 
   if (user->socket != -1)
   {
-    dprintf(user->socket, "linemate %d, deraumere %d, sibur %d, mendiane %d, phiras %d, thystame %d, food %d\n",
+    dprintf(user->socket, "linemate %d, deraumere %d, sibur %d, mendiane %d, "
+    "phiras %d, thystame %d, food %d\n",
      user->inventory.linemate,
      user->inventory.deraumere,
      user->inventory.sibur,
@@ -47,5 +48,14 @@ void          inventoryAction(t_env *env, char **msg, t_users *user)
      user->inventory.phiras,
      user->inventory.thystame,
      user->inventory.food);
+     printf("--> Sent \"linemate %d, deraumere %d, sibur %d, mendiane %d, "
+     "phiras %d, thystame %d, food %d\" to socket %d\n",
+     user->inventory.linemate,
+     user->inventory.deraumere,
+     user->inventory.sibur,
+     user->inventory.mendiane,
+     user->inventory.phiras,
+     user->inventory.thystame,
+     user->inventory.food, user->socket);
    }
 }
