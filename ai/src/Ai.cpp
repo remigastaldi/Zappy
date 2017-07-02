@@ -11,7 +11,7 @@
 #include      "Ai.hpp"
 #include      "Utils.hpp"
 
-Ai::Ai(int port, const std::string &teamName, const std::string &machine) noexcept
+Ai::Ai(int port, const std::string &teamName, const std::string &machine)
   : Communication(port, teamName, machine),
   _riseUpConditions({
   {1, {{Ai::Properties::NB_PLAYER, 1}, {Ai::Properties::LINEMATE, 1}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0}}},

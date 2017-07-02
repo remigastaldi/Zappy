@@ -52,7 +52,7 @@ public:
   };
 
 public:
-  Ai(int port, const std::string &teamName, const std::string &machine) noexcept;
+  Ai(int port, const std::string &teamName, const std::string &machine);
 
   ~Ai();
   Ai(const Ai& other) = default;
