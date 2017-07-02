@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Wed Jun 28 15:53:40 2017 Leo Hubert Froideval
-** Last update Sun Jul  2 14:39:04 2017 gastal_r
+** Last update Sun Jul  2 21:02:26 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -52,7 +52,7 @@ void    delete_all_fd_actions(t_env *env, int socket)
     tmp = ptr->next;
     if (ptr->user->socket == socket)
     {
-      printf("DELETE ACTION %s BY FD\n", ptr->msg[0]);
+      printf("DELETE ACTION %s BY FD number %d\n", ptr->msg[0], socket);
       deleteAction(env, env->queue, ptr);
     }
     ptr = tmp;

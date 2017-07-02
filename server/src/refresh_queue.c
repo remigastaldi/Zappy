@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Sun Jul  2 16:55:40 2017 Matthias Prost
+** Last update Sun Jul  2 21:16:07 2017 Matthias Prost
 */
 
 #include      "utilities.h"
@@ -16,7 +16,7 @@ void          refresh_queue(t_env *env)
   struct      timeval curr_time;
   long  long  curr_clock;
   t_action    *action;
-  t_action    *tmp;
+  //t_action    *tmp;
 
 
   action = env->queue->head;
@@ -26,10 +26,10 @@ void          refresh_queue(t_env *env)
     curr_clock = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
     if (curr_clock >= action->time_limit)
     {
-      tmp = action->next;
+      //tmp = action->next;
       (*action->p)(action->env, action->msg, action->user);
       deleteAction(env, env->queue, action);
-      action = tmp;
+      //action = tmp;
     }
     if (action != NULL)
       action = action->next;

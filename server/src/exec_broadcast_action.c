@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sun Jul  2 20:30:56 2017 Matthias Prost
+** Last update Sun Jul  2 20:44:05 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -52,7 +52,8 @@ void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env, char
       user_dest = &user_distance[i];
     }
   }
-  if (user_dest != NULL && user->socket != -1 && strcmp(msg[0], "Fork") != 0)
+  if (user_dest != NULL  && user_dest->user->socket != -1
+        && user->socket != -1 && strcmp(msg[0], "Fork") != 0)
     {
       delete_all_fd_actions(env, user_dest->user->socket);
       broad = broadcast(user, user_dest->user, env);
@@ -87,7 +88,7 @@ void      sendBroadCast(t_env *env, t_distance *dist, t_users *user, char **msg)
     value = 6;
   i = -1;
   while (++i != value)
-    bubble_sort(&dist[0], user, env, msg);
+    bubble_sort(dist, user, env, msg);
 }
 
 void      broadcastAction(t_env *env, char **msg, t_users *user)
@@ -116,8 +117,9 @@ void      broadcastAction(t_env *env, char **msg, t_users *user)
               user_distance[a].distance = distance_users(user, &env->users[i]);
               a++;
             }
-        sendBroadCast(env, &user_distance[0], user, msg);
     }
+    if (a > 0)
+      sendBroadCast(env, &user_distance[0], user, msg);
     dprintf(user->socket, "ok\n");
     printf("--> Sent: \"ok\" to socket %d\n", user->socket);
   }
