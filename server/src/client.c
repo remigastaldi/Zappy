@@ -85,10 +85,13 @@ void    joinTeam(t_env *env, char *buff, int fd)
       env->fd_type[fd] = FD_FREE;
     }
   }
-  dprintf(fd, "%d\n", counter);
-  dprintf(fd, "%d %d\n", env->width, env->height);
-  printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
-  printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
+  if (user != NULL && user->socket != -1)
+  {
+    dprintf(fd, "%d\n", counter);
+    dprintf(fd, "%d %d\n", env->width, env->height);
+    printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
+    printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
+  }
 }
 
 void		clientRead(t_env *env, int fd)
