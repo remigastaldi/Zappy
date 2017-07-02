@@ -51,6 +51,7 @@ void           refresh_player_food(t_env *env)
       && curr_clock >= env->users[i].food_timer)
     {
       env->users[i].inventory.food--;
+      respawn_ressources(env, "food");
       printf("Player %d have %d food left\n", env->users[i].socket,
         env->users[i].inventory.food);
       if (env->users[i].inventory.food == 0)

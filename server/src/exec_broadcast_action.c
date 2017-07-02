@@ -58,7 +58,7 @@ void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env, char
       broad = broadcast(user, user_dest->user, env);
       dprintf(user_dest->user->socket, "message %d\n",
               broad);
-      printf("--> Sent: \"message %d\" to socket%d\n", broad,
+      printf("--> Sent: \"message %d\" to socket %d\n", broad,
               user_dest->user->socket);
       user_dest->user = NULL;
       user_dest->distance = -1;
