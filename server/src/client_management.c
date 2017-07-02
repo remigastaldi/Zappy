@@ -73,7 +73,6 @@ void		removeUserTab(t_env *env, int socket)
   {
     if (env->users[i].socket == socket)
     {
-      // close(env->users[i].socket);
       env->users[i].socket = -1;
       env->users[i].lvl = 1;
       env->users[i].posX = 0;

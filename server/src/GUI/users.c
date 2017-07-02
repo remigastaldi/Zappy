@@ -1,11 +1,11 @@
 /*
 ** users.c for Project-Master in /home/sellet_f/Projets/Tek2/Zappy
-** 
+**
 ** Made by sellet_f
 ** Login   <flavien.sellet@epitech.eu>
-** 
+**
 ** Started on  Sat Jul  1 01:19:42 2017 sellet_f
-** Last update Sun Jul  2 16:16:08 2017 sellet_f
+** Last update Sun Jul  2 15:46:31 2017 Matthias Prost
 */
 
 #include "GUI.h"
@@ -18,7 +18,8 @@ int			countNumberTeam(char *str, t_env  *env)
   counter = 0;
   i = -1;
   while (++i != MAX_FD)
-    if (env->users[i].teamName && strcmp(env->users[i].teamName, str) == 0)
+    if (env->users[i].socket != -1 && env->users[i].teamName != NULL && str
+      && strcmp(env->users[i].teamName, str) == 0)
       counter++;
   return (counter);
 }
