@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sun Jul  2 13:13:41 2017 Matthias Prost
+** Last update Sun Jul  2 14:28:26 2017 gastal_r
 */
 
 #include "server.h"
@@ -31,7 +31,7 @@ void      fill_distance(t_distance *user_distance)
   }
 }
 
-void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env)
+void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env, char **msg)
 {
   int        i;
   double     buffer;
@@ -52,7 +52,7 @@ void      bubble_sort(t_distance *user_distance, t_users *user, t_env *env)
       user_dest = &user_distance[i];
     }
   }
-  if (user_dest != NULL && user->socket != -1)
+  if (user_dest != NULL && user->socket != -1 && strcmp(msg[0], "Fork") != 0)
     {
       delete_all_fd_actions(env, user_dest->user->socket);
       broad = broadcast(user, user_dest->user, env);
@@ -92,7 +92,7 @@ void      broadcastAction(t_env *env, char **msg, t_users *user)
             a++;
           }
   }
-  bubble_sort(&user_distance[0], user, env);
+  bubble_sort(&user_distance[0], user, env, msg);
   if (user->socket != -1)
   {
     dprintf(user->socket, "ok\n");

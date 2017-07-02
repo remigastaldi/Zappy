@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Sun Jun 25 11:49:42 2017 gastal_r
-// Last update Sun Jul  2 10:50:39 2017 gastal_r
+// Last update Sun Jul  2 11:39:57 2017 gastal_r
 //
 
 #include "Communication.hpp"
@@ -36,7 +36,11 @@ Communication::Communication(int port, const std::string &teamName, const std::s
 
 bool         Communication::checkIfEventMessage(std::string &msg)
 {
-  if (msg.find("ko") != std::string::npos)
+  if (msg.find("egg") != std::string::npos)
+  {
+    throw Event::Egg();
+  }
+  else if (msg.find("ko") != std::string::npos)
   {
     throw Event::Ko();
   }

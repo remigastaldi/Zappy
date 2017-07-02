@@ -55,6 +55,9 @@ void      Ai::start(Ai::State state)
       walkToBroadcaster(_eventCase);
       primaryState();
       break;
+    case Ai::State::EGG_ECLOSION:
+      eggEclosion();
+      primaryState();
     }
   }
   catch (const Event::Dead &event)
@@ -84,6 +87,10 @@ void      Ai::start(Ai::State state)
   catch (const Event::DeadBroadcaster &event)
   {
     start(Ai::State::START);
+  }
+  catch (const Event::Egg &event)
+  {
+    start(Ai::State::EGG_ECLOSION);
   }
 }
 
@@ -447,7 +454,12 @@ void    Ai::startIncantation(void)
 
 void    Ai::forkPlayer(void)
 {
-  sendCommand("Fork");
+  // sendCommand("Fork");
+  // eggEclosion();
+}
+
+void    Ai::eggEclosion(void)
+{
   _threads.push_back(std::thread([&]
   {
     std::unique_ptr<Ai> ai(new Ai(_port, _teamName, _machine));

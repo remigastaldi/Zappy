@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 11:48:19 2017 gastal_r
-// Last update Mon Jun 26 12:10:25 2017 gastal_r
+// Last update Sun Jul  2 11:39:30 2017 gastal_r
 //
 
 #ifndef     _EVENT_HPP_
@@ -62,6 +62,13 @@ public:
   public:
     explicit DeadBroadcaster() {};
     virtual ~DeadBroadcaster() throw() {};
+  };
+
+  class Egg
+  {
+  public:
+    explicit Egg() {};
+    virtual ~Egg() throw() {};
   };
 };
 

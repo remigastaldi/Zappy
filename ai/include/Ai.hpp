@@ -48,6 +48,7 @@ public:
     START,
     INCANTATION,
     WALK_TO_BROADCASTER,
+    EGG_ECLOSION
   };
 
 public:
@@ -80,6 +81,7 @@ protected:
   void    walkToDir(void);
   void    startIncantation(void);
   void    forkPlayer(void);
+  void    eggEclosion(void);
 
 private:
   std::unordered_map<size_t, std::unordered_map<Ai::Properties, size_t>> _riseUpConditions;
