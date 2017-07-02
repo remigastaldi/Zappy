@@ -48,11 +48,20 @@ void  incantationAction(t_env *env, char **msg, t_users *user)
 
 void  forkAction(t_env *env, char **msg, t_users *user)
 {
-  (void)env;
-  (void)msg;
+  t_action *action;
+
   if (user->socket != -1)
   {
-    dprintf(user->socket, "ok\n");
     printf("--> Sent \"ok\" to socket %d\n", user->socket);
+    dprintf(user->socket, "ok\n");
+    env->map[user->posY][user->posX].egg += 1;
+    action = newAction(env->queue, user, &eggAction,
+                        600000000 / env->freq);
+    if (msg && msg[0])
+    {
+      free(msg[0]);
+      msg[0] = strdup("Egg");
+    }
+    addActionData(action, env, msg);
   }
 }

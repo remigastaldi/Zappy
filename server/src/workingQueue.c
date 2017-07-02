@@ -5,7 +5,7 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Sun Jul 02 17:58:31 2017 Leo Hubert Froideval
+** Last update Sun Jul  2 18:15:11 2017 gastal_r
 */
 
 #include "server.h"
@@ -62,7 +62,7 @@ int         deleteAction(t_env *env, t_queue *queue, t_action *action)
   {
     if (ptr == action)
     {
-      if (strcmp(ptr->msg[0], "Fork") == 0)
+      if (strcmp(ptr->msg[0], "Egg") == 0)
         add_opened_egg(env, ptr->x, ptr->y);
       ptr->prev != NULL ? ptr->prev->next = ptr->next : 0;
       ptr->next != NULL ? ptr->next->prev = ptr->prev : 0;

@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Fri Jun 30 13:25:04 2017 gastal_r
-** Last update Fri Jun 30 18:19:02 2017 gastal_r
+** Last update Sun Jul  2 18:20:04 2017 gastal_r
 */
 
 #include      "utilities.h"
@@ -39,4 +39,15 @@ void          delete_front_egg(t_env *env)
   tmp = env->egg->next;
   free(env->egg);
   env->egg = tmp;
+}
+
+void          eggAction(t_env *env, char **msg, t_users *user)
+{
+  (void)env;
+  (void)msg;
+  if (user->socket != -1)
+  {
+    printf("--> Sent \"egg\" to socket %d\n", user->socket);
+    dprintf(user->socket, "egg\n");
+  }
 }

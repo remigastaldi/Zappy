@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Sun Jul  2 14:45:15 2017 Matthias Prost
+** Last update Sun Jul  2 18:03:08 2017 gastal_r
 */
 
 #ifndef _SERVER_H_
@@ -80,6 +80,7 @@ void                takeAction(t_env *env, char **msg, t_users *user);
 void                setAction(t_env *env, char **msg, t_users *user);
 void                incantationAction(t_env *env, char **msg, t_users *user);
 void                forkAction(t_env *env, char **msg, t_users *user);
+void                eggAction(t_env *env, char **msg, t_users *user);
 void                broadcastAction(t_env *env, char **msg, t_users *user);
 
 void                lookAction(t_env *env, char **msg, t_users *user);
