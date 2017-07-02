@@ -41,6 +41,7 @@ int		counterUsersInc(t_env *env, t_users *user)
   while (++i != MAX_FD)
     {
       if (env->users[i].socket != -1 && env->users[i].posX == user->posX
+        && env->users[i].socket != user->socket
 	  && env->users[i].posY == user->posY && env->users[i].lvl == user->lvl)
 	counter++;
     }
