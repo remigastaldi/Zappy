@@ -39,7 +39,7 @@ void  checkParams(t_env *env, char *msg, int fd)
   user = get_user(env, fd);
   while (++i != NBR_PARAMS)
   {
-    if (strcmp(tab[0], g_params[i].params) == 0)
+    if (strcmp(tab[0], g_params[i].params) == 0 && fd != -1)
     {
       (*g_params[i].p)(env, tab, user);
       check = 1;
@@ -109,7 +109,7 @@ void		clientRead(t_env *env, int fd)
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
   {
     printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
-    if (user != NULL && user->teamName != NULL)
+    if (user != NULL && fd != -1 && user->teamName != NULL)
       checkParams(env, buff, fd);
     else
       joinTeam(env, epurStr(buff), fd);
