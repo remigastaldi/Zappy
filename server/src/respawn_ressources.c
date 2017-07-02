@@ -5,15 +5,15 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Sun Jul  2 14:36:43 2017 Matthias Prost
-** Last update Sun Jul  2 20:38:43 2017 gastal_r
+** Last update Sun Jul  2 21:56:12 2017 Matthias Prost
 */
 
 #include "server.h"
 
-void    respawn_ressources(t_env *env, char *ressource)
+void		respawn_ressources(t_env *env, char *ressource)
 {
-  int   x;
-  int   y;
+  int		x;
+  int		y;
 
   x = rand() % env->width;
   y = rand() % env->height;

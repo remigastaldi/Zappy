@@ -5,7 +5,7 @@
 ## Login   <matthias.prost@epitech.eu>
 ##
 ## Started on  Thu Jun 15 14:35:28 2017 Matthias Prost
-## Last update Sun Jul  2 17:14:48 2017 sellet_f
+## Last update Sun Jul  2 22:37:53 2017 Matthias Prost
 ##
 
 .DEFAULT_GOAL := all
@@ -65,6 +65,8 @@ SRC_SERVER	+=	server/src/params_broadcast.c
 SRC_SERVER	+=	server/src/broadcast.c
 SRC_SERVER 	+=	server/src/broadcast_diagonal.c
 SRC_SERVER 	+=	server/src/respawn_ressources.c
+SRC_SERVER 	+=	server/src/first_send.c
+SRC_SERVER 	+=	server/src/user_distance.c
 
 SRC_SERVER	+=	server/src/GUI/GUI.c
 SRC_SERVER	+=	server/src/GUI/init.c

@@ -5,14 +5,14 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Sat Jul  1 16:29:46 2017 Cyril Puccio
-** Last update Sat Jul  1 16:29:47 2017 Cyril Puccio
+** Last update Sun Jul  2 22:06:55 2017 Matthias Prost
 */
 
 #include "server.h"
 
-int             get_number_of_visible_space(int level)
+int		get_number_of_visible_space(int level)
 {
-  int           nb;
+  int		nb;
 
   nb = 1;
   while (level >= 1)
@@ -23,30 +23,31 @@ int             get_number_of_visible_space(int level)
   return (nb);
 }
 
-int              get_player(t_env *env, t_users *user, int x, int y)
+int		get_player(t_env *env, t_users *user, int x, int y)
 {
-  int            i;
-  int            nb;
+  int		i;
+  int		nb;
 
   i = -1;
   nb = 0;
   while (++i < 255)
-  {
-    if (env->users[i].teamName != NULL && env->users[i].socket != user->socket
-      && env->users[i].posX == x && env->users[i].posY == y)
     {
-      nb++;
+      if (env->users[i].teamName != NULL
+	  && env->users[i].socket != user->socket
+	  && env->users[i].posX == x && env->users[i].posY == y)
+	{
+	  nb++;
+	}
     }
-  }
   return (nb);
 }
 
-char            *ressource_to_string(t_env *env, t_users *user, int x, int y)
+char		*ressource_to_string(t_env *env, t_users *user, int x, int y)
 {
-  char          *str;
-  int           nb_item;
-  int           player;
-  t_items       tmp;
+  char		*str;
+  int		nb_item;
+  int		player;
+  t_items	tmp;
 
   str = NULL;
   player = get_player(env, user, x, y);
@@ -56,15 +57,14 @@ char            *ressource_to_string(t_env *env, t_users *user, int x, int y)
   while (nb_item-- != 0)
     {
       (player-- > 0 ? str = my_strcat(str, "player", -1, -1) :
-        tmp.linemate-- > 0 ? str = my_strcat(str, "linemate", -1, -1) :
-        tmp.deraumere-- > 0 ? str = my_strcat(str, "deraumere", -1, -1) :
-        tmp.sibur-- > 0 ? str = my_strcat(str, "sibur", -1, -1) :
-        tmp.mendiane-- > 0 ? str = my_strcat(str, "mendiane", -1, -1) :
-        tmp.phiras-- > 0 ? str = my_strcat(str, "phiras", -1, -1) :
-        tmp.thystame-- > 0 ? str = my_strcat(str, "thystame", -1, -1) :
-        tmp.food-- > 0 ? str = my_strcat(str, "food", -1, -1) : 0);
+       tmp.linemate-- > 0 ? str = my_strcat(str, "linemate", -1, -1) :
+       tmp.deraumere-- > 0 ? str = my_strcat(str, "deraumere", -1, -1) :
+       tmp.sibur-- > 0 ? str = my_strcat(str, "sibur", -1, -1) :
+       tmp.mendiane-- > 0 ? str = my_strcat(str, "mendiane", -1, -1) :
+       tmp.phiras-- > 0 ? str = my_strcat(str, "phiras", -1, -1) :
+       tmp.thystame-- > 0 ? str = my_strcat(str, "thystame", -1, -1) :
+       tmp.food-- > 0 ? str = my_strcat(str, "food", -1, -1) : 0);
       (nb_item  != 0 ? str = my_strcat(str, " ", -1, -1) : 0);
     }
-  // printf("return==> %s\n", str);
   return (str);
 }

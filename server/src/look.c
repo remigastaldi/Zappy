@@ -5,12 +5,12 @@
 ** Login   <cyril.puccio@epitech.eu>
 **
 ** Started on  Thu Jun 22 20:14:09 2017 Cyril Puccio
-** Last update Sat Jul  1 13:33:37 2017 gastal_r
+** Last update Sun Jul  2 21:49:18 2017 Matthias Prost
 */
 
 #include "server.h"
 
-int             calc_pos(t_env *env, int *x, int *y, int lvl)
+int		calc_pos(t_env *env, int *x, int *y, int lvl)
 {
   if (env->users->direction == 0)
     {
@@ -39,7 +39,7 @@ int             calc_pos(t_env *env, int *x, int *y, int lvl)
   return (0);
 }
 
-int             change_case(t_env *env, int *x, int *y)
+int		change_case(t_env *env, int *x, int *y)
 {
   if (env->users->direction == 0)
     (*x) = (*x) + 1;
@@ -53,16 +53,15 @@ int             change_case(t_env *env, int *x, int *y)
   ((*y) < 0 ? (*y) += env->height : 0);
   ((*x) > env->width - 1 ? (*x) -= env->width : 0);
   ((*y) > env->height - 1 ? (*y) -= env->height : 0);
-  // printf("changex: %d changey: %d\n", *x, *y);
   return (0);
 }
 
-char            *check_case(t_env *env, t_users *user, char *pos, int i)
+char		*check_case(t_env *env, t_users *user, char *pos, int i)
 {
-  int           j;
-  int           x;
-  int           y;
-  char          *res;
+  int		j;
+  int		x;
+  int		y;
+  char		*res;
 
   j = -1;
   x = user->posX;
@@ -85,10 +84,10 @@ char            *check_case(t_env *env, t_users *user, char *pos, int i)
   return (pos);
 }
 
-char            *final_output(t_env *env, t_users *user, int lvl)
+char		*final_output(t_env *env, t_users *user, int lvl)
 {
-  char          *pos;
-  int           i;
+  char		*pos;
+  int		i;
 
   i = 0;
   pos = NULL;
@@ -99,9 +98,9 @@ char            *final_output(t_env *env, t_users *user, int lvl)
   return (pos);
 }
 
-char            *cmd_look(t_env *env, t_users *user)
+char		*cmd_look(t_env *env, t_users *user)
 {
-  char          *final;
+  char		*final;
 
   final = final_output(env, user, user->lvl);
   printf("%s\n", final);

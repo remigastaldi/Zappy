@@ -5,16 +5,16 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Wed Jun 21 13:44:40 2017 Matthias Prost
-** Last update Thu Jun 22 16:25:50 2017 Leo Hubert Froideval
+** Last update Sun Jul  2 21:52:14 2017 Matthias Prost
 */
 
 #include "server.h"
 
-void    nameArg(t_env *env, char **av, int i)
+void		nameArg(t_env *env, char **av, int i)
 {
-  int   a;
-  int   buff;
-  int   counter;
+  int		a;
+  int		buff;
+  int		counter;
 
   buff = i;
   counter = 0;

@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Thu Jun 15 17:35:09 2017 Matthias Prost
-** Last update Wed Jun 28 18:48:56 2017 Leo Hubert Froideval
+** Last update Sun Jul  2 22:00:06 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -25,12 +25,12 @@ t_params g_params [NBR_PARAMS] = {
   {"ko", &koParam}
 };
 
-void  checkParams(t_env *env, char *msg, int fd)
+void		checkParams(t_env *env, char *msg, int fd)
 {
-  char    **tab;
-  int     i;
-  t_users *user;
-  int     check;
+  char		**tab;
+  int		i;
+  t_users	*user;
+  int		check;
 
   i = -1;
   check = 0;
@@ -38,21 +38,21 @@ void  checkParams(t_env *env, char *msg, int fd)
   tab = toWordtab(msg, ' ');
   user = get_user(env, fd);
   while (++i != NBR_PARAMS)
-  {
-    if (strcmp(tab[0], g_params[i].params) == 0 && fd != -1)
     {
-      (*g_params[i].p)(env, tab, user);
-      check = 1;
-      break;
+      if (strcmp(tab[0], g_params[i].params) == 0 && fd != -1)
+	{
+	  (*g_params[i].p)(env, tab, user);
+	  check = 1;
+	  break;
+	}
     }
-  }
   if (check != 1)
     (*g_params[NBR_PARAMS - 1].p)(env, tab, user);
 }
 
-int     checkNames(t_env *env, char *buff)
+int		checkNames(t_env *env, char *buff)
 {
-  int   i;
+  int		i;
 
   i = -1;
   while (env->names[++i])
@@ -61,60 +61,55 @@ int     checkNames(t_env *env, char *buff)
   return (-1);
 }
 
-void    joinTeam(t_env *env, char *buff, int fd)
+void		joinTeam(t_env *env, char *buff, int fd)
 {
-  struct      timeval curr_time;
-  t_users   *user;
-  int       counter;
+  struct	timeval curr_time;
+  t_users	*user;
+  int		counter;
 
   counter = 0;
   user = get_user(env, fd);
   gettimeofday(&curr_time, NULL);
   if (checkNames(env, buff) == 0 &&
       (counter = env->clientsNb - countNumberTeam(epurStr(buff), env)))
-  {
-    if (counter >= 1 && fd != -1)
     {
-      user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec +
-      (126000000 / env->freq);
-      user->teamName = strdup(epurStr(buff));
+      if (counter >= 1 && fd != -1)
+	{
+	  user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec +
+	    (126000000 / env->freq);
+	  user->teamName = strdup(epurStr(buff));
+	}
+      if (user != NULL && counter < 1 && fd != -1)
+	{
+	  removeUserTab(env, user->socket);
+	  env->fd_type[fd] = FD_FREE;
+	}
     }
-    if (user != NULL && counter < 1 && fd != -1)
-    {
-      removeUserTab(env, user->socket);
-      env->fd_type[fd] = FD_FREE;
-    }
-  }
   if (user != NULL && user->socket != -1)
-  {
-    dprintf(fd, "%d\n", counter);
-    dprintf(fd, "%d %d\n", env->width, env->height);
-    printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
-    printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
-  }
+      first_send(counter, fd, env);
 }
 
 void		clientRead(t_env *env, int fd)
 {
   char		buff[2048];
-  t_users *user;
+  t_users	*user;
 
   memset(buff, 0, 2048);
   user = get_user(env, fd);
   if (recv(fd, buff, 2048, MSG_DONTWAIT) > 0)
-  {
-    printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
-    if (user != NULL && fd != -1 && user->teamName != NULL)
-      checkParams(env, buff, fd);
-    else
-      joinTeam(env, epurStr(buff), fd);
-  }
+    {
+      printf("<-- Received: \"%s\" from socket %d\n", epurStr(buff), fd);
+      if (user != NULL && fd != -1 && user->teamName != NULL)
+	checkParams(env, buff, fd);
+      else
+	joinTeam(env, epurStr(buff), fd);
+    }
   else
-  {
-    removeUserTab(env, fd);
-    env->fd_type[fd] = FD_FREE;
-    printf("Connection closed from socket %d\n", fd);
-  }
+    {
+      removeUserTab(env, fd);
+      env->fd_type[fd] = FD_FREE;
+      printf("Connection closed from socket %d\n", fd);
+    }
 }
 
 void		addClient(t_env *env, int s)

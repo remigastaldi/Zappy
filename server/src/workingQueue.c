@@ -5,14 +5,14 @@
 ** Login   <leohubertfroideval@epitech.eu>
 **
 ** Started on  Fri Jun 23 16:22:34 2017 Leo Hubert Froideval
-** Last update Sun Jul  2 18:15:11 2017 gastal_r
+** Last update Sun Jul  2 22:11:13 2017 Matthias Prost
 */
 
 #include "server.h"
 
-t_queue    *initWorkingQueue()
+t_queue			*initWorkingQueue()
 {
-  t_queue  *queue;
+  t_queue		*queue;
 
   queue = xmalloc(sizeof(t_queue));
   queue->actions = 0;
@@ -21,13 +21,13 @@ t_queue    *initWorkingQueue()
   return (queue);
 }
 
-t_action    *newAction(t_queue *queue,
-		       t_users *user,
-		       void *func,
-		       double ac_time)
+t_action		*newAction(t_queue *queue,
+				   t_users *user,
+				   void *func,
+				   double ac_time)
 {
-  t_action  *newAction;
-  struct    timeval curr_time;
+  t_action		*newAction;
+  struct timeval	curr_time;
 
   gettimeofday(&curr_time, NULL);
   newAction = xmalloc(sizeof(t_action));
@@ -43,69 +43,69 @@ t_action    *newAction(t_queue *queue,
   if (queue->head == NULL)
     queue->head = newAction;
   else
-  {
-    newAction->prev = queue->end;
-    queue->end->next = newAction;
-  }
+    {
+      newAction->prev = queue->end;
+      queue->end->next = newAction;
+    }
   queue->end = newAction;
   return (newAction);
 }
 
-int         deleteAction(t_env *env, t_queue *queue, t_action *action)
+int			deleteAction(t_env *env, t_queue *queue, t_action *action)
 {
-  t_action  *ptr;
+  t_action		*ptr;
 
   if (queue == NULL)
     return (-1);
   ptr = queue->head;
   while (ptr != NULL)
-  {
-    if (ptr == action)
     {
-      if (strcmp(ptr->msg[0], "Egg") == 0)
-        add_opened_egg(env, ptr->x, ptr->y);
-      ptr->prev != NULL ? ptr->prev->next = ptr->next : 0;
-      ptr->next != NULL ? ptr->next->prev = ptr->prev : 0;
-      if (ptr == queue->head)
-        queue->head = ptr->next;
-      if (ptr == queue->end)
-        queue->end = ptr->prev;
-      queue->actions--;
-      free_tab(ptr->msg);
-      free(ptr);
-      return (1);
+      if (ptr == action)
+	{
+	  if (strcmp(ptr->msg[0], "Egg") == 0)
+	    add_opened_egg(env, ptr->x, ptr->y);
+	  ptr->prev != NULL ? ptr->prev->next = ptr->next : 0;
+	  ptr->next != NULL ? ptr->next->prev = ptr->prev : 0;
+	  if (ptr == queue->head)
+	    queue->head = ptr->next;
+	  if (ptr == queue->end)
+	    queue->end = ptr->prev;
+	  queue->actions--;
+	  free_tab(ptr->msg);
+	  free(ptr);
+	  return (1);
+	}
+      ptr = ptr->next;
     }
-    ptr = ptr->next;
-  }
   return (0);
 }
 
-void      printWorkingQueue(t_queue *queue)
+void			printWorkingQueue(t_queue *queue)
 {
-  t_action *ptr;
+  t_action		*ptr;
 
   ptr = queue->head;
   printf("Total actions in queue: %d\n", queue->actions);
   while (ptr != NULL)
-  {
-    ptr = ptr->next;
-  }
+    {
+      ptr = ptr->next;
+    }
 }
 
-void    freeWorkingQueue(t_queue *queue)
+void			freeWorkingQueue(t_queue *queue)
 {
-  t_action *ptr;
-  t_action *savePtr;
+  t_action		*ptr;
+  t_action		*savePtr;
 
   queue->actions = 0;
   ptr = queue->head;
   queue->head = NULL;
   queue->end = NULL;
   while (ptr != NULL)
-  {
-    savePtr = ptr->next;
-    free(ptr);
-    ptr = savePtr;
-  }
+    {
+      savePtr = ptr->next;
+      free(ptr);
+      ptr = savePtr;
+    }
   free(queue);
 }
