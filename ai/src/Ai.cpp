@@ -25,7 +25,9 @@ Ai::Ai(int port, const std::string &teamName, const std::string &machine) noexce
   _currentItems({ {Ai::Properties::LINEMATE, 10}, {Ai::Properties::LINEMATE, 0}, {Ai::Properties::DERAUMERE, 0}, {Ai::Properties::SIBUR, 0}, {Ai::Properties::MENDIANE, 0}, {Ai::Properties::PHIRAS, 0}, {Ai::Properties::THYSTAME, 0} }),
   _currentLevel(1),
   _eventCase(1)
-{}
+{
+  _eggEclosion = [&] (void) { this->eggEclosion(); };
+}
 
 Ai::~Ai()
 {
@@ -55,9 +57,9 @@ void      Ai::start(Ai::State state)
       walkToBroadcaster(_eventCase);
       primaryState();
       break;
-    case Ai::State::EGG_ECLOSION:
-      eggEclosion();
-      primaryState();
+    // case Ai::State::EGG_ECLOSION:
+    //   eggEclosion();
+    //   primaryState();
     }
   }
   catch (const Event::Dead &event)
@@ -88,10 +90,10 @@ void      Ai::start(Ai::State state)
   {
     start(Ai::State::START);
   }
-  catch (const Event::Egg &event)
-  {
-    start(Ai::State::EGG_ECLOSION);
-  }
+  // catch (const Event::Egg &event)
+  // {
+  //   start(Ai::State::EGG_ECLOSION);
+  // }
 }
 
 void      Ai::take_all_food(void)
@@ -463,7 +465,14 @@ void    Ai::eggEclosion(void)
 {
   _threads.push_back(std::thread([&]
   {
-    std::unique_ptr<Ai> ai(new Ai(_port, _teamName, _machine));
-    ai->start(Ai::State::START);
+    try
+    {
+      std::unique_ptr<Ai> ai(new Ai(_port, _teamName, _machine));
+      ai->start(Ai::State::START);
+    }
+    catch (const Event::Exit &event)
+    {
+      std::cout << event.what() << std::endl;
+    }
   }));
 }

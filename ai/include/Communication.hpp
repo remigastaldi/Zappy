@@ -5,7 +5,7 @@
 // Login   <remi.gastaldi@epitech.eu>
 //
 // Started on  Thu Jun 22 16:36:20 2017 gastal_r
-// Last update Sun Jul  2 16:56:57 2017 gastal_r
+// Last update Sun Jul  2 17:43:32 2017 gastal_r
 //
 
 #ifndef COMMUNICATION_HPP
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <iomanip>
 #include <thread>
+#include <functional>
 
 #include "FdStream.hpp"
 #include "Event.hpp"
@@ -38,9 +39,7 @@ protected:
   std::string         _machine;
   std::string         _answer;
 
-  std::thread         _thread;
-  std::string         _buff;
-
+  std::function<void(void)> _eggEclosion;
 public:
   Communication(int port, const std::string &teamName, const std::string &machine);
 
