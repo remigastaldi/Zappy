@@ -47,8 +47,8 @@ public:
   {
     START,
     INCANTATION,
-    WALK_TO_BROADCASTER,
-    EGG_ECLOSION
+    WALK_TO_BROADCASTER
+    // EGG_ECLOSION
   };
 
 public:
@@ -93,7 +93,7 @@ private:
   std::vector<Ai::Direction> _path;
   Ai::Properties  _objectToTake;
   std::vector<std::thread>  _threads;
-  int   _eventCase;
+  int       _eventCase;
 };
 
 int           checkPort(char **av);
