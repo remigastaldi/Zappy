@@ -65,40 +65,36 @@ void    joinTeam(t_env *env, char *buff, int fd)
 {
   struct      timeval curr_time;
   t_users   *user;
-  int       i;
   int       counter;
 
-  i = -1;
   counter = 0;
   user = get_user(env, fd);
   gettimeofday(&curr_time, NULL);
-  if (checkNames(env, buff) == 0)
+  if (checkNames(env, buff) == 0 &&
+      (counter = env->clientsNb - countNumberTeam(epurStr(buff), env)))
   {
-    while (++i != MAX_FD)
+    if (counter >= 1 && fd != -1)
     {
-      if (env->users[i].teamName != NULL &&
-          strcmp(env->users[i].teamName, buff) == 0)
-            counter++;
-    }
-    counter = env->clientsNb - counter;
-    if (counter >= 1)
-    {
-      user->teamName = strdup(buff);
       user->food_timer = curr_time.tv_sec * 1000000 + curr_time.tv_usec +
-        (126000000 / env->freq);
+      (126000000 / env->freq);
+      user->teamName = strdup(epurStr(buff));
     }
-    if (fd != -1)
-    {
-      dprintf(fd, "%d\n", counter);
-      dprintf(fd, "%d %d\n", env->width, env->height);
-    }
+    dprintf(fd, "%d\n", counter);
+    dprintf(fd, "%d %d\n", env->width, env->height);
     printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
     printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
+    if (user != NULL && counter < 1 && fd != -1)
+    {
+      removeUserTab(env, user->socket);
+      env->fd_type[fd] = FD_FREE;
+    }
   }
-  else if (fd != -1)
+  else
   {
     dprintf(fd, "ko\n");
     printf("--> Sent: \"ko\" to socket %d\n", fd);
+    removeUserTab(env, user->socket);
+    env->fd_type[fd] = FD_FREE;
   }
 }
 

@@ -5,7 +5,7 @@
 ** Login   <remi.gastaldi@epitech.eu>
 **
 ** Started on  Wed Jun 28 14:46:13 2017 gastal_r
-** Last update Sun Jul  2 15:17:44 2017 Matthias Prost
+** Last update Sun Jul  2 16:55:40 2017 Matthias Prost
 */
 
 #include      "utilities.h"
@@ -62,6 +62,7 @@ void           refresh_player_food(t_env *env)
           dprintf(env->users[i].socket, "dead\n");
           printf("--> Sent: \"dead\" to socket %d\n", env->users[i].socket);
           removeUserTab(env, env->users[i].socket);
+          env->fd_type[env->users[i].socket] = FD_FREE;
         }
       }
       else
