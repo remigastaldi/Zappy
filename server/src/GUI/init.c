@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Tue Jun 27 17:37:13 2017 sellet_f
-** Last update Sat Jul  1 01:29:44 2017 sellet_f
+** Last update Sun Jul  2 02:34:23 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -39,7 +39,7 @@ bool		initGUI(t_gui *GUI, t_env *env)
   GUI-> _caseInfos.linemate = GUI->_caseInfos.deraumere = 0;
   GUI->_caseInfos.sibur = GUI->_caseInfos.mendiane = 0;
   GUI->_caseInfos.phiras = GUI->_caseInfos.thystame = GUI->_caseInfos.food = 0;
-  GUI->_caseInfos.egg = 0;
+  GUI->_caseInfos.egg = GUI->_caseX = GUI->_caseY = 0;
   GUI->_interface = sfView_copy(sfRenderWindow_getView(GUI->_win));
   GUI->_camera = sfView_copy(GUI->_interface);
   vector.x = env->width / 2 * sfTexture_getSize(GUI->_grassTexture).x;
@@ -72,20 +72,30 @@ sfSprite	*initSprite(sfSprite *sprite, sfVector2f spritePos,
   return (sprite);
 }
 
-bool	initTexture(t_gui *GUI, sfVector2f spritePos)
+bool		setTextureValues(t_gui *GUI)
 {
   if (!(GUI->_pannelTexture =
-       sfTexture_createFromFile("./server/media/pannel.png", NULL)) ||
+	sfTexture_createFromFile("./server/media/pannel.png", NULL)) ||
       !(GUI->_playerInfoTexture =
-	sfTexture_createFromFile("./server/media/playerInfos2.png", NULL)) ||
+	sfTexture_createFromFile("./server/media/playerInfos.png", NULL)) ||
       !(GUI->_grassTexture =
-	sfTexture_createFromFile("./server/media/grass2.jpg", NULL)) ||
+	sfTexture_createFromFile("./server/media/grass.jpg", NULL)) ||
       !(GUI->_resourcesTexture =
 	sfTexture_createFromFile("./server/media/resources.png", NULL)) ||
+      !(GUI->_selectedGrassTexture =
+	sfTexture_createFromFile("./server/media/highlightedGrass.jpg", NULL)) ||
+      !(GUI->_selectedPlayerTexture =
+	sfTexture_createFromFile("./server/media/highlightedPlayer.png", NULL)) ||
       !(GUI->_playerTexture =
 	sfTexture_createFromFile("./server/media/playersprite.png", NULL)))
     return (false);
+  return (true);
+}
 
+bool		initTexture(t_gui *GUI, sfVector2f spritePos)
+{
+  if (setTextureValues(GUI) == false)
+    return (false);
   GUI->_pannelSprite = initSprite(GUI->_pannelSprite, spritePos, GUI->_pannelTexture, MENU);
   spritePos.x += 72;
   spritePos.y += 713;
@@ -93,9 +103,13 @@ bool	initTexture(t_gui *GUI, sfVector2f spritePos)
   				      spritePos, GUI->_playerInfoTexture, INVENTORY);
   GUI->_grassSprite = initSprite(GUI->_grassSprite, spritePos,
 				 GUI->_grassTexture, DEFAULT);
+  GUI->_selectedGrassSprite = initSprite(GUI->_selectedGrassSprite, spritePos,
+				 GUI->_selectedGrassTexture, DEFAULT);
   GUI->_resourcesSprite = initSprite(GUI->_resourcesSprite, spritePos,
 				 GUI->_resourcesTexture, DEFAULT);
   GUI->_playerSprite = initSprite(GUI->_playerSprite, spritePos,
 				 GUI->_playerTexture, PLAYER);
+  GUI->_selectedPlayerSprite = initSprite(GUI->_selectedPlayerSprite, spritePos,
+				 GUI->_selectedPlayerTexture, PLAYER);
   return (true);
 }

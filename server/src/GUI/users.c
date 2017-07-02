@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Sat Jul  1 01:19:42 2017 sellet_f
-** Last update Sat Jul  1 14:41:55 2017 sellet_f
+** Last update Sun Jul  2 02:35:36 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -23,12 +23,17 @@ int			countNumberTeam(char *str, t_env  *env)
   return (counter);
 }
 
-void			checkPlayerLvl(t_users user, sfIntRect *spritePos)
+void			checkPlayerInfos(t_users user, sfIntRect *spritePos, bool checkLvl)
 {
   spritePos->top = 0;
-  spritePos->left = 32 + (user.lvl * 32);
-  if (user.lvl % 8 > 3)
-    spritePos->top = 128;
+  if (checkLvl == true)
+    spritePos->left = (user.lvl - 1) * 32;
+  else
+    {
+      spritePos->left = 0;
+      if (user.lvl % 2 == 0)
+	spritePos->left = 32;
+    }
   if (user.direction == LEFT)
     spritePos->top += 32;
   else if (user.direction == RIGHT)
@@ -37,23 +42,32 @@ void			checkPlayerLvl(t_users user, sfIntRect *spritePos)
     spritePos->top += 96;
 }
 
-void			drawPlayers(t_gui *GUI, t_env *env)
+void			drawPlayers(t_gui *GUI, t_env *env, int i)
 {
   sfIntRect		spritePos;
   sfVector2f		pos;
-  int			i;
 
-  i = -1;
   spritePos.width = spritePos.height = 32;
   while (++i < MAX_FD)
     if (env->users[i].socket != -1)
       {
-	checkPlayerLvl(env->users[i], &spritePos);
-	pos.x = env->users[i].posX * sfSprite_getGlobalBounds(GUI->_grassSprite).width;
-	pos.y = env->users[i].posY *sfSprite_getGlobalBounds(GUI->_grassSprite).height;
+	checkPlayerInfos(env->users[i], &spritePos, true);
+	pos.x = env->users[i].posX * sfSprite_getGlobalBounds
+	  (GUI->_grassSprite).width + env->users[i].graphicX;
+	pos.y = env->users[i].posY *sfSprite_getGlobalBounds
+	  (GUI->_grassSprite).height
+	  + env->users[i].graphicY;
 	sfSprite_setPosition(GUI->_playerSprite, pos);
 	sfSprite_setTextureRect(GUI->_playerSprite, spritePos);
 	sfRenderWindow_drawSprite(GUI->_win, GUI->_playerSprite, NULL);
+	if (env->users[i].socket == GUI->_userInfos.socket)
+	  {
+	    checkPlayerInfos(env->users[i], &spritePos, false);
+	    sfSprite_setPosition(GUI->_selectedPlayerSprite, pos);
+	    sfSprite_setTextureRect(GUI->_selectedPlayerSprite, spritePos);
+	    sfRenderWindow_drawSprite(GUI->_win, GUI->_selectedPlayerSprite
+				      , NULL);
+	  }
       }
 }
 
@@ -65,7 +79,8 @@ int			countPlayers(t_gui *GUI, t_env *env, bool fillGUI)
   i = -1;
   nb = 0;
   while (++i < MAX_FD)
-    if (env->users[i].socket != -1 && env->users[i].posY == GUI->_caseY
+    if (env->users[i].socket != -1
+	&& env->users[i].posY == GUI->_caseY
 	&& env->users[i].posX == GUI->_caseX)
       {
 	if (nb == 0 && fillGUI == true)

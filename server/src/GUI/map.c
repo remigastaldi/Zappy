@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Thu Jun 29 17:16:57 2017 sellet_f
-** Last update Sat Jul  1 01:29:53 2017 sellet_f
+** Last update Sat Jul  1 16:37:37 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -73,8 +73,16 @@ void			drawMap(t_gui *GUI, t_env *env)
 	{
           tilePos.x = x * sfSprite_getGlobalBounds(GUI->_grassSprite).width;
 	  tilePos.y = y * sfSprite_getGlobalBounds(GUI->_grassSprite).height;
-	  sfSprite_setPosition(GUI->_grassSprite, tilePos);
-	  sfRenderWindow_drawSprite(GUI->_win, GUI->_grassSprite, NULL);
+	  if (x == GUI->_caseX && y == GUI->_caseY)
+	    {
+	      sfSprite_setPosition(GUI->_selectedGrassSprite, tilePos);
+	      sfRenderWindow_drawSprite(GUI->_win, GUI->_selectedGrassSprite, NULL);
+	    }
+	  else
+	    {
+	      sfSprite_setPosition(GUI->_grassSprite, tilePos);
+	      sfRenderWindow_drawSprite(GUI->_win, GUI->_grassSprite, NULL);
+	    }
 	  checkResources(GUI, y, x, env);
 	}
     }

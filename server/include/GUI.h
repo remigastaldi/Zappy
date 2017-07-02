@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 **
 ** Started on  Thu Jun 22 10:57:50 2017 sellet_f
-** Last update Sat Jul  1 13:22:45 2017 sellet_f
+** Last update Sun Jul  2 02:32:44 2017 sellet_f
 */
 
 #ifndef __GUI_H__
@@ -57,16 +57,21 @@ typedef struct		s_gui
   sfView		*_interface;
   sfFont		*_font;
 
-  sfTexture		*_pannelTexture;
-  sfSprite		*_pannelSprite;
+  sfTexture		*_selectedPlayerTexture;
+  sfTexture		*_selectedGrassTexture;
   sfTexture		*_playerInfoTexture;
-  sfSprite		*_playerInfoSprite;
-  sfTexture		*_grassTexture;
-  sfSprite		*_grassSprite;
-  sfTexture		*_playerTexture;
-  sfSprite		*_playerSprite;
   sfTexture		*_resourcesTexture;
+  sfTexture		*_pannelTexture;
+  sfTexture		*_playerTexture;
+  sfTexture		*_grassTexture;
+
+  sfSprite		*_selectedPlayerSprite;
+  sfSprite		*_selectedGrassSprite;
+  sfSprite		*_playerInfoSprite;
   sfSprite		*_resourcesSprite;
+  sfSprite		*_pannelSprite;
+  sfSprite		*_playerSprite;
+  sfSprite		*_grassSprite;
 
   t_items		_caseInfos;
   int			_caseX;
@@ -100,7 +105,11 @@ void		drawText(t_gui *, t_env *);
 
 /* users.c */
 int		countNumberTeam(char *, t_env *);
-void		drawPlayers(t_gui *, t_env *);
+void		drawPlayers(t_gui *, t_env *, int);
 int		countPlayers(t_gui *, t_env *, bool);
 void		checkPlayerOnTile(t_gui *, t_env *);
+
+/* refreshInfos.c */
+void		refreshInfos(t_gui *, t_env *);
+
 #endif

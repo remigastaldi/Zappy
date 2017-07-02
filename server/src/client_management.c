@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Mon Jun 26 15:25:06 2017 Matthias Prost
-** Last update Sat Jul  1 14:17:10 2017 sellet_f
+** Last update Sat Jul  1 19:32:59 2017 sellet_f
 */
 
 #include "server.h"
@@ -50,7 +50,7 @@ void		addUserTab(t_env *env, int socket)
           env->users[i].posX = rand() % env->width;
           env->users[i].posY = rand() % env->height;
         }
-        env->users[i].graphicY = rand() % 68;
+        env->users[i].graphicY = rand() % 60;
         env->users[i].graphicX = rand() % 68;
         env->users[i].direction = rand() % 4;
         env->users[i].teamName = NULL;
