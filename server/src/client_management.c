@@ -68,18 +68,20 @@ void		removeUserTab(t_env *env, int socket)
   int		i;
 
   i = -1;
-  close(socket);
   while (++i != MAX_FD)
-  if (env->users[i].socket == socket)
   {
-    env->users[i].socket = -1;
-    env->users[i].lvl = 1;
-    env->users[i].posX = 0;
-    env->users[i].posY = 0;
-    env->users[i].graphicX = 0;
-    env->users[i].graphicY = 0;
-    free(env->users[i].teamName);
-    env->users[i].teamName = NULL;
-    break;
+    if (env->users[i].socket == socket)
+    {
+      // close(env->users[i].socket);
+      env->users[i].socket = -1;
+      env->users[i].lvl = 1;
+      env->users[i].posX = 0;
+      env->users[i].posY = 0;
+      env->users[i].graphicX = 0;
+      env->users[i].graphicY = 0;
+      free(env->users[i].teamName);
+      env->users[i].teamName = NULL;
+      break;
+    }
   }
 }

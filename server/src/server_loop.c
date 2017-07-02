@@ -63,7 +63,10 @@ void		serverLoop(t_env *env)
 	    fd_max = i;
 	  }
       if (select(fd_max + 1, &fd_read, NULL, NULL, &timeout) == -1)
-	perror("select");
+      {
+	      perror("select");
+        exit(EXIT_FAILURE);
+      }
       i = -1;
       while (++i < MAX_FD)
 	if (FD_ISSET(i, &fd_read))

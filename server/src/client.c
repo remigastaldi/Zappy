@@ -117,9 +117,8 @@ void		clientRead(t_env *env, int fd)
   else
   {
     removeUserTab(env, fd);
-    printf("Connection closed from socket %d\n", fd);
-    close(fd);
     env->fd_type[fd] = FD_FREE;
+    printf("Connection closed from socket %d\n", fd);
   }
 }
 
