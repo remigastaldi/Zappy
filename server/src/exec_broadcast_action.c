@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu@epitech.eu>
 **
 ** Started on  Fri Jun 30 16:23:06 2017 Matthias Prost
-** Last update Sun Jul  2 20:09:00 2017 Matthias Prost
+** Last update Sun Jul  2 20:30:56 2017 Matthias Prost
 */
 
 #include "server.h"
@@ -106,8 +106,7 @@ void      broadcastAction(t_env *env, char **msg, t_users *user)
     {
       if (env->users[i].lock == false && env->users[i].socket != -1
         && env->users[i].socket != user->socket && env->users[i].teamName != NULL
-        && user->teamName && strcmp(env->users[i].teamName, user->teamName) == 0
-        && env->users[i].lvl == user->lvl)
+        && user->teamName && env->users[i].lvl == user->lvl)
             {
               printf("Distance between socket %d and socket %d: %lf\n",
                 user->socket, env->users[i].socket,
