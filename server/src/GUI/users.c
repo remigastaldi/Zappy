@@ -5,7 +5,7 @@
 ** Login   <flavien.sellet@epitech.eu>
 ** 
 ** Started on  Sat Jul  1 01:19:42 2017 sellet_f
-** Last update Sun Jul  2 02:35:36 2017 sellet_f
+** Last update Sun Jul  2 16:16:08 2017 sellet_f
 */
 
 #include "GUI.h"
@@ -46,7 +46,6 @@ void			drawPlayers(t_gui *GUI, t_env *env, int i)
 {
   sfIntRect		spritePos;
   sfVector2f		pos;
-
   spritePos.width = spritePos.height = 32;
   while (++i < MAX_FD)
     if (env->users[i].socket != -1)
@@ -60,7 +59,8 @@ void			drawPlayers(t_gui *GUI, t_env *env, int i)
 	sfSprite_setPosition(GUI->_playerSprite, pos);
 	sfSprite_setTextureRect(GUI->_playerSprite, spritePos);
 	sfRenderWindow_drawSprite(GUI->_win, GUI->_playerSprite, NULL);
-	if (env->users[i].socket == GUI->_userInfos.socket)
+	if (sfSprite_getColor(GUI->_playerInfoSprite).a == 255 &&
+	    env->users[i].socket == GUI->_userInfos.socket)
 	  {
 	    checkPlayerInfos(env->users[i], &spritePos, false);
 	    sfSprite_setPosition(GUI->_selectedPlayerSprite, pos);
