@@ -83,9 +83,6 @@ void    clientsNbArg(t_env *env, char **av, int i)
         print_error("ERROR: The number of client per team "
               "must be a positive number >= 6");
     }
-    if (atoi(av[i + 1]) < 6)
-      print_error("ERROR: The number of client per team "
-            "must be a positive number >= 6");
     env->clientsNb = atoi(av[i + 1]);
   }
   else

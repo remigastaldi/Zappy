@@ -31,18 +31,63 @@ void  takeOffRessources(t_users *user)
   user->inventory.thystame -= ressources[user->lvl][5];
 }
 
+int  counterUsersInc(t_env *env, t_users *user)
+{
+  int   i;
+  int   counter;
+
+  i = -1;
+  counter = 0;
+  while (++i != MAX_FD)
+  {
+    if (env->users[i].socket != -1 && env->users[i].posX == user->posX
+        && env->users[i].posY == user->posY && env->users[i].lvl == user->lvl)
+          counter++;
+  }
+  return (counter);
+}
+
+int   checkLevel(t_env *env, t_users *user)
+{
+  int   userAvailable;
+
+  userAvailable = counterUsersInc(env, user);
+  if (user->lvl == 1 && userAvailable > 0)
+    return (1);
+  else if (user->lvl == 2 && userAvailable > 1)
+    return (1);
+  else if (user->lvl == 3 && userAvailable > 1)
+    return (1);
+  else if (user->lvl == 4 && userAvailable > 3)
+    return (1);
+  else if (user->lvl == 5 && userAvailable > 3)
+    return (1);
+  else if (user->lvl == 6 && userAvailable > 5)
+    return (1);
+  else if (user->lvl == 6 && userAvailable > 5)
+    return (1);
+  return (0);
+}
+
 void  incantationAction(t_env *env, char **msg, t_users *user)
 {
-  (void)env;
   (void)msg;
   if (user->socket != -1)
   {
-    user->lvl += 1;
-    dprintf(user->socket, "Current level: %d\n", user->lvl);
-    printf("User with socket %d level up to %d\n", user->socket, user->lvl);
-    printf("--> Sent \"Current level: %d\" to socket %d\n",
-            user->lvl, user->socket);
-    user->lock = false;
+    if (checkLevel(env, user) == 1)
+    {
+      user->lvl += 1;
+      dprintf(user->socket, "Current level: %d\n", user->lvl);
+      printf("User with socket %d level up to %d\n", user->socket, user->lvl);
+      printf("--> Sent \"Current level: %d\" to socket %d\n",
+              user->lvl, user->socket);
+      user->lock = false;
+    }
+    else
+    {
+      dprintf(user->socket, "ko\n");
+      printf("--> Sent \"ko\" to socket %d\n", user->socket);
+    }
   }
 }
 
