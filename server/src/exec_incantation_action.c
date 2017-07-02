@@ -54,7 +54,7 @@ int   checkLevel(t_env *env, t_users *user)
   userAvailable = counterUsersInc(env, user);
   if (user->lvl == 1 && userAvailable > 0)
     return (1);
-  else if (user->lvl == 2 && userAvailable > 1)
+  else if (user->lvl == 2 && userAvailable >= 1)
     return (1);
   else if (user->lvl == 3 && userAvailable > 1)
     return (1);
@@ -64,7 +64,7 @@ int   checkLevel(t_env *env, t_users *user)
     return (1);
   else if (user->lvl == 6 && userAvailable > 5)
     return (1);
-  else if (user->lvl == 6 && userAvailable > 5)
+  else if (user->lvl == 7 && userAvailable > 5)
     return (1);
   return (0);
 }
