@@ -89,13 +89,6 @@ void    joinTeam(t_env *env, char *buff, int fd)
   dprintf(fd, "%d %d\n", env->width, env->height);
   printf("--> Sent: \"%d\" to socket %d\n", counter, fd);
   printf("--> Sent: \"%d %d\" to socket %d\n", env->width, env->height, fd);
-  // else if (user != NULL)
-  // {
-  //   dprintf(fd, "ko\n");
-  //   printf("--> Sent: \"ko\" to socket %d\n", fd);
-  //   removeUserTab(env, user->socket);
-  //   env->fd_type[fd] = FD_FREE;
-  // }
 }
 
 void		clientRead(t_env *env, int fd)
