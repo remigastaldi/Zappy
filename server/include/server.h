@@ -5,7 +5,7 @@
 ** Login   <matthias.prost@epitech.eu>
 **
 ** Started on  Thu Jun 15 15:09:06 2017 Matthias Prost
-** Last update Sat Jul  1 23:49:47 2017 gastal_r
+** Last update Sun Jul  2 14:45:15 2017 Matthias Prost
 */
 
 #ifndef _SERVER_H_
@@ -117,6 +117,8 @@ int                 find_case_vert(t_users *us, int dir);
 int                 find_case_hor(t_users *us, int dir);
 int                 diagonal(t_users *us, t_users *ur, t_env *env);
 int                 diagonal2(int x, int y, t_env *env);
+
+void                respawn_ressources(t_env *env, char *ressource);
 
 extern t_commands g_commands[NBR_ARGS];
 
