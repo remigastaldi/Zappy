@@ -7,7 +7,7 @@ The goal of this project is to create a network game.
 Several teams confront on a tiles map containing resources.
 The winning team is the one with 6 players who reached maximum elevation.
 
-# Usage:
+## Usage:
 ```bash
 make
 ./zappy_server -p port -x width -y height -n name1 name2 ... -c clientsNb -f freq
@@ -23,7 +23,7 @@ make
 	name is the name of the team
 	port is the port number
 ```
-# Screenshots:
+## Screenshots:
 
 <p align="center">
   <img src="screenshots/screenshot1.png" width="49%"> <img src="screenshots/screenshot2.png" width="49%"><br>
